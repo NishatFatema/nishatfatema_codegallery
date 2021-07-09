@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function getStoreValues(){
+            var objBody=document.getElementById("body")
+            objBody.style=`background-color:${sessionStorage.getItem("favColor")}
+        }
+    </script>
+</head>
+<body id="body">
+    <h1>Contact</h1>
+    <p>contact us Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium facere provident at quasi sunt eum incidunt officiis eaque maiores, temporibus aliquid facilis consequuntur nulla! Ad obcaecati facilis dolorem natus consectetur.</p>
+    
+</body>
+<script>
+    getStoreValues()
+</script>
+</html>

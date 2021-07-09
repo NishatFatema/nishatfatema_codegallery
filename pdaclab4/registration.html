@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+
+<script>
+     
+
+    function setStoreValues(){
+        var nameData =document.getElementById("name")
+        var passwordData =document.getElementById("password")
+        sessionStorage.setItem("userName",nameData.value)
+        sessionStorage.setItem("userPassword",passwordData.value)
+
+    }
+    function getStoreValues(){
+        var nameData =document.getElementById("name")
+        var passwordData =document.getElementById("password")
+        var objBody=document.getElementById("body")
+        nameData=sessionStorage.getItem("userName")
+        passwordData=sessionStorage.getItem("userPassword")
+        objBody.style=`background-color:${sessionStorage.getItem("color")}`
+        console.log(getStoreValues);
+
+        
+    }
+</script>
+</head>
+<body id="body">
+    <form>
+    <fieldset>
+        <legend>Registration Form</legend>
+    <label>User Name</label><br>
+    <input type="text" id="name">
+    <br>
+    <label>Email Id</label><br>
+    <input type="email">
+    <br>
+    <label>password</label><br>
+    <input type="password" id="password">
+    <br>
+    <label>DOB</label><br>
+    <input type="date">
+    <br>
+    <label>color</label><br>
+    <input type="color" id="color">
+    <br><br>
+    <label>Gender</label>
+    <input type="radio" name="Gender" value="Male">Male
+
+    <input type="radio" name="Gender" value="Female">Female
+    <br>
+    <label>Hobbies</label>
+    <input type="checkbox" name="Travelling">Travelling
+    <input type="checkbox" name="Coding">Coding
+    <input type="checkbox" name="Internet Surfing">Coding
+    <br><br>
+    
+    <button onclick="setStoreValues()">Submit</button>
+    <button>Cancel</button> 
+</fieldset>
+</form>
+
+</body>
+<script>
+getStoreValues();
+
+</script>
+</html>
