@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <script>
+        var player =1
+        function ticHere(id){
+            var Tic=document.getElementById(id)
+            var Player=document.getElementById("player")
+            if (player== 1) {
+                Tic.style="color : brown;Font-size:30px;"
+                Player.style="color : green;Font-size:30px;"
+                Tic.innerHTML="ME"
+                player=2
+            }
+            
+            else {
+                Tic.style="color : green;Font-size:30px;"
+                Player.style="color : brown;Font-size:30px;"
+                Tic.innerHTML="HE"
+                player=1
+            }
+            Player.innerHTML="Player"+player
+            
+        }
+
+    </script>
+</head>
+<body>
+   <h1><span id="player" style="color: blue;font-size: 30px;">Player </span></h1> 
+   <table border="2">
+   <tr>
+       <td><span onclick="ticHere('11')" id="11" style="color:cadetblue;font-size: 30px;">OO</span></td>
+       <td><span onclick="ticHere('12')" id="12" style="color:cadetblue;font-size:30px">OO</span></td>
+       <td><span onclick="ticHere('13')" id="13" style="color:cadetblue;font-size:30px">OO</span></td>
+   </tr>
+   <tr>
+       <td><span onclick="ticHere('21')" id="21" style="color:cadetblue;font-size:30px">OO</span></td>
+       <td><span onclick="ticHere('22')" id="22" style="color:cadetblue;font-size:30px">OO</span></td>
+       <td><span onclick="ticHere('23')" id="23" style="color:cadetblue;font-size:30px">OO</span></td>
+   </tr>
+   <tr>
+       <td><span onclick="ticHere('31')" id="31" style="color:cadetblue;font-size:30px">OO</span></td>
+       <td><span onclick="ticHere('32')" id="32" style="color:cadetblue;font-size:30px">OO</span></td>
+       <td><span onclick="ticHere('33')" id="33" style="color:cadetblue;font-size:30px">OO</span></td>
+   </tr>
+   <button onclick="clear()">clear</button>
+</table>
+
+</body>
+</html>

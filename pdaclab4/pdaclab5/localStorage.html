@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function setData(){
+        localStorage.setItem("userName",document.getElementById("name").value)
+        localStorage.setItem("userPass",document.getElementById("password").value)
+        localStorage.setItem("userColor",document.getElementById("color").value)
+      getData()  
+    }
+    function getData(){
+        document.getElementById("name").value=localStorage.getItem("userName")
+        document.getElementById("password").value=localStorage.getItem("userPass")
+        document.getElementById("color").value=localStorage.getItem("userColor")
+        document.getElementById("body").style=`background-color:${localStorage.getItem("userColor")}`
+
+    }
+</script>
+
+
+    
+
+<body id="body">
+    
+       
+    <label>User Name</label><br>
+    <input type="text" id="name">
+    <br>
+   
+    <br>
+    <label>password</label><br>
+    <input type="password" id="password">
+    <br> <br>
+    <label>color</label><br>
+    <input type="color" id="color">
+    <br>
+    
+    <button onclick="setData()">Submit</button>
+    
+
+
+</body>
+<script>
+    getData()
+</script>
+</html>
