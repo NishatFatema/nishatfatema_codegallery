@@ -1,0 +1,157 @@
+#byjuslogo{
+    height: 150px;
+    width: 150px;
+    background-color: purple;
+    vertical-align: middle;
+    padding: 2px;
+    
+}
+#byjus_learningapp_logo{
+    height: 100px;
+    width: 150px;
+   
+
+}
+a{
+
+padding:30px;
+color: chocolate;
+font-size:larger;
+text-decoration: none;   
+
+}
+a:hover{
+background-color: white;
+color: purple;
+border-radius: 30px;
+}
+.float1{
+
+display: inline-flex;
+
+text-align: center;
+/* background-image:url("./BYJUS2.png"); */
+/* background-repeat: no-repeat; */
+/* background-size: cover; */
+}
+.button{
+color: chocolate;
+
+}
+/* inputBoxes{ */
+    /* ; */
+/* } */
+.otp{
+background: linear-gradient(45deg,blue , purple);
+color: white;
+width: 100px;
+height: 40px;
+border-radius: 10px;
+
+
+}
+.sheduleFree{
+    
+}
+span{
+background-color:rgb(139, 15, 139) ;
+color: white;
+}
+table{
+padding: 10px;
+
+
+}
+.table{
+
+    text-align: center;
+    width: 600px;
+    height: 400px;
+    border: 2px solid grey;
+    border-radius:5% ;
+}
+.scheduleFree{
+
+    background: linear-gradient(45deg,orange,tomato);
+    border-radius: 5px;
+    height: 40px;
+    width: 550px;
+    border: 0ch;
+}
+.bookFreeClass{
+    background: linear-gradient(45deg,orange,tomato);
+    border-radius: 5px;
+    height: 50px;
+    width: 150px;
+    border: 0ch;
+
+}
+.explore{
+
+    background: linear-gradient(45deg,orange,tomato);
+    border-radius: 5px;
+    height: 50px;
+    width: 150px;
+    border: 0ch;
+
+
+}
+
+}
+
+.vertical{
+height: 400px;
+}
+.button2{
+background-color: tomato;
+color: white;
+font-size: larger;
+font-family: 'Arial Narrow';
+text-align: center;
+padding: 0.4mm;
+}
+
+.figure1{
+    display: inline-flex;
+    
+}
+.button3{
+background-color: tomato;
+color: white;
+font-size: larger;
+font-family: 'Arial Narrow';
+text-align: center;
+padding: 0.4mm;
+}
+.clarity{
+margin-left: 120px;
+font-weight: lighter;
+font-family: Arial;
+font-size: 25px;
+}
+nav{
+background-color: purple;
+padding: 10px;
+margin: 20px;
+}
+.class4to10{
+    text-align: center;
+}
+.classesLkg{
+    text-align: center;
+}
+.byjusAdvantage{
+
+    display: inline-flex;
+}
+.personalizedLearning{
+
+   margin-left: 500px;
+}
+.rating{
+    display: inline-flex;
+    
+}
+.appR{
+    margin-left:500px ;
+}

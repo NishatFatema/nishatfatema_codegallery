@@ -1,0 +1,1268 @@
+(function () {
+
+    cleverTapProdTrigger('pageview_Homepage');
+    // Once the user lands on the workshop marketing page
+
+    // constants
+    var CONFIG = {
+        apis: {
+            allStatesUnderIndia: BCAP_API_BASE_URL + 'api/geo_dimensions/india_state_list_non_paginated',
+            sendOtp: BCAS_API_BASE_URL + 'api/v2/send-otp',
+            verifyOtp: BCAS_API_BASE_URL + 'api/v2/verify-otp',
+            voiceOtp: BCAS_API_BASE_URL + 'api/voice',
+            getUserProfile: BCAS_API_BASE_URL + 'api/get-user-profiles',
+            selectCohort: BCAS_API_BASE_URL + 'api/select-cohort',
+            topicsAndTimeSlots: BCAS_API_BASE_URL + 'api/cohort',
+            register: BCAS_API_BASE_URL + 'api/v2/register',
+            storeProfileId: BCAS_API_BASE_URL + 'api/store-profile-id',
+            airtelApiConversion: BASE_URL + 'wp-json/spidy/v1/airtel_api_conversion/?wp-json_allow'
+        },
+        messages: {
+            somethingWentWrong: 'Something went wrong. Please try after some time',
+        }
+    }
+
+    var debounce = function debounce(func, delay) {
+        var debounceTimer;
+        return function () {
+            var context = this;
+            var args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function () {
+                return func.apply(context, args);
+            }, delay);
+        };
+    };
+
+    var TRIAL = {
+        sortBasedTime: function (arr) {
+            return arr.sort(function (a, b) {
+                // get time time from string
+                // then get am or pm from string and append
+                // both can be done using slice method
+                return Date.parse('1970/01/01 ' + a.hour + ':' + a.minutes + ' ' + a.meridiem) - Date.parse('1970/01/01 ' + b.hour + ':' + b.minutes + ' ' + b.meridiem)
+            });
+        },
+        findIndexOfElements: function (elements, className) {
+            for (var i = 0; i < elements.length; i++) {
+                if ($(elements[i]).hasClass(className))
+                    return i
+            }
+        },
+        // tracked data to clevertap
+        cleverTap: function (name) {
+            var obj = {};
+            obj.user_id = TRIAL.validatedFormFieldsValues['free-trial-classes']['profileId'];
+            obj.variety = TRIAL.validatedFormFieldsValues['free-trial-classes']['profileType'];
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['state']) {
+                obj.selectedState = TRIAL.validatedFormFieldsValues['free-trial-classes']['state'];
+            }
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['grade']) {
+                obj.grade_selected = TRIAL.validatedFormFieldsValues['free-trial-classes']['grade'];
+            }
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['cohortId']) {
+                obj.cohortId = TRIAL.validatedFormFieldsValues['free-trial-classes']['cohortId'];
+            }
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['courseId']) {
+                obj.courseId = TRIAL.validatedFormFieldsValues['free-trial-classes']['courseId'];
+            }
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['topicName']) {
+                obj.topicName = TRIAL.validatedFormFieldsValues['free-trial-classes']['topicName'];
+            }
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['topicId']) {
+                obj.topicId = TRIAL.validatedFormFieldsValues['free-trial-classes']['topicId'];
+            }
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['slotId']) {
+                obj.slotId = TRIAL.validatedFormFieldsValues['free-trial-classes']['slotId'];
+            }
+            if (TRIAL.validatedFormFieldsValues['free-trial-classes']['startTime']) {
+                obj.startTime = TRIAL.validatedFormFieldsValues['free-trial-classes']['startTime'];
+            }
+            cleverTapProdTrigger(name, obj);
+        },
+        callAirtelAPI: function (api_url) {
+            jQuery.ajax({
+                type: 'GET',
+                url: api_url,
+                contentType: false,
+                crossDomain: true,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    if (data) {
+                        // console.log("Success");
+                    }
+                },
+                fail: function () {
+                    // console.log("Failed");
+                }
+            });
+        },
+        /*
+          accepts: formName(eg: registration, i.e. name='registration'), actionType(onInput/onDirect)
+          Description: will validate n number of forms and fields, if required list it under switch case and values will be stored in formValues
+          returns true or value
+        */
+        validatedFormFieldsValues: {},
+        validateFormFields: function (formName, actionType) {
+            if (!TRIAL.validatedFormFieldsValues[formName])
+                TRIAL.validatedFormFieldsValues[formName] = {};
+            var formEle = $('[name=' + formName + ']');
+            var allInputs = formEle.find('[name]').not('[data-no-validation]');
+            // by using name
+            var invalidInputArray = [];
+            allInputs.each(function (i, ele) {
+                var inputEle = $(ele);
+                var inputName = inputEle.attr('name');
+                switch (inputName) {
+                    case "name":
+                        this.isValidInput = UTILITIES.nameValidation;
+                        this.requiredName = "Name";
+                        break;
+                    case "mobile":
+                        this.isValidInput = UTILITIES.phoneValidation;
+                        this.requiredName = "Mobile No.";
+                        break;
+                    case "email":
+                        this.isValidInput = UTILITIES.emailValidation;
+                        break;
+                    case "course":
+                        this.isValidInput = UTILITIES.requiredValidation;
+                        this.requiredName = "Course";
+                        break;
+                    case "state":
+                        this.isValidInput = UTILITIES.requiredValidation;
+                        this.requiredName = "State";
+                        break;
+                    case "userProfile":
+                        this.isValidInput = UTILITIES.requiredValidation;
+                        this.requiredName = "Profile selection";
+                        break;
+                    default:
+                        this.isValidInput = null;
+                        break;
+                }
+                actionType === 'onInput' && inputEle.on('input change', function () {
+                    if (this.isValidInput) {
+                        this.isValid = this.isValidInput(inputEle, null, this.requiredName, inputEle.attr('data-optional') !== undefined, inputEle.attr('data-error-message'));
+                    }
+                    TRIAL.validatedFormFieldsValues[formName][inputName] = inputEle.val() ? inputEle.val().trim() : '';
+                    // getting all value
+                });
+
+                if (actionType === 'onDirect' && this.isValidInput) {
+                    this.isValid = this.isValidInput(inputEle, null, this.requiredName, inputEle.attr('data-optional') !== undefined, inputEle.attr('data-error-message'));
+                    if (!this.isValid) {
+                        invalidInputArray.push(this.isValid);
+                        // pushing not valid input
+                    }
+                    TRIAL.validatedFormFieldsValues[formName][inputName] = inputEle.val() ? inputEle.val().trim() : '';
+                    // getting all value
+                }
+
+            });
+            return !invalidInputArray.length ? true : false;
+        },
+
+        formStepNumber: 1,
+        isPhoneNumberVerified: false,
+        referenceIdForMessageOtp: '',
+        registration: function (formName) {
+            var formEle = $('form[name=' + formName + ']');
+            var formSubmitButton = formEle.find('[data-submit-button]');
+            var phoneInput = formEle.find('[data-mobile-input]');
+
+            TRIAL.validatedFormFieldsValues[formName]['isProfileOptionEnabled'] = false; // setting by default false
+            TRIAL.validatedFormFieldsValues[formName]['isGradeOptionEnabled'] = false; // setting by default false
+            TRIAL.validatedFormFieldsValues[formName]['isTopicOptionEnabled'] = false; // setting by default false
+            TRIAL.validatedFormFieldsValues[formName]['isSlotOptionEnabled'] = false; // setting by default false
+            if (formEle.find('[name="whatsapp"]').length) {
+                TRIAL.validatedFormFieldsValues[formName]['whatsapp'] = false; // setting by default
+            }
+
+            //  on name, email, state, (on success of phone validation) selector and get user profile
+            var firstStepInputSelectors = formEle.find('[name="name"], [name="mobile"], [name="email"]');
+            var debounceApiControl = debounce(function () {
+                TRIAL.profileAndGradeApiControl(formName);
+            }, formApiDebounceTime); // debounce function declare
+
+            formEle.find('[name="state"]').on('change', function () { // on state change
+                if (!this.oneTimeFlag) { // adding flag if user start typing
+                    this.oneTimeFlag = 1
+                }
+                resetAndCallFunction();
+            });
+            firstStepInputSelectors.on('input', function () { // on input of name, mobile, email
+                if (!this.oneTimeFlag) { // adding flag if user start typing
+                    this.oneTimeFlag = 1
+                }
+                resetAndCallFunction();
+            })
+
+            function resetAndCallFunction() {
+                debounceApiControl();
+                formEle.find('[data-choose-your-profile], [data-select-your-class]').addClass('hidden'); // to hide
+                // resetting values
+                TRIAL.validatedFormFieldsValues[formName]['cohortId'] = '';
+                TRIAL.validatedFormFieldsValues[formName]['grade'] = '';
+                TRIAL.validatedFormFieldsValues[formName]['profileId'] = '';
+
+                // remove error message on profile validation message
+                var profileSelector = formEle.find('[data-choose-your-profile]');
+                profileSelector.find('[data-profiles]').removeClass('input-error');
+                profileSelector.find('[data-profiles]').siblings('.input-error-msg').remove();
+            }
+
+            formEle.on('submit', function (e) {
+                e.preventDefault();
+                if (TRIAL.validateFormFields(formName, 'onDirect')) {
+                    if (formEle.find('[name="whatsapp"]').length) {
+                        TRIAL.validatedFormFieldsValues[formName]['whatsapp'] = formEle.find('[name="whatsapp"]').is(':checked'); // setting whatsapp value
+                    }
+                    var formFieldData = TRIAL.validatedFormFieldsValues[formName];
+                    if (TRIAL.isPhoneNumberVerified) {
+
+                        // for 1,2,3 grades we are calling directly registration api
+                        if (TRIAL.validatedFormFieldsValues[formName]['grade'] == 1 || TRIAL.validatedFormFieldsValues[formName]['grade'] == 2 || TRIAL.validatedFormFieldsValues[formName]['grade'] == 3) {
+                            TRIAL.formStepNumber = 2;
+                            TRIAL.showRegistrationSuccessMessage = true;
+                        }
+
+                        if (TRIAL.formStepNumber === 1) {
+                            // error message for profile
+                            if (TRIAL.validatedFormFieldsValues[formName]['isProfileOptionEnabled'] && !TRIAL.validatedFormFieldsValues[formName]['profileId']) {
+                                formEle.find('[data-profiles]').removeClass('input-error').addClass('input-error');
+                                formEle.find('[data-profiles]').siblings('.input-error-msg').remove();
+                                formEle.find('[data-profiles]').after('<div class="input-error-msg">Please choose your profile.</div>');
+                                return;
+                            }
+                            // error message for class
+                            if (!TRIAL.validatedFormFieldsValues[formName]['cohortId'] || !TRIAL.validatedFormFieldsValues[formName]['grade']) {
+                                formEle.find('[data-grades]').removeClass('input-error').addClass('input-error');
+                                formEle.find('[data-grades]').siblings('.input-error-msg').remove();
+                                formEle.find('[data-grades]').after('<div class="input-error-msg">Please select your class.</div>');
+                                return;
+                            }
+                            formSubmitButton.attr('disabled', true)
+                            formSubmitButton.html('Loading..');
+
+                            // ajax call
+                            // build params
+                            var buildingParams = {
+                                "userAttributes": {
+                                    "verifiedMobile": "+91-" + formFieldData.mobile,
+                                    "grade": formFieldData.grade,
+                                    "name": formFieldData.name,
+                                    "userLocationAttributes": {
+                                        "adminArea": formFieldData.state
+                                    },
+                                    "cohortId": formFieldData['cohortId'],
+                                    "grade": formFieldData['grade'],
+                                    "profileId": formFieldData['profileId'],
+                                }
+                            };
+                            if (TRIAL.validatedFormFieldsValues[formName]['whatsapp'] !== undefined) {
+                                buildingParams.userAttributes = TRIAL.validatedFormFieldsValues[formName]['whatsapp']
+                            }
+                            if (formFieldData.email) {
+                                buildingParams.userAttributes.unverifiedEmail = formFieldData.email
+                            }
+                            var params = JSON.stringify(buildingParams);
+
+                            UTILITIES.removeToastMessage(7); // removed toast message to reset
+                            $.ajax({
+                                type: 'POST',
+                                url: CONFIG.apis.selectCohort,
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: params,
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader('Authorization', "Bearer " + TRIAL.referenceIdForMessageOtp);
+                                },
+                                success: function (data, status, xhr) {
+                                    if (data.signedLoginToken) {
+                                        TRIAL.signedLoginToken = data.signedLoginToken;
+                                        topicsAndTimeSlots(); // getting topic slots should be sequence because of signed token should be happen in TLLMS
+                                    } else {
+                                        UTILITIES.addToastMessage(7, CONFIG.messages.somethingWentWrong);
+                                    }
+                                },
+                                error: function (err) {
+                                    formSubmitButton.attr('disabled', false)
+                                    formSubmitButton.html(formSubmitButton.attr('data-text'));
+                                    UTILITIES.addToastMessage(7, err.responseJSON && err.responseJSON.message ? err.responseJSON.message : CONFIG.messages.somethingWentWrong);
+                                }
+                            });
+
+                            function topicsAndTimeSlots() {
+                                UTILITIES.removeToastMessage(8); // removed toast message to reset
+                                $.ajax({
+                                    type: 'GET',
+                                    url: CONFIG.apis.topicsAndTimeSlots + '?cohortId=' + TRIAL.validatedFormFieldsValues['free-trial-classes']['cohortId'],
+                                    success: function (data, status, xhr) {
+                                        if (data.topics && data.topics.length) {
+                                            TRIAL.formStepNumber++;
+                                            jQuery("html, body").animate({
+                                                scrollTop: 0
+                                            }, 400); // for scroll
+                                            TRIAL.showAndBuildTopicsAndSlots(formEle, data.topics);
+                                            $('[data-trial-form-indicators]>li[data-ind-1]').addClass('active');
+                                            formEle.find('[data-free-trial-classes-step-0]').addClass('hidden');
+                                            formEle.find('[data-free-trial-classes-step-1]').removeClass('hidden');
+                                            formSubmitButton.html('Confirm');
+                                        } else {
+                                            UTILITIES.addToastMessage(8, 'No classes scheduled');
+                                            formSubmitButton.html(formSubmitButton.attr('data-text'));
+                                        }
+                                        formSubmitButton.attr('disabled', false)
+                                    },
+                                    error: function (err) {
+                                        formSubmitButton.attr('disabled', false)
+                                        formSubmitButton.html(formSubmitButton.attr('data-text'));
+                                        UTILITIES.addToastMessage(8, err.responseJSON && err.responseJSON.message ? err.responseJSON.message : CONFIG.messages.somethingWentWrong);
+                                    }
+                                });
+                            }
+
+                            if (formEle.find('[name="whatsapp"]').length && formEle.find('[name="whatsapp"]').is(':checked')) {
+                                TRIAL.cleverTap('receive_update_via_whatsapp');
+                            }
+
+                            TRIAL.cleverTap('registration_form_submit_step1'); // once the user does step 1 of the form in the lead form
+                            typeof gtag !== 'undefined' && typeof step1Script !== 'undefined' && step1Script();
+                            typeof fbq !== 'undefined' && typeof step1fbScript !== 'undefined' && step1fbScript();
+                        } else if (TRIAL.formStepNumber === 2) {
+                            jQuery("html, body").animate({
+                                scrollTop: 0
+                            }, 400); // for scroll
+
+                            if (TRIAL.validatedFormFieldsValues[formName]['isTopicOptionEnabled'] && !TRIAL.validatedFormFieldsValues[formName]['topicId'] && !TRIAL.validatedFormFieldsValues[formName]['topicName'] && !TRIAL.validatedFormFieldsValues[formName]['courseId']) {
+                                formEle.find('[data-topics]').removeClass('input-error').addClass('input-error');
+                                formEle.find('[data-topics]').siblings('.input-error-msg').remove();
+                                formEle.find('[data-topics]').after('<div class="input-error-msg">Please select topic.</div>');
+                                return;
+                            }
+                            if (TRIAL.validatedFormFieldsValues[formName]['isSlotOptionEnabled'] && !TRIAL.validatedFormFieldsValues[formName]['slotId'] && !TRIAL.validatedFormFieldsValues[formName]['startTime'] && !TRIAL.validatedFormFieldsValues[formName]['endTime']) {
+                                formEle.find('[data-time-slots]').removeClass('input-error').addClass('input-error');
+                                formEle.find('[data-time-slots]').siblings('.input-error-msg').remove();
+                                formEle.find('[data-time-slots]').after('<div class="input-error-msg">Please select slot.</div>');
+                                return;
+                            }
+                            formSubmitButton.attr('disabled', true);
+                            formSubmitButton.html('Loading..');
+                            // ajax call
+                            // build params
+                            var buildingParams = {
+                                "userAttributes": {
+                                    "verifiedMobile": "+91-" + formFieldData.mobile,
+                                    "grade": formFieldData.grade,
+                                    "name": formFieldData.name,
+                                    "topicName": formFieldData.topicName,
+                                    "profileId": formFieldData.profileId,
+                                    "profileType": formFieldData.profileType,
+                                    "userLocationAttributes": {
+                                        "adminArea": formFieldData.state
+                                    },
+                                    "bcasAttributes": {
+                                        "cohortId": formFieldData.cohortId,
+                                        "courseId": formFieldData.courseId,
+                                        "startTime": formFieldData.startTime,
+                                        "endTime": formFieldData.endTime,
+                                        "slotId": formFieldData.slotId,
+                                        "topicId": formFieldData.topicId
+                                    },
+                                    "url": typeof (UTILITIES.fixUrl) !== 'undefined' ? UTILITIES.fixUrl(C_URL) : C_URL,
+                                    "referrerUrl": document.referrer
+                                }
+                            };
+                            if (formFieldData.email) {
+                                buildingParams.userAttributes.unverifiedEmail = formFieldData.email
+                            }
+                            if (TRIAL.validatedFormFieldsValues[formName]['whatsapp'] !== undefined) {
+                                buildingParams.userAttributes.whatsapp = TRIAL.validatedFormFieldsValues[formName]['whatsapp']
+                            }
+                            var params = JSON.stringify(buildingParams);
+
+                            UTILITIES.removeToastMessage(6); // removed toast message to reset
+                            $.ajax({
+                                type: 'POST',
+                                url: CONFIG.apis.register,
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: params,
+                                //                                 crossDomain: true,
+                                //                                 processData: false,
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader('Authorization', "Bearer " + TRIAL.referenceIdForMessageOtp);
+                                    xhr.setRequestHeader('signedlogintoken', TRIAL.signedLoginToken);
+                                },
+                                success: function (data, status, xhr) {
+                                    formSubmitButton.attr('disabled', false)
+                                    formSubmitButton.html('Loading..');
+
+                                    TRIAL.cleverTap('registration_form_submit_home'); // once the user clicks on book now button after entering the form data and data is submitted successfully
+
+                                    var utmCamp = UTILITIES.getParameterByName('utm_campaign', C_URL);
+
+                                    if (TRIAL.showRegistrationSuccessMessage) { // on grade 1,2,3 show message
+                                        formEle.addClass('hidden');
+                                        $('[data-trial-form-indicators]').addClass('hidden');
+                                        formEle.siblings('[data-success-message]').removeClass('hidden');
+                                        $('form[name=registration]').siblings('[data-terms-conditions]').addClass('hidden');
+                                        $('[data-register-header]').addClass('hidden');
+                                        //This api will call only if utm_campaign is airtel
+                                        if (utmCamp && utmCamp == "airtel") {
+                                            TRIAL.callAirtelAPI(CONFIG.apis.airtelApiConversion);
+                                        }
+
+                                        typeof gtag !== 'undefined' && typeof step1Script !== 'undefined' && step1Script();
+                                        typeof fbq !== 'undefined' && typeof step1fbScript !== 'undefined' && step1fbScript();
+
+                                        return;
+                                    }
+                                    var redirectUrl = xhr.getResponseHeader("Redirect-Url") || xhr.getResponseHeader("redirect-url");
+                                    if (redirectUrl) {
+                                        //This api will call only if utm_campaign is airtel
+                                        if (utmCamp && utmCamp == "airtel") {
+                                            TRIAL.callAirtelAPI(CONFIG.apis.airtelApiConversion);
+                                        }
+
+                                        typeof gtag !== 'undefined' && typeof step2Script !== 'undefined' && step2Script();
+                                        typeof fbq !== 'undefined' && typeof step2fbScript !== 'undefined' && step2fbScript();
+
+                                        setTimeout(function () {
+                                            window.location.href = redirectUrl
+                                        }, 1000);
+                                    } else {
+                                        UTILITIES.addToastMessage(6, CONFIG.messages.somethingWentWrong);
+                                    }
+                                },
+                                error: function (err) {
+                                    formSubmitButton.attr('disabled', false)
+                                    formSubmitButton.html(formSubmitButton.attr('data-text'));
+                                    UTILITIES.addToastMessage(6, err.responseJSON && err.responseJSON.message ? err.responseJSON.message : CONFIG.messages.somethingWentWrong);
+
+                                    TRIAL.cleverTap('registration_form_submit_error'); // This will trigger when a registration api fails
+                                }
+                            });
+                        } else {}
+                    } else {
+                        phoneInput.removeClass('input-error').addClass('input-error');
+                        phoneInput.siblings('.input-error-msg').remove();
+                        phoneInput.after('<div class="input-error-msg">Validate your mobile number</div>');
+
+                        // otp validation message
+                        var otpInputVoiceCallBlock = $('[data-otp-input-field-voice-call-option]');
+                        if (otpInputVoiceCallBlock.is(':visible') && !otpInputVoiceCallBlock.find('input').val() && !otpInputVoiceCallBlock.find('input').siblings('.input-error-msg').length) {
+                            otpInputVoiceCallBlock.find('input').after('<div class="input-error-msg">Enter 4 digit OTP</div>');
+                        }
+                    }
+                } else { // otp validation message
+                    var otpInputVoiceCallBlock = $('[data-otp-input-field-voice-call-option]');
+                    if (otpInputVoiceCallBlock.is(':visible') && !otpInputVoiceCallBlock.find('input').val() && !otpInputVoiceCallBlock.find('input').siblings('.input-error-msg').length) {
+                        otpInputVoiceCallBlock.find('input').after('<div class="input-error-msg">Enter 4 digit OTP</div>');
+                    }
+                }
+            });
+
+            // message otp part
+            var otpTimeInterval;
+            var sendOtpButton = formEle.find('[data-send-otp-button]');
+            var OtpVerifiedIcon = formEle.find('[data-otp-validated-img]');
+            var otpInputVoiceCallBlock = formEle.find('[data-otp-input-field-voice-call-option]');
+            var otpInput = otpInputVoiceCallBlock.find('input');
+            var phoneNumberFromOtpApiResponse;
+            var isSendFlag = true;
+            sendOtpButton.on('click', function () {
+                if (!UTILITIES.phoneValidation(phoneInput, null, 'Mobile No.'))
+                    return;
+                // if not valid it will exit here
+
+                // timer for send otp
+                var otpSecondCounter = 30;
+                sendOtpButton.attr('disabled', true);
+                sendOtpButton.html('<div class="otp-active-timer" data-otp-active-timer>Resend in <span>' + otpSecondCounter + '</span>sec.</div>');
+                // timer
+                otpTimeInterval = setInterval(function () {
+                    --otpSecondCounter;
+                    if (otpSecondCounter <= 0) {
+                        clearInterval(otpTimeInterval);
+                        sendOtpButton.attr('disabled', false);
+                        sendOtpButton.html('Resend OTP');
+                    }
+                    sendOtpButton.find('[data-otp-active-timer] span').html(otpSecondCounter);
+                }, 1000);
+
+                // for otp field
+                otpInputVoiceCallBlock.removeClass('hidden');
+                otpInput.attr('disabled', false).focus();
+
+                // ajax call for generating otp
+                var params = JSON.stringify({
+                    phoneNumber: TRIAL.validatedFormFieldsValues[formName].mobile,
+                    page: formName
+                });
+                UTILITIES.removeToastMessage(1);
+                // removed toast message to reset
+                $.ajax({
+                    type: 'POST',
+                    url: CONFIG.apis.sendOtp,
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: params,
+                    success: function (data, status, xhr) {
+                        TRIAL.referenceIdForMessageOtp = xhr.getResponseHeader("Reference-Id") || xhr.getResponseHeader("reference-id")
+                        phoneInput.siblings('.input-error-msg').remove();
+                        // removing error message to reset.
+                        phoneNumberFromOtpApiResponse = data.number;
+                        phoneInput.after('<div class="input-error-msg" style="color:green;">We have sent the OTP to <b>' + data.number + '</b></div>');
+
+                        cleverTapProdTrigger('send_otp_success');
+                        // This is triggered when an OTP is submitted
+                    },
+                    error: function (err) {
+                        if (err.statusCode().status === 429 && err.responseJSON.isOtpExhausted) {
+                            phoneInput.siblings('.input-error-msg').remove();
+                            // removing error message to reset.
+                            phoneInput.after('<div class="input-error-msg">' + err.responseJSON.message + '</div>');
+                        } else {
+                            UTILITIES.addToastMessage(1, err.responseJSON && err.responseJSON.message ? err.responseJSON.message : CONFIG.messages.somethingWentWrong);
+                        }
+
+                        cleverTapProdTrigger('send_otp_error');
+                        // This will trigger when a user clicks on resend otp on the registration page on byjus.com. As many times he clicks - that many times we will trigger the event
+                    },
+                });
+
+                if (isSendFlag) {
+                    cleverTapProdTrigger('click_on_otp');
+                    // This will trigger when a user clicks on send otp on the registration page
+                } else {
+                    cleverTapProdTrigger('Resend_OTP');
+                    // This will trigger when a user clicks on resend otp on the registration page on byjus.com. As many times he clicks - that many times we will trigger the event
+                }
+
+                isSendFlag = false;
+                // once user clicked on button then it will changed to resend button
+
+            });
+
+            // voice over OTP
+            var otpVoiceTimeInterval;
+            var otpVoiceCallButton = otpInputVoiceCallBlock.find('button');
+            otpVoiceCallButton.on('click', function () {
+                var otpVoiceSecondCounter = 30;
+                otpVoiceCallButton.find('span').html(' <b>' + otpVoiceSecondCounter + '</b>sec.');
+                otpVoiceCallButton.attr('disabled', true);
+                otpInput.attr('disabled', false).focus();
+                otpVoiceTimeInterval = setInterval(function () {
+                    --otpVoiceSecondCounter;
+                    if (otpVoiceSecondCounter <= 0) {
+                        clearInterval(otpVoiceTimeInterval);
+                        otpVoiceCallButton.find('span').html('Voice Call');
+                        otpVoiceCallButton.attr('disabled', false);
+                    } else {
+                        otpVoiceCallButton.find('span').html(' <b>' + otpVoiceSecondCounter + '</b>sec.');
+                    }
+                }, 1000);
+
+                // ajax call for generating otp
+                var params = $.param({
+                    phoneNumber: TRIAL.validatedFormFieldsValues[formName].mobile,
+                    page: formName
+                });
+                UTILITIES.removeToastMessage(3);
+                // removed toast message to reset
+                UTILITIES.removeToastMessage(4);
+                // removed toast message to reset
+                $.get(CONFIG.apis.voiceOtp + '?' + params, function (data, status, xhr) {
+                    if (xhr.status === 200 && data) {
+                        phoneInput.siblings('.input-error-msg').remove();
+                        // removing error message to reset.
+                        UTILITIES.addToastMessage(4, 'Calling in 30 seconds');
+                        setTimeout(function () {
+                            UTILITIES.removeToastMessage(4);
+                        }, 5000);
+                    } else {
+                        if (err.statusCode().status === 429 && err.responseJSON.isOtpExhausted) {
+                            UTILITIES.addToastMessage(4, data.message);
+                        } else {
+                            UTILITIES.addToastMessage(3, err.responseJSON && err.responseJSON.message ? err.responseJSON.message : CONFIG.messages.somethingWentWrong);
+                        }
+
+                        cleverTapProdTrigger('submit_voice_call_error');
+                        // if the phone number is not valid or something goes wrong while placing the call
+                    }
+                });
+
+                cleverTapProdTrigger('click_on_voice_call');
+                // This will trigger when a user clicks on voice call button on the byjus classes registration page
+            });
+
+            //  on change of otp input field
+            otpInput.on('input', function () {
+                if (UTILITIES.otpValidation($(this))) {
+                    var params = JSON.stringify({
+                        otp: $(this).val(),
+                        phoneNumber: phoneNumberFromOtpApiResponse,
+                        page: formName
+                    });
+                    UTILITIES.removeToastMessage(2);
+                    // removed toast message to reset
+                    $.ajax({
+                        type: 'POST',
+                        url: CONFIG.apis.verifyOtp,
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: params,
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', "Bearer " + TRIAL.referenceIdForMessageOtp);
+                        },
+                        success: function (data, status, xhr) {
+                            TRIAL.referenceIdForMessageOtp = xhr.getResponseHeader("Reference-Id") || xhr.getResponseHeader("reference-id")
+                            sendOtpButton.attr('disabled', false).addClass('hidden');
+                            OtpVerifiedIcon.removeClass('hidden');
+                            phoneInput.attr('disabled', true);
+                            phoneInput.addClass('phone-valid');
+                            phoneInput.siblings('.input-error-msg').remove();
+                            otpInputVoiceCallBlock.addClass('hidden');
+                            TRIAL.isPhoneNumberVerified = true;
+
+                            TRIAL.profileAndGradeApiControl(formName); // calling profile api on success validation of phone number
+
+                            UTILITIES.removeToastMessage(1);
+                            // removed toast message to reset
+                            UTILITIES.removeToastMessage(2);
+                            // removed toast message to reset
+                            UTILITIES.removeToastMessage(3);
+                            // removed toast message to reset
+                            UTILITIES.removeToastMessage(4);
+                            // removed toast message to reset
+
+                            cleverTapProdTrigger('otp_submit_success');
+                            // if the entered otp is valid and user is able to proceed
+                        },
+                        error: function (err) {
+                            if (err.statusCode().status === 400) {
+                                otpInput.removeClass('input-error');
+                                otpInput.siblings('.input-error-msg').remove();
+                                otpInput.addClass('input-error');
+                                otpInput.after('<div class="input-error-msg">' + err.responseJSON.message + '</div>');
+                            } else if (err.statusCode().status === 401) {
+                                UTILITIES.addToastMessage(2, err.responseJSON.message);
+                            } else {
+                                UTILITIES.addToastMessage(2, CONFIG.messages.somethingWentWrong);
+                            }
+
+                            cleverTapProdTrigger('otp_submit_error');
+                            // if the entered otp is not valid or something goes wrong while validation
+                        }
+                    });
+
+                    cleverTapProdTrigger('otp_Submit');
+                    // This is triggered when an OTP is submitted
+                }
+            });
+        },
+
+        profileAndGradeApiControl: function (formName) {
+            var formEle = $('form[name=' + formName + ']');
+            if (!(formEle.find('[name="mobile"]')[0].oneTimeFlag && formEle.find('[name="name"]')[0].oneTimeFlag && formEle.find('[name="state"]')[0].oneTimeFlag)) { // checking is user typed
+                return;
+            }
+
+            var phoneInput = formEle.find('[data-mobile-input]');
+            var formSubmitButton = formEle.find('[data-submit-button]');
+            var formFieldData = TRIAL.validatedFormFieldsValues[formName];
+
+            if (TRIAL.validateFormFields(formName, 'onDirect')) {
+                if (TRIAL.isPhoneNumberVerified) {
+                    // ajax call
+                    // build params
+                    var buildingParams = {
+                        "userAttributes": {
+                            "verifiedMobile": "+91-" + formFieldData.mobile,
+                            "name": formFieldData.name,
+                            "userLocationAttributes": {
+                                "adminArea": formFieldData.state
+                            },
+                        }
+                    };
+                    if (TRIAL.validatedFormFieldsValues[formName]['whatsapp'] !== undefined) {
+                        buildingParams.userAttributes.whatsapp = TRIAL.validatedFormFieldsValues[formName]['whatsapp']
+                    }
+                    if (formFieldData.email) {
+                        buildingParams.userAttributes.unverifiedEmail = formFieldData.email;
+                    }
+                    var params = JSON.stringify(buildingParams);
+
+                    UTILITIES.removeToastMessage(5);
+                    // removed toast message to reset
+                    $.ajax({
+                        type: 'POST',
+                        url: CONFIG.apis.getUserProfile,
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: params,
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', "Bearer " + TRIAL.referenceIdForMessageOtp);
+                        },
+                        success: function (data, status, xhr) {
+                            var referenceId = xhr.getResponseHeader("Reference-Id") || xhr.getResponseHeader("Reference-Id");
+                            if (!data.data) {
+                                UTILITIES.addToastMessage(5, CONFIG.messages.somethingWentWrong);
+                                return;
+                            }
+                            if (data.data.paidProfiles.length > 1) {
+                                // free & multi paid profile
+                                TRIAL.showAndBuildProfiles(formEle, data.data.paidProfiles);
+                                TRIAL.validatedFormFieldsValues[formName]['profileType'] = 'PAID';
+                                TRIAL.validatedFormFieldsValues[formName]['isProfileOptionEnabled'] = true;
+                                // calling show profile function
+                            } else {
+                                var profileDetails, params;
+                                if (data.data.paidProfiles.length === 1) {
+                                    // free & one paid profile
+                                    profileDetails = data.data.paidProfiles[0];
+                                    profileDetails.type = 'PAID';
+                                    TRIAL.validatedFormFieldsValues[formName]['isGradeOptionEnabled'] = true;
+                                } else if (data.data.freeProfiles.length === 1) {
+                                    // free
+                                    profileDetails = data.data.freeProfiles[0];
+                                    profileDetails.type = 'FREE';
+                                    TRIAL.validatedFormFieldsValues[formName]['isGradeOptionEnabled'] = true;
+                                } else {
+                                    UTILITIES.addToastMessage(5, CONFIG.messages.somethingWentWrong);
+                                    return;
+                                }
+                                params = JSON.stringify({
+                                    "userProfile": {
+                                        "id": profileDetails['Profile-Id'],
+                                        "name": profileDetails.name,
+                                        "email": formFieldData.email,
+                                        "type": profileDetails.type
+                                    }
+                                });
+                                TRIAL.validatedFormFieldsValues[formName]['profileId'] = profileDetails.id;
+                                TRIAL.validatedFormFieldsValues[formName]['profileType'] = profileDetails.type;
+                                TRIAL.showAndBuildGrades(formEle, profileDetails);
+                            }
+                        },
+                        error: function (err) {
+                            formSubmitButton.attr('disabled', false)
+                            formSubmitButton.html(formSubmitButton.attr('data-text'));
+                            UTILITIES.addToastMessage(5, err.responseJSON && err.responseJSON.message ? err.responseJSON.message : CONFIG.messages.somethingWentWrong);
+
+                            TRIAL.cleverTap('registration_form_submit_error');
+                            // This will trigger when a registration api fails
+                        }
+                    });
+                } else {
+                    if (!formEle.find('[data-otp-input-field-voice-call-option]').is(':visible')) {
+                        phoneInput.removeClass('input-error').addClass('input-error');
+                        phoneInput.siblings('.input-error-msg').remove();
+                        phoneInput.after('<div class="input-error-msg">Validate your mobile number</div>');
+                    }
+
+                    // otp validation message
+                    var otpInputVoiceCallBlock = $('[data-otp-input-field-voice-call-option]');
+                    if (otpInputVoiceCallBlock.is(':visible') && !otpInputVoiceCallBlock.find('input').val() && !otpInputVoiceCallBlock.find('input').siblings('.input-error-msg').length) {
+                        otpInputVoiceCallBlock.find('input').after('<div class="input-error-msg">Enter 4 digit OTP</div>');
+                    }
+                }
+            } else {
+                var otpInputVoiceCallBlock = $('[data-otp-input-field-voice-call-option]');
+                if (otpInputVoiceCallBlock.is(':visible') && !otpInputVoiceCallBlock.find('input').val() && !otpInputVoiceCallBlock.find('input').siblings('.input-error-msg').length) {
+                    otpInputVoiceCallBlock.find('input').after('<div class="input-error-msg">Enter 4 digit OTP</div>');
+                }
+            }
+        },
+
+        showAndBuildGrades: function (formEle, data) {
+            TRIAL.validatedFormFieldsValues['free-trial-classes']['isGradeOptionEnabled'] = true;
+            var gradeSelector = formEle.find('[data-select-your-class]');
+
+            function getItems(gradeData) {
+                var itemsHtml = '';
+                var tempGradeData = [];
+                var tempExclusionGradeDisplayNameList = [];
+                exclusionGradeDisplayNameList.forEach(function (item, i) {
+                    tempExclusionGradeDisplayNameList.push(item.toLowerCase().trim());
+                });
+                gradeData.forEach(function (item, i) {
+                    if (tempExclusionGradeDisplayNameList.indexOf(item.displayName.toLowerCase().trim()) < 0) {
+                        tempGradeData.push(item);
+                    }
+                });
+                tempGradeData.forEach(function (item, i) {
+                    itemsHtml += '' +
+                        '<div>' +
+                        '<input type="radio" id="trial-grade-' + i + '" name="cohortId" value="' + item.id + '" data-grade="' + item.grade + '" data-grade-card-cta>' +
+                        '<label for="trial-grade-' + i + '">Class <br />' + item.grade + '</label>' +
+                        '</div>' +
+                        '';
+
+                });
+                return '<div class="grades">' + itemsHtml + '</div>';
+            }
+
+            gradeSelector.find('[data-grades]').html(getItems(data.availableCohorts));
+            TRIAL.carouselControlHandler('#trial-grades-carousel');
+            gradeSelector.removeClass('hidden');
+
+            // on change of profile selection
+            gradeSelector.find('[data-grade-card-cta]').on('change', function () {
+                var id = $(this).attr('value');
+                if ($(this).is(':checked')) {
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['cohortId'] = id;
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['grade'] = $(this).attr('data-grade');
+                    gradeSelector.find('[data-grades]').removeClass('input-error').addClass('input-valid');
+                    gradeSelector.find('[data-grades]').siblings('.input-error-msg').remove();
+
+                    TRIAL.cleverTap('grade_selected'); // Once a user selects a grade on lead form
+                }
+            })
+        },
+
+        showAndBuildProfiles: function (formEle, data) {
+            var profileSelector = formEle.find('[data-choose-your-profile]');
+            var html = '' +
+                '<div id="profiles-carousel" class="carousel slide profiles-carousel trial-item-carousel" data-ride="carousel" data-interval="false">' +
+                '<div class="carousel-inner">' +
+                getItems(data) +
+                '</div>' +
+                '<a class="left carousel-control hidden" href="#profiles-carousel" data-slide="prev">' +
+                '<svg xmlns="https://www.w3.org/2000/svg" width="6.604" height="11.585" viewBox="0 0 6.604 11.585"><g transform="translate(103.744 -0.001) rotate(90)"><path d="M5.793,103.744a.809.809,0,0,1-.574-.237L.238,98.525a.811.811,0,0,1,1.147-1.147l4.407,4.408L10.2,97.378a.811.811,0,0,1,1.147,1.147l-4.981,4.981A.809.809,0,0,1,5.793,103.744Z" transform="translate(0 0)" /></g></svg>' +
+                '</a>' +
+                '<a class="right carousel-control ' + (data.length <= 3 ? 'hidden' : '') + '" href="#profiles-carousel" data-slide="next">' +
+                '<svg xmlns="https://www.w3.org/2000/svg" width="6.604" height="11.585" viewBox="0 0 6.604 11.585"><g transform="translate(-97.141 11.586) rotate(-90)"><path d="M5.793,103.744a.809.809,0,0,1-.574-.237L.238,98.525a.811.811,0,0,1,1.147-1.147l4.407,4.408L10.2,97.378a.811.811,0,0,1,1.147,1.147l-4.981,4.981A.809.809,0,0,1,5.793,103.744Z" transform="translate(0 0)" /></g></svg>' +
+                '</a>' +
+                '</div>' +
+                '';
+
+            function getItems(data) {
+                var itemsHtml = '';
+                data.forEach(function (item, i) {
+                    if (i % 3 === 0 && i !== 0) {
+                        itemsHtml += '</div></div>';
+                    }
+                    if (i % 3 === 0 || i === 0) {
+                        itemsHtml += '<div class="carousel-item item ' + (i === 0 ? "active" : "") + '"><div class="row profiles-row">';
+                    }
+                    itemsHtml += '' +
+                        '<div class="col-xs-4 col-4">' +
+                        '<div class="toggle-card">' +
+                        '<input type="radio" id="toggle-card-' + item.id + '" name="profileId" value="' + item.id + '" data-profile-card-cta>' +
+                        '<label for="toggle-card-' + item.id + '">' +
+                        '<h4>' + item.name + '</h4>' +
+                        '<p>' + item.displayName + '</p>' +
+                        '</label>' +
+                        '</div>' +
+                        '</div>' +
+                        '';
+                    if (data.length - 1 === i) {
+                        itemsHtml += '</div></div>';
+                    }
+                });
+
+                return itemsHtml;
+            }
+
+            profileSelector.find('[data-profiles]').html(html);
+            TRIAL.carouselControlHandler('#profiles-carousel')
+            profileSelector.removeClass('hidden');
+
+            // on change of profile selection
+            profileSelector.find('[data-profile-card-cta]').on('change', function () {
+                var id = $(this).attr('value');
+                if ($(this).is(':checked')) {
+                    TRIAL.showAndBuildGrades(formEle, (function () {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i]['id'] === id) {
+                                return data[i];
+                            }
+                        }
+                    })());
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['profileId'] = id;
+                    profileSelector.find('[data-profiles]').removeClass('input-error').addClass('input-valid');
+                    profileSelector.find('[data-profiles]').siblings('.input-error-msg').remove();
+
+                    formEle.find('[data-select-your-class]').find('[data-grades]').removeClass('input-error')
+                    formEle.find('[data-select-your-class]').find('[data-grades]').siblings('.input-error-msg').remove();
+
+                    TRIAL.cleverTap('user_profile_selected'); // Once a user selects a user profile on lead form
+                }
+
+            })
+        },
+
+        timeSlots: {},
+        showAndBuildTopicsAndSlots: function (formEle, data) {
+            TRIAL.validatedFormFieldsValues['free-trial-classes']['isTopicOptionEnabled'] = true;
+            var topicSelector = formEle.find('[data-choose-your-topic]');
+            var timeSlotsWithId = {};
+            var html = '' +
+                '<div id="trial-topics-carousel" class="carousel slide topics-carousel trial-item-carousel" data-ride="carousel" data-interval="false">' +
+                '<div class="carousel-inner">' +
+                getItems(data) +
+                '</div>' +
+                '<a class="left carousel-control hidden" href="#trial-topics-carousel" data-slide="prev">' +
+                '<svg xmlns="https://www.w3.org/2000/svg" width="6.604" height="11.585" viewBox="0 0 6.604 11.585"><g transform="translate(103.744 -0.001) rotate(90)"><path d="M5.793,103.744a.809.809,0,0,1-.574-.237L.238,98.525a.811.811,0,0,1,1.147-1.147l4.407,4.408L10.2,97.378a.811.811,0,0,1,1.147,1.147l-4.981,4.981A.809.809,0,0,1,5.793,103.744Z" transform="translate(0 0)" /></g></svg>' +
+                '</a>' +
+                '<a class="right carousel-control ' + (data.length <= 3 ? 'hidden' : '') + '" href="#trial-topics-carousel" data-slide="next">' +
+                '<svg xmlns="https://www.w3.org/2000/svg" width="6.604" height="11.585" viewBox="0 0 6.604 11.585"><g transform="translate(-97.141 11.586) rotate(-90)"><path d="M5.793,103.744a.809.809,0,0,1-.574-.237L.238,98.525a.811.811,0,0,1,1.147-1.147l4.407,4.408L10.2,97.378a.811.811,0,0,1,1.147,1.147l-4.981,4.981A.809.809,0,0,1,5.793,103.744Z" transform="translate(0 0)" /></g></svg>' +
+                '</a>' +
+                '</div>' +
+                '';
+
+            function getItems(topicData) {
+                var itemsHtml = '';
+                topicData.forEach(function (item, i) {
+                    if (i % 3 === 0 && i !== 0) {
+                        itemsHtml += '</div></div>';
+                    }
+                    if (i % 3 === 0 || i === 0) {
+                        itemsHtml += '<div class="carousel-item item ' + (i === 0 ? "active" : "") + '"><div class="row profiles-row">';
+                    }
+                    itemsHtml += '' +
+                        '<div class="col-xs-4 col-4">' +
+                        '<div class="toggle-card">' +
+                        '<input type="radio" id="trial-topic-card-' + item.id + '" name="topicId" value="' + item.id + '" data-topic-card-cta data-courseId="' + item.courseId + '" data-cohortId="' + item.cohortId + '" data-name="' + item.name + '">' +
+                        '<label for="trial-topic-card-' + item.id + '">' +
+                        '<p>' + item.name + '</p>' +
+                        '</label>' +
+                        '</div>' +
+                        '</div>' +
+                        '';
+                    if (topicData.length - 1 === i) {
+                        itemsHtml += '</div></div>';
+                    }
+                    timeSlotsWithId[item.id] = {};
+                    timeSlotsWithId[item.id] = item;
+                });
+
+                return itemsHtml;
+            }
+
+            topicSelector.find('[data-topics]').html(html);
+            topicSelector.find('[data-topics]').removeClass('hidden');
+            TRIAL.carouselControlHandler('#trial-topics-carousel');
+
+            // on change of profile selection
+            topicSelector.find('[data-topic-card-cta]').on('change', function () {
+                if ($(this).is(':checked')) {
+                    var topicId = $(this).attr('value');
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['topicId'] = topicId;
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['topicName'] = $(this).attr('data-name');
+
+                    // resetting data
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['slotId'] = '';
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['startTime'] = '';
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['endTime'] = '';
+                    formEle.find('[data-time-slots]').removeClass('input-error')
+                    formEle.find('[data-time-slots]').siblings('.input-error-msg').remove();
+
+                    TRIAL.showAndSlotsBuilder(formEle, timeSlotsWithId[topicId]);
+
+                    TRIAL.validatedFormFieldsValues['free-trial-classes']['courseId'] = $(this).attr('data-courseid');
+                    topicSelector.find('[data-topics]').removeClass('input-error').addClass('input-valid');
+                    topicSelector.find('[data-topics]').siblings('.input-error-msg').remove();
+
+                    TRIAL.cleverTap('topic_selected'); // Once a user selects a class topic on lead form 2nd page
+                }
+
+            })
+        },
+
+        showAndSlotsBuilder: function (formEle, slots) {
+            TRIAL.validatedFormFieldsValues['free-trial-classes']['isSlotOptionEnabled'] = true;
+            var timeSlot = formEle.find('[data-time-slots]');
+            var slotsHeaderHtml = '<ul role="tablist" class="tablist">';
+            var morningHtml = '<div class="slot-time-section"><div class="slot-card-time"><img src="' + CDN + 'byjusweb/slot-icons/morning-slot-icon.svg" width="16" height="16"> Morning</div> <div>';
+            var afternoonHtml = '<div class="slot-time-section"><div class="slot-card-time afternoon"><img src="' + CDN + 'byjusweb/slot-icons/afternoon-slot-icon.svg" width="16" height="16"> Afternoon</div> <div>';
+            var eveningHtml = '<div class="slot-time-section"><div class="slot-card-time evening"><img src="' + CDN + 'byjusweb/slot-icons/evening-slot-icon.svg" width="16" height="16"> Evening</div> <div>';
+
+            var categorizedSlots = {
+                'today': [],
+                'todayHours': [],
+                'todayMinutes': [],
+                'tomorrow': [],
+                'tomorrowHours': [],
+                'tomorrowMinutes': [],
+                'dayAfter': [],
+                'dayAfterHours': [],
+                'dayAfterMinutes': [],
+            };
+
+            var todaysCount = 0,
+                tomorrowCount = 0,
+                dayAfterCount = 0;
+            slots.slots.forEach(function (item, i) {
+                if (item.category === 'today') {
+                    todaysCount++;
+                }
+                if (item.category === 'tomorrow') {
+                    tomorrowCount++;
+                }
+                if (item === 'dayAfter') {
+                    dayAfterCount++;
+                }
+                item.isBogusSlot = false;
+                categorizedSlots[item.category].push(item); // categorizing slots wrt days
+                categorizedSlots[item.category + 'Hours'].push(parseInt(item.hour)); // getting hour, minutes
+                categorizedSlots[item.category + 'Minutes'].push(parseInt(item.minutes)); // getting hour, minutes
+            });
+
+            // get temp dummy slot for the first time
+            var tempBogusSlot = {};
+            var selectedCategory = '';
+            if (categorizedSlots.today.length) {
+                selectedCategory = 'today';
+            } else if (categorizedSlots.tomorrow.length) {
+                selectedCategory = 'tomorrow';
+            } else if (categorizedSlots.dayAfter.length) {
+                selectedCategory = 'dayAfter';
+            }
+            for (var key in categorizedSlots[selectedCategory][0]) {
+                tempBogusSlot[key] = categorizedSlots[selectedCategory][0][key];
+            }
+
+            // get hour andMinutes
+            var selectedHours = [];
+            categorizedSlots[selectedCategory + 'Hours'].forEach(function (item) {
+                if (selectedHours.indexOf(item) === -1) selectedHours.push(item)
+            });
+
+            var tempSlots = []; // copying array with no same reference
+            if (typeof (fixedSlotsForBogus) !== 'undefined' && fixedSlotsForBogus && fixedSlotsForBogus.afternoon && fixedSlotsForBogus.evening && fixedSlotsForBogus.morning) { // if this is exist
+                if (tempBogusSlot && getBogusHour()) {
+                    tempBogusSlot.isBogusSlot = true;
+                    tempBogusSlot.slot_group_id = 11111111111111;
+                    tempBogusSlot.slot_id = 11111111111111;
+                    tempBogusSlot.hour = getBogusHour();
+                    tempBogusSlot.minutes = '00';
+                    tempBogusSlot.meridiem = getBogusMeridiem();
+
+                    // counter increment + adding bogus slot
+                    if (selectedCategory === 'today') {
+                        todaysCount++;
+                        tempSlots = tempSlots.concat(TRIAL.sortBasedTime(categorizedSlots['today'].concat([tempBogusSlot])), categorizedSlots['tomorrow'], categorizedSlots['dayAfter']);
+                    } else if (selectedCategory === 'tomorrow') {
+                        tomorrowCount++;
+                        tempSlots = tempSlots.concat(categorizedSlots['today'], TRIAL.sortBasedTime(categorizedSlots['tomorrow'].concat([tempBogusSlot])), categorizedSlots['dayAfter']);
+                    } else {
+                        dayAfterCount++;
+                        tempSlots = tempSlots.concat(categorizedSlots['today'], categorizedSlots['tomorrow'], TRIAL.sortBasedTime(categorizedSlots['dayAfter'].concat([tempBogusSlot])));
+                    }
+                } else {
+                    tempSlots = slots.slots;
+                }
+
+                function getBogusHour() {
+                    var bogusHour = '';
+                    var flag = true;
+                    fixedSlotsForBogus[tempBogusSlot.subCategory].forEach(function (item, i) {
+                        if (selectedHours.indexOf(item) === -1 && flag) {
+                            bogusHour = item.toString().length < 2 ? '0' + item : item;
+                            flag = false;
+                        }
+                    });
+                    return bogusHour ? bogusHour.toString() : '';
+                }
+
+                function getBogusMeridiem() {
+                    // based on fixedSlotsForBogus set
+                    switch (tempBogusSlot.subCategory) {
+                        case 'morning':
+                            return 'AM';
+                            break;
+                        case 'afternoon':
+                        case 'evening':
+                            return 'PM';
+                            break;
+                        default:
+                            return 'PM'
+                    }
+                }
+            } else {
+                tempSlots = slots.slots;
+            }
+
+            var slotsTabsHtml = '';
+            var todayMorningHtml = '',
+                todayAfternoonHtml = '',
+                todayEveningHtml = '';
+            var tomorrowMorningHtml = '',
+                tomorrowAfternoonHtml = '',
+                tomorrowEveningHtml = '';
+            var dayAfterMorningHtml = '',
+                dayAfterAfternoonHtml = '',
+                dayAfterEveningHtml = '';
+
+            var dayAfterCounter = 0,
+                todaysCounter = 0,
+                tomorrowCounter = 0;
+            tempSlots.forEach(function (item, i) {
+                if (item.category === 'today') {
+                    if (todaysCounter === 0) {
+                        slotsTabsHtml += '<div role="tabpanel" class="tab-pane ' + (!tomorrowCounter && !dayAfterCounter ? 'active' : '') + '" id="time-slot-0">';
+                        slotsHeaderHtml += '<li role="presentation" class="' + (!tomorrowCounter && !dayAfterCounter ? 'active' : '') + '"><span class="badge"><img src="' + CDN + 'byjusweb/slot-icons/fast-tag-icon.svg" width="8"  height="3">Filling Fast</span><a href="#time-slot-0" aria-controls="home" role="tab" data-toggle="tab">Today, <b>' + item.categoryDate + '</b></a></li>';
+                    }
+                    if (item.subCategory === 'morning') {
+                        todayMorningHtml += TRIAL.buildSlotCard(item);
+                    } else if (item.subCategory === 'afternoon') {
+                        todayAfternoonHtml += TRIAL.buildSlotCard(item);
+                    } else {
+                        todayEveningHtml += TRIAL.buildSlotCard(item);
+                    }
+                    todaysCounter++;
+                    if (todaysCount === todaysCounter) {
+                        if (todayMorningHtml) {
+                            slotsTabsHtml += morningHtml + todayMorningHtml + '</div></div>';
+                        }
+                        if (todayAfternoonHtml) {
+                            slotsTabsHtml += afternoonHtml + todayAfternoonHtml + '</div></div>';
+                        }
+                        if (todayEveningHtml) {
+                            slotsTabsHtml += eveningHtml + todayEveningHtml + '</div></div>'
+                        }
+                        slotsTabsHtml += '</div>'; // closing tab panel
+                    }
+                } else if (item.category === 'tomorrow') {
+                    if (tomorrowCounter === 0) {
+                        slotsTabsHtml += '<div role="tabpanel" class="tab-pane ' + (!todaysCounter && !dayAfterCounter ? 'active' : '') + '" id="time-slot-1">';
+                        slotsHeaderHtml += '<li role="presentation" class="' + (!todaysCounter && !dayAfterCounter ? 'active' : '') + '"><a href="#time-slot-1" aria-controls="home" role="tab" data-toggle="tab">Tomorrow, <b>' + item.categoryDate + '</b></a></li>';
+                    }
+                    if (item.subCategory === 'morning') {
+                        tomorrowMorningHtml += TRIAL.buildSlotCard(item);
+                    } else if (item.subCategory === 'afternoon') {
+                        tomorrowAfternoonHtml += TRIAL.buildSlotCard(item);
+                    } else {
+                        tomorrowEveningHtml += TRIAL.buildSlotCard(item);
+                    }
+                    tomorrowCounter++;
+                    if (tomorrowCount === tomorrowCounter) {
+                        if (tomorrowMorningHtml) {
+                            slotsTabsHtml += morningHtml + tomorrowMorningHtml + '</div></div>';
+                        }
+                        if (tomorrowAfternoonHtml) {
+                            slotsTabsHtml += afternoonHtml + tomorrowAfternoonHtml + '</div></div>';
+                        }
+                        if (tomorrowEveningHtml) {
+                            slotsTabsHtml += eveningHtml + tomorrowEveningHtml + '</div></div>'
+                        }
+                        slotsTabsHtml += '</div>'; // closing tab panel
+                    }
+                } else if (item.category === 'dayAfter') {
+                    if (dayAfterCounter === 0) {
+                        slotsTabsHtml += '<div role="tabpanel" class="tab-pane ' + (!todaysCounter && !tomorrowCounter ? 'active' : '') + '" id="time-slot-2">';
+                        slotsHeaderHtml += '<li role="presentation" class="' + (!todaysCounter && !tomorrowCounter ? 'active' : '') + '"><a href="#time-slot-2" aria-controls="home" role="tab" data-toggle="tab"><b>' + item.categoryDate + '</b></a></li>';
+                    }
+                    if (item.subCategory === 'morning') {
+                        dayAfterMorningHtml += TRIAL.buildSlotCard(item);
+                    } else if (item.subCategory === 'afternoon') {
+                        dayAfterAfternoonHtml += TRIAL.buildSlotCard(item);
+                    } else {
+                        dayAfterEveningHtml += TRIAL.buildSlotCard(item);
+                    }
+                    dayAfterCounter++;
+                    if (dayAfterCount === dayAfterCounter) {
+                        if (dayAfterMorningHtml) {
+                            slotsTabsHtml += morningHtml + dayAfterMorningHtml + '</div></div>';
+                        }
+                        if (dayAfterAfternoonHtml) {
+                            slotsTabsHtml += afternoonHtml + dayAfterAfternoonHtml + '</div></div>';
+                        }
+                        if (dayAfterEveningHtml) {
+                            slotsTabsHtml += eveningHtml + dayAfterEveningHtml + '</div></div>'
+                        }
+                        slotsTabsHtml += '</div>'; // closing tab panel
+                    }
+                } else {
+                    slotsTabsHtml = '';
+                }
+            });
+
+            timeSlot.html(slotsHeaderHtml + '</ul>' + '<div class="tab-content">' + slotsTabsHtml + '</div>');
+            timeSlot.removeClass('hidden');
+            timeSlot.find('[data-time-slots-title]').removeClass('hidden');
+
+            formEle.find('[data-slot-cta]').on('change', function () {
+                TRIAL.validatedFormFieldsValues['free-trial-classes']['slotId'] = $(this).attr('data-slotid');
+                TRIAL.validatedFormFieldsValues['free-trial-classes']['startTime'] = $(this).attr('data-start');
+                TRIAL.validatedFormFieldsValues['free-trial-classes']['endTime'] = $(this).attr('data-end');
+
+                timeSlot.removeClass('input-error').addClass('input-valid');
+                timeSlot.siblings('.input-error-msg').remove();
+
+                TRIAL.cleverTap('slot_selected'); // Once a user selects a time slot on lead form
+            });
+
+            //  tab events
+            timeSlot.find('[data-toggle="tab"]').on('click', function (e) {
+                e.preventDefault();
+                $(this).parent().siblings().removeClass('active');
+                $(this).parent().addClass('active');
+                $(this).removeClass('active');
+
+                var tabId = $(this).attr('href');
+                $(tabId).siblings().removeClass('active');
+                $(tabId).addClass('active');
+            })
+        },
+
+        buildSlotCard: function (cardData) {
+            return '<div class="slot-card ' + (cardData.isBogusSlot ? "full" : "") + '">' +
+                ' <input type="radio" id="trial-slot-card-' + cardData.slot_id + '" name="slotTime" data-start="' + cardData.start_time + '" data-end="' + cardData.end_time + '" data-slotId="' + cardData.slot_id + '" data-slot-cta ' + (cardData.isBogusSlot ? "disabled" : "") + '>' +
+                '<label for="trial-slot-card-' + cardData.slot_id + '">' + cardData.hour + ':' + cardData.minutes + ' ' + cardData.meridiem.toUpperCase() + '</label>' +
+                '</div>';
+        },
+
+        carouselControlHandler: function (carousalId) {
+            var items = $(carousalId).find('.item');
+            var leftControl = $(carousalId).find('.left.carousel-control');
+            var rightControl = $(carousalId).find('.right.carousel-control');
+            $(carousalId).on('slid.bs.carousel', function () {
+                if (TRIAL.findIndexOfElements(items, 'active') === 0) {
+                    leftControl.addClass('hidden');
+                    rightControl.removeClass('hidden');
+                } else if (TRIAL.findIndexOfElements(items, 'active') === items.length - 1) {
+                    rightControl.addClass('hidden');
+                    leftControl.removeClass('hidden');
+                } else {
+                    rightControl.removeClass('hidden');
+                    leftControl.removeClass('hidden');
+                }
+            })
+        },
+
+        setStates: function (stateSelector) {
+            // setting state
+            $.get(CONFIG.apis.allStatesUnderIndia, function (data, status, xhr) {
+                if (xhr.status === 200) {
+                    var optionsHtml = '<option value="" disabled="" selected>State</option>';
+                    data && data.statusText != "error" && data.forEach(function (item, i) {
+                        optionsHtml += '<option value="' + item.state + '">' + item.state + '</option>'
+                    })
+                    stateSelector.html(optionsHtml);
+                } else {
+                    UTILITIES.addToastMessage(0, CONFIG.messages.somethingWentWrong);
+                }
+            });
+        }
+    };
+
+    //  on load ----
+
+    // all input field validation
+    $('form').each(function (i, ele) {
+        TRIAL.validateFormFields($(ele).attr('name'), 'onInput');
+        // on input first time call
+    });
+
+    TRIAL.setStates($('[data-state]'));
+    // set states
+    TRIAL.registration('free-trial-classes');
+
+    $('[name="viewport"]').attr('content', 'width=device-width, initial-scale=1, user-scalable=0'); // fixing zoom issue on iphone mobile
+})($);

@@ -1,0 +1,91 @@
+function countrySelectionPopupStrip (pageType) {
+    if( jQuery('[data-country-popup-strip]').length > 0 ) {
+        var countryCode;
+        var formDataCountryPopup = {
+            'page_type': pageType,
+            'url_path': C_URL,
+            'place': ''
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url:  BASE_URL + 'wp-json/spidy/v1/check_country_api/?wp-json_allow',
+            data: formDataCountryPopup,
+            success: function(response) {
+                if(response.success) {
+                    var htmlStringOption;
+                    if(!response.data.segement) {
+                        if(response.data.popup) {
+                            if(pageType === 'home') { // add popup strip before Header of India Home Page
+                                jQuery('header').before(jQuery('#geo-country-selection-popup'));
+                            }
+                            if( 
+                                ( response.data.flag === 'IN' && ( response.data.logo =='//' || response.data.logo == '/support-center/' )) ||
+                                (response.data.flag === 'CA' &&  response.data.logo =='/ca/' ) ||
+                                (response.data.flag === 'US' && response.data.logo =='/us/' )                                
+                                )  {
+                                jQuery('[data-country-popup-strip]').addClass('hidden');
+                            } else {
+                                jQuery('[data-country-popup-strip]').removeClass('hidden');
+                                htmlStringOption = '<option '+ ( (response.data.flag === 'CA') ? 'selected' : '') + ' value="ca/'+response.data.segment+'"> CA </option>';
+                                htmlStringOption += '<option '+ ( (response.data.flag === 'US') ? 'selected' : '') + ' value="us/'+response.data.segment+'"> US </option>';
+                                htmlStringOption += '<option '+ ( (response.data.flag === 'IN') ? 'selected' : '') + ' value="'+response.data.segment+'"> India </option>';
+                                jQuery('[data-country-dropdown]').append(htmlStringOption);
+                                var path_name = document.location.pathname;                                
+                                if((path_name == '/' || path_name == '')  && response.data.flag == 'US') {
+                                    jQuery('head').after('<link rel="stylesheet" href="https://cdn1.byjus.com/byjusweb/css/custom-bootstrap.css" type="text/css" />');
+                                    setTimeout(function() {
+                                        var popupHtmlString = '<div class="modal fade country-popup-for-us" id="country-popup-for-us-modal" data-backdrop="static" data-keyboard="false" role="dialog">'+
+                                                                '<div class="modal-dialog country-popup-dialog-for-us">'+
+                                                                    '<div class="modal-content">'+
+                                                                        '<div class="modal-body country-popup-body">'+
+                                                                            '<p class="choose-region-text"><span>Choose your country or region</span>  <br> to see content specific <br> to your location.</p>'+
+                                                                            '<div class="geo-country-selection-dropdown">'+
+                                                                                '<form>'+
+                                                                                    '<div class="form-group form-group-us-country">'+
+                                                                                        '<select class="form-control" id="country-popup-page" data-country-dropdown-us data-country-dropdown></select>'+
+                                                                                    '</div>'+
+                                                                                    '<input type="button" class="btn btn-info countinue-btn" role="button" value="Continue" onclick="continueFun(\'popup\')">'+
+                                                                                '</form>'+
+                                                                            '</div>'+
+                                                                        '</div>'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                            '</div>';
+                                    jQuery('body').after(popupHtmlString);
+                                    jQuery('[data-country-dropdown-us]').append(htmlStringOption);
+                                    jQuery('#country-popup-for-us-modal').modal('show');
+                                    }, 1500);
+                                }
+                                jQuery('[data-country-dropdown]').after('<input type="hidden" data-country-flag="'+ response.data.flag +'">');
+                            }                            
+                        }
+                    }
+                }
+            },
+            error: function(error){
+                console.log('error:', error);
+            }
+        });
+    }   
+}
+
+function continueFun(continueFrom){
+    var selCountry = jQuery('#country').val();
+
+    if(continueFrom == 'popup') { // for us popup form
+         selCountry = jQuery('#country-popup-page').val();
+    }
+    var countryFlag = jQuery('.geo-country-selection-dropdown').find('[data-country-flag]').attr('data-country-flag');
+    //Event capture when user is on Byjus home page in US and selected US from country dropdown
+    var path_name = document.location.pathname;
+    if(GA_FLAG && (path_name == '/' || path_name == '') && selCountry == 'us/' && countryFlag == 'US'){
+        // trigger event on basis of popup
+        (continueFrom == 'popup') ? ga("send", "event", "Country Popup Continue Btn", "Country Block Popup US Selection", 'Country Block Popup US Selection'): ga("send", "event", "Country Popup Continue Btn", "Country Popup US Selection", 'Country Popup US Selection');
+    }
+    return window.open(BASE_URL + selCountry,"_self");
+}
+
+function closeBtn() {
+    jQuery('[data-country-popup-strip]').addClass('hidden');
+}

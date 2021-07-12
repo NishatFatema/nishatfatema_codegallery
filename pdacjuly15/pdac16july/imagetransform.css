@@ -1,0 +1,17 @@
+.image:hover{
+
+    transform: rotate(360deg);
+
+    cursor: pointer;
+    
+}
+.image{
+
+    display: inline-block;
+    text-align: center;
+    height: 200px;
+    width:200px;
+    padding: 20px;
+    margin: 30px;
+    transition: width 2s,height 2s,transform 4s;
+}

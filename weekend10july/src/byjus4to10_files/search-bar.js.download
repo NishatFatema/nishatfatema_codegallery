@@ -1,0 +1,84 @@
+var WIDGETS = {
+	// this function will take care of search submit
+	searchWidget: function () {
+		function searchInputValiadation(se, sf) {
+			var sel_value = se.val().trim();
+			se.val(sel_value);
+			var msg = "";
+			var reg_exp = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:/g;
+			se.siblings(".input-error-msg").remove();
+			if (!sel_value || sel_value === null) {
+				msg = "Search keyword is required.";
+			} else if (sel_value.indexOf("byjus.com/") != -1) {
+				sel_value = sel_value
+					.split("byjus.com/")[1]
+					.split("/")
+					.join(" ");
+				se.val(sel_value.trim());
+			// } else if (sel_value.match(reg_exp)) {
+			// 	msg = "Special characters not allowed.";
+			// } else if (sel_value.length > 50) {
+			// 	msg = "Allowed maximum 50 characters only.";
+			}
+
+			if (msg) {
+				se.addClass("input-error").removeClass("input-valid");
+				se.after('<div class="input-error-msg">' + msg + "</div>");
+				return false;
+			} else {
+				se.removeClass("input-error");
+				se.addClass("input-valid");
+				return true;
+			}
+			return false;
+		}
+
+		// desktop
+		var se = jQuery("#search-widget input");
+		var sf = jQuery("#search-widget form");
+		se.on("blur change", function (e) {
+			searchInputValiadation(se, sf);
+		});
+
+		sf.submit(function (e) {
+			if (!searchInputValiadation(se, sf)) {
+				e.preventDefault();
+			} else {
+				if (GA_FLAG)
+					ga(
+						"send",
+						"event",
+						"SearchWidget",
+						"On search form submit",
+						"Search Keyword: " + se.val() + ",Page Url: " + C_URL
+					);
+			}
+		});
+
+		// mobile
+		var se_m = jQuery("#search-bar-m input");
+		var sf_m = jQuery("#search-bar-m form");
+		se_m.on("blur change", function (e) {
+			searchInputValiadation(se_m, sf_m);
+		});
+
+		sf_m.submit(function (e) {
+			if (!searchInputValiadation(se_m, sf_m)) {
+				e.preventDefault();
+			} else {
+				if (GA_FLAG)
+					ga(
+						"send",
+						"event",
+						"SearchWidget",
+						"On search form submit",
+						"Search Keyword: " + se.val() + ",Page Url: " + C_URL
+					);
+			}
+		});
+	}
+};
+jQuery(document).ready(function () {
+	WIDGETS.searchWidget();
+
+})

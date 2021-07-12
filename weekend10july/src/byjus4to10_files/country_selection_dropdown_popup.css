@@ -1,0 +1,355 @@
+/* Geo country selection popup */
+.top {
+    top: 60px;
+    border-width: 0 0 1px;
+    background-color: #813588;
+}
+
+.geo-country-selection-popup.hidden + .top {
+	top: 0px;
+} 
+
+.geo-country-selection-popup {
+	position: relative;
+    width: 100%;
+    z-index: 99999;
+	background: #444;
+	color: #fff;
+}
+
+.geo-country-selection-popup .geo-country-selection-text {
+	color: #fff;
+	padding: 24px;
+	font-size: 13px;
+}
+
+.geo-country-selection-popup .geo-country-selection-dropdown {	
+	margin-bottom: 0;
+	padding: 15px;
+}
+
+.geo-country-selection-popup .geo-country-selection-dropdown .form-group{
+	margin-bottom: 0;
+}
+
+.geo-country-selection-popup .geo-country-selection-dropdown .form-group .form-control {
+	background: #444;
+	color: #fff;
+	padding-left: 10px;
+	font-size: 15px;
+	border: 1px solid #707070;
+	border-radius: 4px;
+	background-color: #575757;
+	min-width: 345px;
+}
+
+/* The container must be positioned fixed: */ 
+.geo-country-selection-dropdown select {
+	cursor: pointer;
+} 
+
+
+.geo-country-selection-popup .select-selected {
+	background-color: #575757;
+    min-width: 330px;
+	height: 35px;
+	border-radius: 5px;
+  }
+  
+  /* Style the arrow inside the select element: */
+.geo-country-selection-popup .select-selected:after {
+	position: absolute;
+	content: "";
+	top: 13px;
+	right: 10px;
+	width: 0;
+	height: 0;
+	border: 6px solid transparent;
+	border-color: #fff transparent transparent transparent;
+  }
+  
+  /* Point the arrow upwards when the select box is open (active): */
+.geo-country-selection-popup .select-selected.select-arrow-active:after {
+	border-color: transparent transparent #fff transparent;
+	top: 10px;
+  }
+  
+  /* style the items (options), including the selected item: */
+.geo-country-selection-popup .select-items div,.select-selected {
+	color: #ffffff;
+	padding: 5px 16px;
+	border: 1px solid transparent;
+	border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+	cursor: pointer;
+	text-align: left;
+  }
+  
+  /* Style items (options): */
+.geo-country-selection-popup .select-items {
+	position: absolute;
+	text-align: left;
+	background-color: #575757;
+	top: 100%;
+	left: 0;
+	right: 0;
+	z-index: 99;
+  }
+  
+  /* Hide the items when the select box is closed: */
+.geo-country-selection-popup .select-hide {
+	display: none;
+  }
+  
+.geo-country-selection-popup .select-items div:hover,.geo-country-selection-popup .same-as-selected {
+	background-color: rgba(0, 0, 0, 0.1);
+  }
+
+.geo-country-selection-popup .countinue-btn { 
+	margin: 14px 0;
+	margin-left: -100px;
+	font-size: 17px;
+    line-height: 1.52947;
+    font-weight: 500;
+    letter-spacing: -.021em;
+    font-family: "SF Pro Text","Myriad Set Pro",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","SF Pro Icons","Apple Legacy Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    background-color: #0070c9;
+    background: -webkit-linear-gradient(#42a1ec, #0070c9);
+    background: linear-gradient(#42a1ec, #0070c9);
+    border-color: #07c;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.geo-country-selection-popup .close {
+	position: absolute;
+	right: 60px;
+	top: 15px;
+	width: 32px;
+	height: 32px;
+	opacity: 1;
+	cursor: pointer;
+}
+.geo-country-selection-popup .close:hover {
+	opacity: 1;
+}
+.geo-country-selection-popup .close:before,.geo-country-selection-popup .close:after {
+	position: absolute;
+	top: 5px;
+	left: 15px;
+	content: ' ';
+	height: 20px;
+	width: 2px;
+	background-color: #999;
+}
+.geo-country-selection-popup .close:before {
+	transform: rotate(45deg);
+}
+.geo-country-selection-popup .close:after {
+	transform: rotate(-45deg);
+}
+
+.geo-country-selection-popup div.open > a > span {
+	border-top: 0px !important;
+	border-bottom: 4px dashed !important;
+  }
+
+@media(min-width:300px) and (max-width:467.98px) {
+	.geo-country-selection-popup .geo-country-selection-dropdown .form-group .form-control {
+		min-width: 160px;
+	}
+	.geo-country-selection-popup .geo-country-selection-text {
+		color: #fff;
+		padding: 15px 0px 0px 10px;
+		font-size: 14px;
+		text-align: left;
+		max-width: 90%;
+	}
+	.geo-country-selection-popup .close {
+		position: absolute;
+		right: 0px;
+		top: -45px;
+		width: 32px;
+		height: 32px;
+		opacity: 1;
+	}
+	.geo-country-selection-popup .geo-country-selection-dropdown .form-group {
+		margin-bottom: 0;
+		width: 80%;
+	}
+	.geo-country-selection-popup .select-selected {
+		background-color: #575757;
+		min-width: 170px;
+		height: 35px;
+		border-radius: 5px;
+		margin-left: -5px;
+	}
+	.geo-country-selection-popup .select-items {
+		margin-left: -5px;
+	}
+
+	.geo-country-selection-popup .countinue-btn {
+		margin-left: -15px;
+	}
+}
+@media(min-width:468px) and (max-width:767.98px) {
+	.geo-country-selection-popup .geo-country-selection-dropdown .form-group .form-control {
+		min-width: 250px;
+	}
+	.geo-country-selection-popup .geo-country-selection-text {
+		text-align: left;
+		width: 65%;
+	}
+	.geo-country-selection-popup .close {
+		position: absolute;
+		right: 30px;
+		top: -65px;
+		width: 32px;
+		height: 32px;
+		opacity: 1;
+	}
+	.geo-country-selection-popup .select-selected {
+		background-color: #575757;
+		min-width: 245px;
+		height: 35px;
+		border-radius: 5px;
+	}
+
+}
+@media(min-width:768px) and (max-width:991.98px) {
+	.geo-country-selection-popup .geo-country-selection-dropdown .form-group .form-control {
+		max-width: 170px;
+		min-width: 0px;
+	}
+	.geo-country-selection-popup .geo-country-selection-text {
+		color: #fff;
+		padding: 13px 20px;
+		font-size: 14px;
+		text-align: left;
+	}
+	.geo-country-selection-popup .select-selected {
+		min-width: 165px;
+	}
+	.geo-country-selection-popup .close {
+		right: 22px;
+		top: 15px;
+	}
+
+}
+@media(min-width:992px) and (max-width:1198.98px) {
+	.geo-country-selection-popup .geo-country-selection-dropdown .form-group .form-control {
+		max-width: 260px;
+		min-width: 0px;
+	}
+	.geo-country-selection-popup .geo-country-selection-text {
+		color: #fff;
+		padding: 10px 20px;
+		font-size: 14px;
+		text-align: left;
+	}
+	.geo-country-selection-popup .select-selected {
+		background-color: #575757;
+		min-width: 250px;
+		height: 35px;
+		border-radius: 5px;
+	}
+	.geo-country-selection-popup .close {
+		right: 30px;
+		top: 15px;
+	}
+
+}
+@media(min-width:1200px) and (max-width:1498.98px) {
+	.geo-country-selection-popup .geo-country-selection-dropdown .form-group .form-control {
+		max-width: 330px;
+	}
+}
+
+/* country-popup for us */
+.country-popup-dialog-for-us {
+	top: 50%;
+	transform: translateY(-50%)!important;
+	font-family: Roboto,sans-serif;
+	max-width: 400px;
+}
+.modal-body.country-popup-body {
+	padding: 30px 20px;
+	text-align: center;
+}
+p.choose-region-text { 
+	margin-bottom: 30px;
+	font-size: 20px;
+	color: #707070;
+	line-height: 1.2;
+}
+p.choose-region-text span {
+	font-weight: bold;
+}
+
+.form-group-us-country {text-align: center;}
+.country-popup-for-us .form-group-us-country select {
+	position: relative;
+	width: 80%;
+    height: 45px;
+    margin-left: auto;
+    margin-right: auto;
+	border: 1px solid #494949;
+    color: #494949;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 20px;
+    appearance: inherit;
+	-webkit-appearance: none;
+  	-moz-appearance: none;
+  	appearance: none;
+	  background: transparent;
+  	background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+	background-repeat: no-repeat;
+	background-position-x: 98%;
+	background-position-y: 8px;
+	margin-bottom: 30px;
+}
+
+.country-popup-for-us .countinue-btn {
+	border-radius: 30px;
+    padding: 12px 70px;
+	color: white;
+    background: #94419c;
+	font-size: 18px;
+	box-shadow: 0 0 13.3px 0 rgb(0 0 0 / 25%);
+	outline: none;
+}
+.country-popup-for-us .countinue-btn:hover,
+.country-popup-for-us .countinue-btn:focus
+.country-popup-for-us .countinue-btn:active,
+.country-popup-for-us .countinue-btn:visited,
+.country-popup-for-us .countinue-btn:target,
+.country-popup-for-us .countinue-btn:focus-within {
+	color: white;
+    background: #94419c;
+	outline: none;
+}
+@media(max-width: 340px) {
+	p.choose-region-text {
+		font-size: 18px;
+	}
+	.country-popup-for-us .form-group-us-country select {
+		height: 40px;
+		background-position-y: 5px;
+	}
+	.country-popup-for-us .countinue-btn {
+		padding: 10px 57px;
+		font-size: 18px;
+	}
+}

@@ -1,0 +1,52 @@
+nav{
+  background-color: rgb(59, 139, 115);
+  
+}
+  a{
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+    font-family: 'Lobster', cursive;
+  }
+
+.heading{
+    letter-spacing: 3px;
+    text-align:center
+}
+i{
+    padding: 20px;
+}
+
+.table1{
+
+  margin: auto;
+
+      }
+th{
+  background-color: tomato;
+  border-radius:15px;
+
+  
+}
+
+tr{
+
+  padding: 20px ;
+  border-radius: 15px;
+}
+
+td{
+  padding:20px ;
+  font-weight: bolder;
+  border-radius: 20px;
+}
+tr:nth-child(even){
+  background-color: peru;
+  color: black;
+}
+tr:nth-child(odd){
+  background-color: teal;
+  color: white;
+
+}
+
