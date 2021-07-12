@@ -1,0 +1,4020 @@
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.bj-advantages .bj-adv-list .bj-adv-item {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.bj-advantages .bj-adv-list .bj-adv-item img {
+  width: 200px;
+  height: auto;
+}
+
+.bj-advantages .bj-adv-list .bj-adv-item p {
+  font-size: 20px;
+  line-height: 22px;
+  color: #333333;
+  margin: 0 auto;
+  margin-top: 15px;
+  max-width: 250px;
+}
+
+@media (min-width: 768px) {
+  .bj-advantages .bj-adv-list .bj-adv-item p {
+    max-width: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .bj-advantages {
+    padding-top: 30px !important;
+  }
+
+  .bj-advantages .bj-adv-list .bj-adv-item img {
+    width: 250px;
+  }
+
+  .bj-advantages .bj-adv-list .bj-adv-item p {
+    font-size: 22px;
+    line-height: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bj-advantages .bj-adv-list .bj-adv-item img {
+    width: 300px;
+  }
+
+  .bj-advantages .bj-adv-list .bj-adv-item p {
+    font-size: 26px;
+    line-height: 32px;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .bj-advantages .bj-adv-list .bj-adv-item img {
+    width: 350px;
+  }
+}
+
+.bj-students-parents, .footer-curve {
+  padding-top: 50px !important;
+  padding-bottom: 80px !important;
+  position: relative;
+}
+
+.footer-curve:after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: url(https://cdn1.byjus.com/byjusweb/img/home/svg/footer_wave_bottom.svg) no-repeat;
+  background-size: 100%;
+  background-position: left bottom;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  width: 100vw;
+  height: 100%;
+  z-index: 100;
+}
+
+.bj-students-parents .bj-sp-content {
+  z-index: 1000;
+  position: relative;
+}
+
+.bj-students-parents .stats-block {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.bj-students-parents .stats-block img {
+  display: inline-block;
+  margin-bottom: 20px;
+  width: auto;
+  height: 30px;
+}
+
+.bj-students-parents .stats-block .count {
+  color: #813588;
+  font-size: 22px;
+}
+
+.bj-students-parents .stats-block .name {
+  font-size: 14px;
+  line-height: 15px;
+  color: #333;
+}
+
+.bj-students-parents .right-10 {
+  right: 10px;
+}
+
+.bj-students-parents .bjTmCarousel {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+.bj-students-parents .slick-list.draggable{
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bj-students-parents .slick-list.draggable::-webkit-scrollbar{
+  display: none;
+}
+
+.bj-students-parents .testimonial-item {
+  text-align: center;
+}
+
+.bj-students-parents .testimonial-item .testimonial-img-block {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bj-students-parents .testimonial-item .testimonial-img-block .testimonial-img {
+  display: inline-block;
+  max-width: 136px;
+  height: 136px;
+}
+
+.bj-students-parents .testimonial-item .testimonial-img-block .testimonial-play-btn {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  max-width: 80px;
+  height: 50px;
+}
+
+.bj-students-parents .testimonial-item .testimonial-desc {
+  font-size: 13px;
+  line-height: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.bj-students-parents .testimonial-item .testimonial-name {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #333;
+}
+
+.bj-students-parents .testimonial-item .testimonial-as-a {
+  font-size: 12px;
+  line-height: 16px;
+  color: #666;
+}
+
+.bj-students-parents img {
+  vertical-align: middle;
+}
+
+.bj-sp-left-arrow{
+  margin-left: -50px;
+}
+
+.bj-sp-right-arrow{
+  margin-left: 30px
+}
+
+@media (max-width: 767.98px){
+  .bj-sp-left-arrow {
+    margin-left: -25px;
+  }
+
+  .bj-sp-right-arrow {
+    margin-left: 25px;
+  }
+}
+
+.bj-students-parents .carousel-controles {
+  position: absolute;
+  z-index: 1;
+  width: 40px;
+  height: 50px;
+  border-radius: 50%;
+  line-height: 44px;
+  margin-top: -25px;
+  top: 50%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.bj-students-parents .carousel-controles>img {
+  width: 15px;
+  height: auto;
+}
+
+.bj-students-parents .carousel-controles.left {
+  left: 0;
+  top: 40%;
+}
+
+.bj-students-parents .carousel-controles.left>img {
+  transform: rotate(-180deg);
+}
+
+.bj-students-parents .carousel-controles.right {
+  top: 40%;
+  right: 0;
+}
+
+.bj-students-parents .carousel-indicators {
+  position: relative;
+}
+
+.bj-students-parents .carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  background-color: #6236ff;
+  border-radius: 100%;
+  margin: 0 5px;
+}
+
+.bj-students-parents .review-btn {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.bj-students-parents .review-btn .btn {
+  font-size: 20px;
+}
+
+.yt-video-player {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.yt-video-player.show {
+  display: table !important;
+}
+
+.yt-video-player .modal-dialog {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+
+.yt-video-player .modal-dialog .modal-content {
+  background-color: #000;
+  width: 90%;
+  margin: 30px auto;
+}
+
+.yt-video-player .modal-dialog .modal-content .modal-body {
+  position: relative;
+  padding-bottom: 56.2637%;
+}
+
+.yt-video-player .modal-dialog .modal-content .modal-body iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.yt-video-player .close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 1024;
+  opacity: 1;
+  padding: 10px;
+  line-height: 1;
+  font-size: 12px;
+}
+
+.yt-video-player .close:focus,
+.yt-video-player .close:active {
+  outline: none;
+  border: none;
+}
+
+.yt-video-player .close svg {
+  width: 30px;
+  height: 30px;
+  fill: #fff;
+}
+
+@media (min-width: 300px) {
+  .yt-video-player .modal-dialog .modal-content {
+    width: 90%;
+  }
+}
+
+@media (min-width: 768px) {
+  .bj-students-parents .stats-block {
+    margin-bottom: 90px;
+  }
+
+  .bj-students-parents .stats-block img {
+    height: 42px;
+  }
+
+  .bj-students-parents .stats-block .count {
+    font-size: 24px;
+  }
+
+  .bj-students-parents .stats-block .name {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+@media (min-width: 992px) {
+  .bj-students-parents .stats-block .count {
+    font-size: 30px;
+    line-height: 26px;
+  }
+
+  .bj-students-parents .stats-block .name {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .yt-video-player .modal-dialog .modal-content {
+    width: 95%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bj-students-parents {
+    padding-bottom: 100px !important;
+  }
+
+  .bj-students-parents .carousel-indicators li {
+    width: 15px;
+    height: 15px;
+  }
+
+  .bj-students-parents .testimonial-item .testimonial-desc {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .bj-students-parents .testimonial-item .testimonial-name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .bj-students-parents .testimonial-item .testimonial-as-a {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .bj-students-parents .carousel-controles>img {
+    width: 30px;
+    height: auto;
+  }
+
+  .bj-students-parents .carousel-controles.left {
+    top: 50%;
+    left: -10px;
+  }
+
+  .bj-students-parents .carousel-controles.right {
+    top: 50%;
+    right: -10px;
+  }
+
+  .yt-video-player .modal-dialog {
+    width: 100%;
+  }
+
+  .yt-video-player .modal-dialog .modal-content {
+    width: 900px;
+  }
+
+}
+
+
+body {
+  font-size: 14px;
+  color: white;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+body::-webkit-scrollbar {
+  width: 3px;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+
+.visible-xs,
+.visible-sm {
+  display: none;
+}
+
+.container {
+  height: 100%;
+}
+
+.bj-btn {
+  font-size: 14px;
+  background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  border-radius: 30px;
+  padding: 10px 25px;
+  color: white;
+  border: none;
+  outline: none;
+  min-width: 170px;
+}
+
+.bj-btn:focus {
+  outline: none;
+}
+
+.bj-btn .btn-arrow {
+  margin-left: 10px;
+}
+
+.demo-shade {
+  background-image: linear-gradient(to right, #8c3fff, #5c72ff);
+}
+
+.register-shade {
+  background-image: linear-gradient(to right, #fc6076, #ff9231);
+}
+
+.explore-shade {
+  background-image: linear-gradient(to right, #0a72d1, #01b6e1);
+  margin-top: -4px;
+}
+
+.review-shade {
+  background-image: linear-gradient(to right, #9752ff, #5e93ff);
+}
+
+.bj-section {
+  padding: 5px 0;
+}
+
+.section-header {
+  font-size: 26px;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+  font-weight: normal;
+  outline: none;
+  border: none;
+}
+
+@media (min-width: 300px) {
+  .visible-xs {
+    display: inline-block;
+  }
+
+  .tb-block {
+    display: none;
+  }
+
+  .mb-block {
+    display: block;
+  }
+}
+
+@media (min-width: 576px) {
+  .visible-sm {
+    display: inline-block;
+  }
+
+  .tb-block {
+    display: none;
+  }
+
+  .mb-block {
+    display: block;
+  }
+}
+
+@media (min-width: 992px) {
+  .section-header {
+    font-size: 30px;
+  }
+
+  .tb-block {
+    display: none;
+  }
+
+  .mb-block {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .tb-block {
+    display: block;
+  }
+
+  .mb-block {
+    display: none;
+  }
+
+  .bj-btn {
+    font-size: 15px;
+  }
+
+  .section-header {
+    font-size: 33px;
+  }
+
+  .section-content {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .section-header {
+    font-size: 36px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
+[data-aos^=fade][data-aos^=fade] {
+  opacity: 1;
+  transform: translateZ(0);
+}
+
+@media (max-width: 500px) {
+  .yt-video-player .modal-dialog .modal-content {
+    margin: 0 !important;
+    width: 92%;
+    margin-top: 40px;
+  }
+
+  .modal-dialog {
+    padding-top: 90px;
+  }
+}
+
+a.bj-btn {
+  display: inline-block;
+}
+
+.bj-banner .card .card-text {
+  margin-bottom: 0.1rem;
+}
+
+.bj-banner .card .bj-btn {
+  margin-bottom: 0.4rem;
+}
+
+
+/* NEW */
+
+.bj-banner {
+  height: 100%;
+  position: relative;
+  background-color: #f5f2f5;
+}
+
+.bj-banner:after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: url(https://cdn1.byjus.com/byjusweb/img/home/svg/banner_wave_mob.svg) no-repeat;
+  background-size: 100%;
+  background-position: left bottom;
+  left: -1px;
+  bottom: -104px;
+  width: calc(100% + 5px);
+  height: inherit;
+  z-index: 1009;
+}
+
+.bj-banner .bj-banner-bg {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1000;
+  display: none;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  right: 50%;
+  transform: translate(50%, 0);
+  bottom: 2px;
+}
+
+.bj-banner .bj-srk {
+  position: absolute;
+  width: 800px;
+  height: auto;
+  left: 0;
+  bottom: 2px;
+  z-index: 1008;
+  display: none;
+}
+
+.bj-banner .bj-banner-wave {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  left: 0;
+  bottom: 0;
+  z-index: 1020;
+}
+
+.bj-banner .bj-banner-content {
+  position: relative;
+  padding-top: 0px !important;
+  width: 100%;
+  z-index: 1012;
+}
+
+.bj-banner .bj-banner-content-left-col {
+  /* display: none; */
+}
+
+.bj-form {
+  background-color: #f5f2f5;
+  color: #333;
+  margin-top: 40px;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 1199.98px) {
+  .bj-form {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .bj-form {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.bj-form .bj-btn {
+  margin: 10px 0;
+  text-transform: uppercase;
+  min-height: 40px;
+}
+
+.bj-form .header {
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+  display: block;
+  letter-spacing: -0.1px;
+}
+
+.bj-form .sub-header {
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1rem;
+  letter-spacing: -0.1px;
+  text-align: center;
+  display: block;
+  color: #666;
+}
+
+.bj-form .bj-promo-txt {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 12px;
+  color: #641d6b;
+}
+
+.bj-form .form-section {
+  margin-top: 1rem;
+}
+
+.bj-form .form-section .form-row .col {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.bj-form .form-section .form-row .grade-field {
+  margin-bottom: 1rem;
+}
+
+.bj-form .form-section .form-row .col.no-margin {
+  margin: 0;
+}
+
+.bj-form .form-section .form-row .bj-icon {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  z-index: 1030;
+  width: 1rem;
+  vertical-align: middle;
+}
+
+.bj-form .form-section .form-row .bj-icon.mobile {
+  width: 1.2rem;
+  left: 10px;
+}
+
+.bj-form .form-section .form-row .form-select-dd:invalid {
+  color: #b18eb5;
+}
+
+.bj-form .form-section .form-row .form-control {
+  border: 0.8px solid #b18eb5;
+  border-radius: 8px;
+  font-size: 14px;
+  height: 40px;
+  position: relative;
+  padding-left: 40px;
+  transition: all 0.3s linear 0s;
+}
+
+.bj-form .form-section .form-row .form-control:focus {
+  border: 0.8px solid rgba(100, 29, 107, 0.8) !important;
+  box-shadow: 0 4px 6px 0 rgba(100, 29, 107, 0.2) !important;
+}
+
+.bj-form .form-section .form-row .form-control[type=checkbox] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  display: inline-block;
+  top: 5px;
+  width: 1.5rem;
+  height: 1rem;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+
+.bj-form .form-section .form-row .form-control[type=checkbox]+span {
+  display: inline-block;
+}
+
+.bj-form .label-whatsappUpdates,
+.checkbox-whatsapp-update {
+  cursor: pointer;
+  font-weight: 300;
+  margin-bottom: 0px;
+}
+
+.bj-form .bj-whatsapp-updates {
+  position: relative;
+  font-size: 12px;
+  line-height: 20px;
+  color: #7b5b7e;
+}
+
+.bj-form ::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(100, 29, 107, 0.5);
+  opacity: 1;
+  /* Firefox */
+}
+
+.bj-form :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgba(100, 29, 107, 0.5);
+}
+
+.bj-form ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgba(100, 29, 107, 0.5);
+}
+
+.bj-form .form-footer {
+  text-align: center;
+}
+
+.bj-form .form-footer .bj-know-more {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 13px;
+  color: #5b70ff;
+  display: inline-block;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.bj-form .form-footer .bj-agree-policy {
+  font-family: Roboto;
+  font-weight: 300;
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 10px;
+}
+
+.bj-form .form-footer .bj-agree-policy .bj-spl-txt {
+  font-family: Roboto;
+  font-weight: 300;
+  color: #363636;
+}
+
+.bj-form .bj-otp-container {
+  display: none;
+  transition: display 0.3s linear 0s;
+  text-align: left;
+}
+
+.bj-form .bj-otp-container .bj-otp-msg {
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 12px;
+  color: #3aaa1e;
+  display: block;
+  margin: 5px 0 0 5px;
+  visibility: hidden;
+  min-height: 18px;
+}
+
+.bj-form .bj-otp-container .bj-otp-msg .spl-txt {
+  font-family: Roboto;
+  font-weight: 700;
+}
+
+.bj-form .bj-otp-container #otp {
+  display: none;
+  padding: 0.375rem 0.75rem !important;
+  width: 70px;
+}
+
+.bj-form .bj-otp-container .otp-btn {
+  min-width: 107px !important;
+}
+
+.bj-form .bj-otp-container .bj-btn {
+  min-width: fit-content;
+  padding: 10px 15px !important;
+  text-transform: initial;
+  transition: all 0.3s linear 0s;
+  background-image: linear-gradient(to right, #fc6076, #ff9231);
+  font-family: Roboto;
+  font-weight: 300;
+  width: auto;
+}
+
+.bj-form .bj-otp-container .bj-btn.voice-call {
+  padding: 5px 10px !important;
+  background-color: transparent;
+  border: 1px solid #5870ff;
+  background-image: none;
+  color: #5870ff;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.bj-form .bj-otp-container .bj-otp-sec {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 70px;
+  margin-top: 10px;
+}
+
+.bj-form .bj-otp-container .bj-otp-sec .voice-call-msg {
+  flex-grow: 1;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 18px;
+  color: #666;
+  display: none;
+}
+
+.bj-form .bj-otp-container .bj-otp-sec>* {
+  margin-left: 15px;
+}
+
+.bj-form .bj-otp-container .bj-otp-sec>*:first-child {
+  margin: 0;
+}
+
+.bj-form .bj-otp-container.otp-sent .bj-otp-msg {
+  visibility: visible;
+}
+
+.bj-form .bj-otp-container.otp-sent #otp {
+  display: inline-block;
+}
+
+.bj-form .bj-otp-container.otp-sent .voice-call-msg {
+  display: inline-block;
+}
+
+.bj-form #mobileNumber.bj-is-valid+.feedback-icon {
+  display: block !important;
+}
+
+.help-block.with-errors {
+  text-align: left;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 12px;
+  color: #db4d4d;
+  padding-left: 5px;
+  margin: 0;
+}
+
+.has-error .form-control:focus {
+  border-color: none;
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .bj-banner:after {
+    bottom: -156px;
+  }
+
+  .bj-banner .bj-banner-content {
+    padding-top: 80px;
+  }
+}
+
+@media (min-width: 992px) {
+  .bj-banner:after {
+    bottom: -175px;
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1199.98px) {
+  .bj-banner .bj-srk {
+    width: 540px;
+    left: 25px;
+  }
+
+  .bj-banner-content-right-col {
+    width: 45%;
+    float: right;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1099.98px) {
+  .bj-banner .bj-srk {
+    width: 540px;
+    left: 30px;
+  }
+
+  .bj-banner-content-right-col {
+    width: 45%;
+    float: right;
+  }
+}
+
+@media (min-width: 1200px) {
+  .bj-banner .bj-banner-content {
+    height: 800px;
+  }
+}
+
+@media (min-width: 992px) {
+  .bj-banner {
+    height: 100%;
+    position: relative;
+  }
+
+  .bj-banner:after {
+    background: url(https://cdn1.byjus.com/byjusweb/img/home/svg/whitewave.svg) no-repeat;
+    background-size: 100%;
+    background-position: left bottom;
+    bottom: -1px;
+  }
+
+  .bj-banner .bj-form {
+    background-color: #fcfcfc;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+    padding: 15px 25px 25px 25px;
+    max-width: 500px;
+    float: right;
+  }
+
+  .bj-banner .bj-form .bj-btn {
+    padding: 10px 40px;
+  }
+
+  .bj-banner .bj-form .header {
+    font-size: 28px;
+  }
+
+  .bj-banner .bj-form .sub-header {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .bj-banner .bj-form .form-footer .bj-know-more {
+    font-size: 15px;
+  }
+
+  .bj-banner .bj-form .form-footer .bj-agree-policy {
+    font-size: 12px;
+  }
+
+  .bj-banner .bj-otp-container .bj-otp-sec .voice-call-msg {
+    line-height: 10px;
+  }
+
+  .bj-banner .bj-banner-bg {
+    display: inline-flex;
+  }
+
+  .bj-banner .bj-srk {
+    display: block;
+  }
+
+  .bj-banner .bj-banner-content-left-col {
+    display: block;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .bj-banner .bj-banner-content {}
+}
+
+@media (max-width: 768px) {
+  .bj-banner .bj-banner-content {
+    height: auto;
+  }
+}
+
+
+@media (min-width: 1600px) {
+  .bj-banner .bj-srk {
+    left: calc(50% - 700px);
+  }
+}
+
+/* Byjus -programme */
+
+.bj-program {
+  height: auto;
+  position: relative;
+  color: white;
+  background: #fff;
+  padding-top: 30px;
+  z-index: 1001;
+}
+
+.bj-program .header-content {
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0 auto;
+  color: #333;
+}
+
+.bj-program .header-content .sub-header {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  columns: #666;
+}
+
+.bj-program .card {
+  width: 100%;
+  max-width: 300px;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.14);
+  margin: 0 auto;
+  height: 100%;
+  border-radius: 10px;
+  margin-top: 100px;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+}
+
+.bj-program .card:first-child {
+  margin-top: 0;
+}
+
+.bj-program .card .card-img-top {
+  width: auto;
+  height: 140px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: -70px;
+}
+
+.bj-program .card .card-img-top+.card-body {
+  margin-top: 70px;
+}
+
+.bj-program .card .card-img-top.micky {
+  top: -45px;
+}
+
+.bj-program .card .bj-card-byjus-logo {
+  width: 150px;
+  height: auto;
+}
+
+.bj-program .card .card-text {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #454545;
+  width: 70%;
+  text-align: center;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+}
+
+.bj-program .card .bj-btn {
+  margin: 10px 0 20px 0;
+}
+
+.bj-program .card .card-footer {
+  border-radius: 0 0 10px 10px;
+  padding: 12px 20px;
+}
+
+.bj-program .card .card-footer span {
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+}
+
+.bj-program .bj-program-content {
+  position: relative;
+  padding-top: 60px;
+  width: 100%;
+  z-index: 1010;
+}
+
+.bj-program .bj-card-content {
+  position: relative;
+  text-align: center;
+}
+
+.bj-program .bj-card-list {
+  margin-top: 30px;
+}
+
+.show-lg {
+  display: none;
+}
+
+@media (min-width: 300px) {
+  .bj-program .bj-card-list .col-sm-12 {
+    padding: 50px 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .bj-program {
+    padding-top: 100px;
+  }
+
+  .bj-program .header-content {
+    font-size: 34px;
+    line-height: 44px;
+    top: 130px;
+    width: 600px;
+  }
+
+  .bj-program .header-content .sub-header {
+    font-size: 18px;
+    line-height: 26px;
+    padding: 0 50px;
+  }
+
+  .bj-program .card {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  .bj-program .card .card-img-top {
+    height: 200px;
+    top: -100px;
+  }
+
+  .bj-program .card .card-img-top+.card-body {
+    margin-top: 100px;
+  }
+
+  .bj-program .card .card-img-top.micky {
+    top: -45px;
+  }
+
+  .bj-program .card .bj-card-byjus-logo {
+    width: 170px;
+  }
+
+  .bj-program .card .card-text {
+    min-height: 135px;
+  }
+
+  .bj-program .card .card-text {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .bj-program .bj-card-list {
+    margin-top: 70px;
+  }
+
+  .bj-program .bj-card-list .col-md-12 {
+    padding: 70px 0;
+    text-align: center;
+  }
+
+  .bj-program .bj-program-content {
+    padding-top: 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  .bj-program {
+    padding-top: 120px;
+  }
+
+  .bj-program .card {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bj-program {
+    padding-top: 20px;
+  }
+
+  .bj-program .card {
+    max-width: 350px;
+  }
+
+  .bj-program .card .card-text {
+    min-height: 100px;
+  }
+
+  .bj-program .card .card-footer span {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .bj-program {
+    background-size: 100% 798px;
+  }
+
+  .bj-program .header-content {
+    font-size: 33px;
+    line-height: 37px;
+    top: 130px;
+    width: 1040px;
+  }
+
+  .bj-program .header-content .sub-header {
+    font-size: 20px;
+    line-height: 32px;
+    margin-top: 30px;
+    padding: 0 100px;
+  }
+
+  .show-lg {
+    display: block;
+  }
+}
+
+/* End Programme */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 14px;
+  color: white;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body::-webkit-scrollbar {
+  width: 3px;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+
+.visible-xs,
+.visible-sm {
+  display: none;
+}
+
+.bj-btn {
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 14px;
+  background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  border-radius: 30px;
+  padding: 10px 25px;
+  color: white;
+  border: none;
+  outline: none;
+  min-width: 170px;
+}
+
+.bj-btn:focus {
+  outline: none;
+}
+
+.bj-btn .btn-arrow {
+  margin-left: 10px;
+}
+
+.demo-shade {
+  background-image: linear-gradient(to right, #8c3fff, #5c72ff);
+}
+
+.register-shade {
+  background-image: linear-gradient(to right, #fc6076, #ff9231);
+}
+
+.explore-shade {
+  background-image: linear-gradient(to right, #0a72d1, #01b6e1);
+}
+
+.review-shade {
+  background-image: linear-gradient(to right, #9752ff, #5e93ff);
+  font-size: 13px;
+}
+
+.bj-section {
+  padding: 30px 0;
+}
+
+.section-header {
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 26px;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+  font-weight: normal;
+  outline: none;
+  border: none;
+}
+
+.invalid-feedback {
+  text-align: left;
+}
+
+.was-validated .form-control:valid {
+  background-image: none;
+}
+
+.was-validated .form-control:invalid {
+  background-image: none;
+}
+
+.feedback-icon {
+  display: none;
+  transition: display 0.3s linear 0s;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.feedback-icon img {
+  position: absolute;
+  width: 15px;
+  height: auto;
+  top: 13px;
+  right: 10px;
+}
+
+.show {
+  display: block !important;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.form-group {
+  margin: 0;
+  position: relative;
+}
+
+
+@media (min-width: 300px) {
+  .visible-xs {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 576px) {
+  .visible-sm {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 992px) {
+  .section-header {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .bj-btn {
+    font-size: 15px;
+  }
+
+  .section-header {
+    font-size: 33px;
+  }
+
+  .section-content {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .section-header {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .navbar-fixed-top.top-navbar {
+    top: 0px;
+    background-color: #813588;
+  }
+}
+
+.free-class-form .input-error-msg {
+  font-size: 11px;
+}
+
+/*# sourceMappingURL=style.css.map */
+
+.otp-mobile-number .send-otp-cta {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  min-width: 8rem;
+  border: 0.06rem solid #813588;
+  padding: 0.5rem 0.8rem;
+  background-color: #813588;
+  height: 40px;
+  font-weight: 500;
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0rem;
+  border-bottom-left-radius: 0rem;
+  opacity: 0.5;
+}
+
+.otp-mobile-number input.input-valid~.send-otp-cta {
+  opacity: 1;
+}
+
+.valid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #28a745;
+}
+
+.d-none {
+  display: none;
+}
+
+.otp-input-field-voice-call-option {
+  position: relative;
+  text-align: left;
+}
+
+.otp-input-field {
+  width: 5rem;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+
+.otp-on-voice-call {
+  display: inline-block;
+  color: #6f6f6f;
+  font-size: 0.6rem;
+  margin-left: 0.5rem;
+  margin-top: 0.3rem;
+  vertical-align: top;
+}
+
+.otp-on-voice-call p {
+  margin: 0;
+}
+
+.otp-on-voice-call button {
+  color: #5870FF;
+  border: 0.06rem solid #5870FF;
+  padding: 0.1rem 0.3rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  font-size: 0.6rem;
+  width: 4.5rem;
+  /* background-color: #fff; */
+}
+
+.otp-on-voice-call button:hover,
+.otp-on-voice-call button:focus {
+  color: #5870FF;
+  border: 0.06rem solid #5870FF;
+  background-color: #fff;
+  outline: 0;
+}
+
+.otp-on-voice-call svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.bj-form .form-section .form-row .form-control.otp-input-field {
+  padding-left: 15px;
+}
+
+.form-control.otp-verified~.feedback-icon img {
+  display: block;
+}
+
+.feedback-icon img {
+  position: absolute;
+  width: 15px;
+  height: auto;
+  top: 12px;
+  right: 10px;
+}
+
+.form-control.otp-verified~.valid-feedback,
+.form-control.otp-verified~.feedback-icon img {
+  display: block;
+}
+
+/* IE10+ */
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+  .bj-banner .bj-banner-bg {
+    top: -10px;
+    height: 100%;
+  }
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+@media(max-width: 767.98px) {
+  .otp-mobile-number .send-otp-cta {
+    min-width: 6rem;
+  }
+}
+
+.profile-form {
+  display: none;
+}
+
+.profile-form .form-group.select-form-group:before {
+  content: "";
+  background: url(https://cdn1.byjus.com/byjusweb/img/home/svg/down_arrow.svg) no-repeat;
+  background-size: 30px 30px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 15px;
+  margin: auto;
+  display: inline-block;
+  z-index: 100;
+  width: 30px;
+  height: 30px;
+  opacity: 0.4;
+  -khtml-opacity: 0.4;
+  -moz-opacity: 0.4;
+  filter: alpha(opacity=40);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+}
+
+.form-control option {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.form-group.select-form-group:before {
+  content: "";
+  background: url(https://cdn1.byjus.com/byjusweb/img/home/svg/down_arrow.svg) no-repeat;
+  background-size: 30px 30px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  display: inline-block;
+  z-index: 0;
+  width: 30px;
+  height: 30px;
+  opacity: 0.4;
+  -khtml-opacity: 0.4;
+  -moz-opacity: 0.4;
+  filter: alpha(opacity=40);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+}
+
+.form-select-dd.form-control {
+  background-color: transparent;
+}
+
+/* comprehensive learning program section  */
+.mtop15 {
+  margin-top: 15px;
+}
+
+.mtop10 {
+  margin-top: 10px;
+}
+
+.mtop8 {
+  margin-top: 8px;
+}
+
+.program-section {
+  height: auto;
+  position: relative;
+  color: white;
+  background: #fff;
+  padding-top: 30px;
+  z-index: 1001;
+}
+
+.program-section .header-content {
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0 auto;
+  color: #333;
+}
+
+.program-section .header-content .header {
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: normal;
+  text-align: center;
+  color: #2c2c2c;
+  margin-bottom:10px!important
+}
+
+@media(max-width: 767.98px){
+  .program-section .header-content .header{
+    margin-bottom:5px!important
+  }
+}
+.program-section .header-content .sub-header {
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #2c2c2c;
+}
+
+.program-section .card {
+  width: 100%;
+  background: #f2f2f2;
+  box-shadow: 0px 27px 20px -15px rgba(122, 62, 134, 0.31);
+  margin: 0 auto;
+  height: 100%;
+  border-radius: 10px;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  margin: 20px 0px;
+}
+
+.program-section .early-learn-card {
+  max-width: 850px;
+}
+
+.program-section .card .card-content{
+  padding: 0px;
+  text-align: center;
+}
+.program-section .card .card-header {
+  border-radius: 0 10px 0px 10px;
+  padding: 6px 12px;
+  min-width: 150px;
+  float: right;
+  margin: 0 15px;
+}
+
+.program-section .card .card-header span {
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+}
+
+.program-section .card .card-byjus-logo {
+    max-width: 140px;
+    height: auto;
+    text-align: left;
+    margin-left: -10px;
+}
+
+.program-section .card .card-text {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #2c2c2d;
+  text-align: left;
+  display: flex;
+  margin: 15px 0px 15px 0px;
+}
+
+.program-section .card .card-img-top {
+  height: 240px;
+  top: 100px;
+}
+
+.program-section .demo-shade {
+  background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+}
+
+.program-section .bj-btn {
+  font-size: 18px;
+  background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+  border-radius: 10px;
+  padding: 15px 30px;
+  color: white;
+  border: none;
+  outline: none;
+  min-width: 170px;
+  text-align: center;
+}
+
+.program-section .card-body .know-more-link {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  text-align: left;
+  color: #464749;
+  margin-top: 15px;
+}
+
+.program-section .jeeNeet-card {
+  height: 160px;
+  padding: 10px;
+}
+
+.program-section .jeeNeet-card .card-img-top {
+  height: 125px;
+}
+
+.program-section .jeeNeet-card .card-text {
+  font-size: 14px;
+  margin: 10px 0px 10px 0px;
+}
+
+.program-section .jeeNeet-card .bj-btn {
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+.program-section .ias-card {
+  height: 160px;
+  padding: 10px;
+}
+
+.program-section .ias-card .card-img-top {
+  height: 125px;
+}
+
+.program-section .ias-card .card-text {
+  font-size: 14px;
+  margin: 10px 0px 10px 0px;
+}
+
+.program-section .ias-card .bj-btn {
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+@media (min-width: 300px) and (max-width: 467px) {
+  .program-section {
+    padding-top: 115px;
+  }
+
+  .program-section .header-content {
+    position: relative;
+    font-size: 16px;
+  }
+
+  .program-section .header-content .header {
+    font-size: 16px;
+  }
+
+  .program-section .header-content .sub-header {
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .flex-item-left {
+    flex: 50%;
+    margin-right: 20px;
+  }
+  
+  .flex-item-right {
+    flex: 50%;
+  }
+
+  .program-section .card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 10px;
+  }
+
+  .program-section .card .card-img-top {
+    height: 175px;
+    top: 100px;
+    padding: 10px 15px;
+  }
+
+  .program-section .card .card-byjus-logo {
+    display: block;
+    position: relative;
+    max-width: 85px;
+    margin: 0;
+    text-align: left;
+    padding-top: 5px;
+  }
+
+  .program-section .card .card-text {
+    font-size: 13px;
+    margin: 5px 0px 10px 0px;
+  }
+
+  .program-section .early-learn-card .card-content {
+    padding: 10px;
+  }
+
+  .program-section .early-learn-card .card-img-top {
+    height: 150px;
+    padding: 5px;
+    max-width: 165px;
+  }
+
+  .program-section .early-learn-card .card-byjus-logo {
+    display: block;
+    position: relative;
+    text-align: left;
+    max-width: 114px;
+    margin-left: -20px;
+  }
+
+  .program-section .jeeNeet-card {
+    height: 270px;
+    padding: 0px;
+  }
+
+  .program-section .jeeNeet-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
+
+  .program-section .jeeNeet-card .card-text {
+    font-size: 12px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+  }
+
+  .program-section .jeeNeet-card .card-img-top {
+    height: 140px;
+    padding: 10px 12px;
+  }
+
+  .program-section .jeeNeet-card .card-byjus-logo {
+    display: block;
+    position: relative;
+    max-width: 120px;
+    margin: 0;
+    text-align: center;
+}
+
+.program-section .jeeNeet-card .bj-btn{
+    margin-top: 15px;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+  .program-section .ias-card {
+    height: 270px;
+    padding: 0px;
+  }
+
+  .program-section .ias-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
+
+  .program-section .ias-card .card-text {
+    font-size: 12px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+  }
+
+  .program-section .ias-card .card-img-top {
+    height: 140px;
+    padding: 10px 12px;
+  }
+
+  .program-section .ias-card .card-byjus-logo {
+    display: block;
+    position: relative;
+    max-width: 95px;
+    margin: 0;
+    text-align: center;
+}
+
+  
+  .program-section .demo-shade {
+    background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  }
+
+  .program-section .bj-btn {
+    font-size: 12px;
+    background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+    border-radius: 10px;
+    padding: 8px 10px;
+    color: white;
+    border: none;
+    outline: none;
+    min-width: 110px;
+    text-align: center;
+  }
+
+  .program-section .card-body .know-more-link {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+} 
+
+@media (min-width: 465px) and (max-width: 540.98px){
+  .program-section .jeeNeet-card .bj-btn{
+    margin-top: 8px!important;
+  }
+}
+
+@media (min-width: 411px) and (max-width: 468.98px){
+  .program-section .jeeNeet-card .bj-btn{
+    margin-top: 0px;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 410px) {
+  .program-section .jeeNeet-card .bj-btn {
+    margin-top: 2px;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+}
+
+@media (min-width: 468px) and (max-width: 767px) {
+  .program-section {
+    padding-top: 115px;
+  }
+
+  .program-section .header-content {
+    position: relative;
+    font-size: 16px;
+  }
+
+  .program-section .header-content .header {
+    font-size: 25px;
+  }
+
+  .program-section .header-content .sub-header {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .flex-item-left {
+    flex: 50%;
+    margin-right: 20px;
+  }
+  
+  .flex-item-right {
+    flex: 50%;
+  }
+
+  .program-section .card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 10px;
+  }
+
+  .program-section .card .card-img-top {
+    height: 220px;
+    padding-left: 20px;
+  }
+
+  .program-section .card .card-byjus-logo {
+    display: block;
+    position: relative;
+    max-width: 150px;
+    margin: 0;
+    text-align: left;
+    padding-top: 5px;
+  }
+
+  .program-section .card .card-text {
+    font-size: 18px;
+    margin: 15px 0px 15px 0px;;
+  }
+
+  .program-section .early-learn-card .card-content {
+    padding: 10px;
+  }
+
+  .program-section .early-learn-card .card-img-top {
+    height: 230px;
+    max-width: 240px;
+    padding: 5px;
+  }
+
+  .program-section .early-learn-card .card-byjus-logo {
+    display: block;
+    position: relative;
+    text-align: left;
+    max-width: 160px;
+    margin-left: -20px;
+  }
+
+  .program-section .jeeNeet-card {
+    height: 270px;
+    padding: 0px;
+  }
+
+  .program-section .jeeNeet-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
+
+  .program-section .jeeNeet-card .card-text {
+    font-size: 13px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+  }
+
+  .program-section .jeeNeet-card .card-img-top {
+    height: 140px;
+    padding: 10px 12px;
+  }
+
+  .program-section .jeeNeet-card .card-byjus-logo {
+    display: block;
+    position: relative;
+    max-width: 160px;
+    margin: 0;
+    text-align: center;
+}
+
+.program-section .jeeNeet-card .bj-btn{
+    margin-top: 22px;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+  .program-section .ias-card {
+    height: 270px;
+    padding: 0px;
+  }
+
+  .program-section .ias-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
+
+  .program-section .ias-card .card-text {
+    font-size: 14px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+  }
+
+  .program-section .ias-card .card-img-top {
+    height: 140px;
+    padding: 10px 12px;
+  }
+
+  .program-section .ias-card .card-byjus-logo {
+    display: block;
+    position: relative;
+    max-width: 145px;
+    margin: 0;
+    text-align: center;
+}
+
+  
+  .program-section .demo-shade {
+    background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  }
+
+  .program-section .bj-btn {
+    font-size: 18px;
+    background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+    border-radius: 10px;
+    padding: 8px 10px;
+    color: white;
+    border: none;
+    outline: none;
+    min-width: 110px;
+    text-align: center;
+  }
+
+  .program-section .card-body .know-more-link {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .program-section {
+    padding-top: 140px;
+  }
+  
+  .program-section .header-content {
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 auto;
+    color: #333;
+  }
+  
+  .program-section .header-content .sub-header {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    columns: #666;
+  }
+  
+  .program-section .card {
+    min-height: 305px;
+    margin-bottom: 10px;
+  }
+  
+  .program-section .card .card-content{
+    padding: 20px;
+    text-align: left;
+  }
+  .program-section .card .card-header {
+    border-radius: 0 10px 0px 10px;
+    padding: 6px 12px;
+    min-width: 150px;
+    float: right;
+    margin: 0 15px;
+  }
+  
+  .program-section .card .card-header span {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .program-section .card .card-byjus-logo {
+      max-width: 120px;
+      height: auto;
+      text-align: left;
+  }
+  
+  .program-section .card .card-text {
+    font-size: 15px;
+    margin: 10px 0px 10px 0px;
+  }
+  
+  .program-section .card .card-img-top {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .program-section .demo-shade {
+    background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  }
+  
+  .program-section .bj-btn {
+    font-size: 13px;
+    background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+    border-radius: 10px;
+    padding: 12px 15px;
+    color: white;
+    border: none;
+    outline: none;
+    min-width: 135px;
+    text-align: center;
+  }
+  
+  .program-section .card-body .know-more-link {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
+  .program-section .early-learn-card {
+    max-width: 745px;
+    min-height: 342px;
+  }
+
+  .program-section .early-learn-card .card-img-top {
+    width: 100%;
+    min-width: 190px;
+    height: 220px;
+  }
+
+  .program-section .early-learn-card .card-byjus-logo {
+    max-width: 185px;
+    margin-left: -25px;
+  }
+
+  .program-section .early-learn-card .bj-btn{
+    margin-top: 10px;
+  }
+
+  .program-section .jeeNeet-card {
+    min-height: 0px;
+    max-width: 287px;
+    padding: 20px 30px;
+    margin-bottom: 0;
+    margin-left: 10px;
+  }
+
+  .program-section .jeeNeet-card .card-content{
+    padding: 0px;
+  }
+  
+  .program-section .jeeNeet-card .card-img-top {
+    height: 125px;
+  }
+  
+  .program-section .jeeNeet-card .card-text {
+    font-size: 11px;
+    width: 109px;
+    margin: 10px -10px 10px -15px;
+  }
+
+  .program-section .jeeNeet-card .card-byjus-logo {
+    max-width: 100px;
+    height: auto;
+    text-align: left;
+    margin-left: -15px;
+  }
+  
+  .program-section .jeeNeet-card .bj-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    min-width: 100px;
+    text-align: center;
+    margin-left: -15px;
+  }
+  
+  .program-section .ias-card {
+    min-height: 0px;
+    max-width: 287px;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+
+  .program-section .ias-card .card-content{
+    padding: 0px;
+  }
+  
+  .program-section .ias-card .card-img-top {
+    height: 125px;
+  }
+  
+  .program-section .ias-card .card-text {
+    font-size: 10px;
+    width: 109px;
+    margin: 10px -10px 10px -15px;
+  }
+
+  .program-section .ias-card .card-byjus-logo {
+    max-width: 100px;
+    height: auto;
+    text-align: left;
+    margin-left: -15px;
+  }
+  
+  .program-section .ias-card .bj-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    min-width: 100px;
+    text-align: center;
+    margin-left: -15px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px){
+  .mtop {
+    margin-top: 4px;
+  }
+
+  .program-section {
+    height: auto;
+    position: relative;
+    color: white;
+    background: #fff;
+    padding-top: 30px;
+    z-index: 1001;
+  }
+  
+  .program-section .header-content {
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 auto;
+    color: #333;
+  }
+
+  .program-section .header-content .header {
+    font-size: 24px;
+}
+  
+  .program-section .header-content .sub-header {
+      font-size: 15px;
+      margin-bottom: 30px;
+  }
+  
+  .program-section .card {
+    width: 100%;
+    max-height: 315px;
+    background: #f2f2f2;
+    box-shadow: 0px 27px 20px -15px rgba(122, 62, 134, 0.31);
+    margin: 0 auto;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-clip: border-box;
+    margin-bottom: 30px;
+  }
+
+  .program-section .early-learn-card {
+    max-width: 745px;
+    min-height: 350px;
+  }
+  
+  .program-section .card .card-content{
+    padding: 20px;
+    text-align: left;
+  }
+  .program-section .card .card-header {
+    border-radius: 0 10px 0px 10px;
+    padding: 6px 12px;
+    min-width: 150px;
+    float: right;
+    margin: 0 15px;
+  }
+  
+  .program-section .card .card-header span {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .program-section .card .card-byjus-logo {
+      max-width: 122px;
+      height: 65px;
+      text-align: left;
+  }
+  
+  .program-section .card .card-text {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.2;
+    color: #2c2c2d;
+    text-align: left;
+    display: flex;
+    margin: 15px 0px 15px 0px;
+  }
+  
+  .program-section .card .card-img-top {
+    width: 100%;
+    height: 240px;
+    top: 100px;
+    max-width: 340px;
+    max-height: 240px;
+  }
+  
+  .program-section .demo-shade {
+    background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  }
+  
+  .program-section .bj-btn {
+    font-size: 16px;
+    background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+    border-radius: 10px;
+    padding: 15px 30px;
+    color: white;
+    border: none;
+    outline: none;
+    min-width: 170px;
+    text-align: center;
+  }
+  
+  .program-section .card-body .know-more-link {
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464749;
+    margin-top: 15px;
+  }
+
+  .program-section .jeeNeet-card {
+    max-width: 380px;
+  }
+
+  .program-section .jeeNeet-card .card-content{
+    padding: 5px;
+  }
+  
+  .program-section .jeeNeet-card .card-img-top {
+    height: 125px;
+    width: auto;
+  }
+  
+  .program-section .jeeNeet-card .card-text {
+    font-size: 14px;
+    margin: 10px 0px 10px -15px;
+    min-width: 160px;
+  }
+
+  .program-section .jeeNeet-card .card-byjus-logo {
+    max-width: 122px;
+    height: auto;
+    text-align: left;
+  }
+  
+  .program-section .jeeNeet-card .bj-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    min-width: 100px;
+    text-align: center;
+  }
+  
+  .program-section .ias-card {
+    max-width: 380px;
+  }
+
+  .program-section .ias-card .card-content{
+    padding: 5px;
+  }
+  
+  .program-section .ias-card .card-img-top {
+    height: 125px;
+    width: auto;
+  }
+  
+  .program-section .ias-card .card-text {
+    font-size: 14px;
+    margin: 10px 0px 10px -15px;
+    min-width: 160px;
+  }
+
+  .program-section .ias-card .card-byjus-logo {
+    max-width: 122px;
+    height: auto;
+    text-align: left;
+  }
+  
+  .program-section .ias-card .bj-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    min-width: 100px;
+    text-align: center;
+  }
+}
+
+ @media (min-width: 1200px) {
+  .mtop {
+    margin-top: 10px;
+  }
+
+  .program-section {
+    height: auto;
+    position: relative;
+    color: white;
+    background: #fff;
+    padding-top: 30px;
+    z-index: 1001;
+  }
+  
+  .program-section .header-content {
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 auto;
+    color: #333;
+  }
+
+  .program-section .header-content .header {
+    font-size: 24px;
+}
+  
+  .program-section .header-content .sub-header {
+      font-size: 15px;
+      margin-bottom: 30px;
+  }
+  
+  .program-section .card {
+    width: 100%;
+    max-height: 315px;
+    background: #f2f2f2;
+    box-shadow: 0px 27px 20px -15px rgba(122, 62, 134, 0.31);
+    margin: 0 auto;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-clip: border-box;
+    margin-bottom: 30px;
+  }
+
+  .program-section .early-learn-card {
+    max-width: 745px;
+    min-height: 350px;
+  }
+  
+  .program-section .card .card-content{
+    padding: 20px;
+    text-align: left;
+  }
+  .program-section .card .card-header {
+    border-radius: 0 10px 0px 10px;
+    padding: 6px 12px;
+    min-width: 150px;
+    float: right;
+    margin: 0 15px;
+  }
+  
+  .program-section .card .card-header span {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .program-section .card .card-byjus-logo {
+      max-width: 122px;
+      height: 65px;
+      text-align: left;
+  }
+  
+  .program-section .card .card-text {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.2;
+    color: #2c2c2d;
+    text-align: left;
+    display: flex;
+    margin: 5px 0px;
+  }
+  
+  .program-section .card .card-img-top {
+    width: 100%;
+    height: 240px;
+    top: 100px;
+    max-width: 340px;
+    max-height: 240px;
+  }
+  
+  .program-section .demo-shade {
+    background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  }
+  
+  .program-section .bj-btn {
+    font-size: 16px;
+    background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+    border-radius: 10px;
+    padding: 15px 30px;
+    color: white;
+    border: none;
+    outline: none;
+    min-width: 170px;
+    text-align: center;
+  }
+  
+  .program-section .card-body .know-more-link {
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464749;
+    margin-top: 15px;
+  }
+
+  .program-section .jeeNeet-card {
+    max-width: 460px;
+  }
+
+  .program-section .jeeNeet-card .card-content{
+    padding: 5px;
+  }
+  
+  .program-section .jeeNeet-card .card-img-top {
+    height: 125px;
+    width: auto;
+  }
+  
+  .program-section .jeeNeet-card .card-text {
+    font-size: 14px;
+    margin: 10px 0px 10px -15px;
+    min-width: 160px;
+  }
+
+  .program-section .jeeNeet-card .card-byjus-logo {
+    max-width: 122px;
+    height: auto;
+    text-align: left;
+  }
+  
+  .program-section .jeeNeet-card .bj-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    min-width: 100px;
+    text-align: center;
+  }
+  
+  .program-section .ias-card {
+    max-width: 460px;
+  }
+
+  .program-section .ias-card .card-content{
+    padding: 5px;
+  }
+  
+  .program-section .ias-card .card-img-top {
+    height: 125px;
+    width: auto;
+  }
+  
+  .program-section .ias-card .card-text {
+    font-size: 14px;
+    margin: 10px 0px 10px -15px;
+    min-width: 160px;
+  }
+
+  .program-section .ias-card .card-byjus-logo {
+    max-width: 122px;
+    height: auto;
+    text-align: left;
+  }
+  
+  .program-section .ias-card .bj-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    min-width: 100px;
+    text-align: center;
+  }
+} 
+
+@media (min-width: 1400px) {
+  .mtop {
+    margin-top: 10px;
+  }
+
+  .program-section {
+    position: relative;
+  }
+  
+  .program-section .header-content {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 auto;
+    color: #333;
+  }
+  
+  .program-section .header-content .sub-header {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    columns: #666;
+  }
+  
+  .program-section .card {
+    width: 100%;
+    max-height: 330px;
+    background: #f2f2f2;  
+    box-shadow: 0px 27px 20px -19px rgba(122, 62, 134, 0.31);
+    margin: 0 auto;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-clip: border-box;
+    margin-bottom: 30px;
+  }
+  
+  
+  .program-section .card .card-content{
+    padding: 0px;
+    text-align: left;
+  }
+  .program-section .card .card-header {
+    border-radius: 0 10px 0px 10px;
+    padding: 4px 30px;
+    min-width: 180px;
+    float: right;
+    margin: 0 15px;
+  }
+  
+  .program-section .card .card-header span {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .program-section .card .card-byjus-logo {
+    max-width: 130px;
+    height: 65px;
+    text-align: left;
+  }
+  
+  .program-section .card .card-text {
+    font-family: Roboto;
+    font-size: 23px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #2c2c2d;
+    margin: 10px 0px 10px 0px;
+  }
+
+  .program-section .card .card-img-top {
+    margin-top: 15px;
+    min-width: 270px;
+    height: 273px;
+    padding: 0px 20px;
+  }
+
+  .program-section .early-learn-card {
+    min-width: 680px;
+    min-height: 360px;
+  }
+
+  .program-section .early-learn-card .card-img-top {
+    min-width: 360px;
+    min-height: 260px;
+    padding-top: 20px;
+    height: auto;
+  }
+
+  .program-section .early-learn-card .card-byjus-logo {
+    max-width: 190px;
+    height: 115px;
+    text-align: left;
+    margin-left: -30px;
+  }
+  
+  .program-section .demo-shade {
+    background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  }
+  
+  .program-section .bj-btn {
+    font-size: 15px;
+    background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+    border-radius: 10px;
+    padding: 15px 30px;
+    color: white;
+    border: none;
+    outline: none;
+    min-width: 170px;
+    text-align: center;
+  }
+  
+  .program-section .card-body .know-more-link {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464749;
+    margin-top: 10px;
+  }
+
+  .program-section .jeeNeet-card {
+    min-width: 432px;
+    max-width: 425px;
+    height: 170px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+  }
+
+  .program-section .jeeNeet-card .card-content{
+    padding: 0px;
+  }
+  
+  .program-section .jeeNeet-card .card-img-top {
+    height: 145px;
+    min-width: 122px;
+    padding: 0px 10px 10px 0px;
+  }
+
+  .program-section .jeeNeet-card .card-byjus-logo {
+    max-width: 165px;
+    height: auto;
+    margin-left: 0;
+    text-align: left;
+  }
+  
+  .program-section .jeeNeet-card .card-body {
+    margin-left: -40px;
+  }
+
+  .program-section .jeeNeet-card .card-text {
+    font-size: 16px;
+    width: 140px;
+  }
+  
+  .program-section .jeeNeet-card .bj-btn {
+    font-size: 15px;
+    padding: 7px 10px;
+    min-width: 100px;
+    text-align: center;
+    margin-left: 0;
+  }
+  
+  .program-section .ias-card {
+    min-width: 432px;
+    max-width: 425px;
+    height: 170px;
+    margin-left: 40px;
+  }
+
+  .program-section .ias-card .card-content{
+    padding: 0px;
+  }
+  
+  .program-section .ias-card .card-img-top {
+    height: 145px;
+    min-width: 122px;
+    padding: 0px 10px 10px 0px;
+  }
+
+  .program-section .ias-card .card-body {
+    margin-left: -40px;
+  }
+
+  .program-section .ias-card .card-byjus-logo {
+    max-width: 130px;
+    height: auto;
+    margin-left: 0;
+    text-align: left;
+  }
+  
+  .program-section .ias-card .card-text {
+    font-size: 16px;
+    width: 220px;
+  }
+  
+  .program-section .ias-card .bj-btn {
+    font-size: 15px;
+    padding: 7px 10px;
+    min-width: 100px;
+    text-align: center;
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1600px) {
+  .program-section {
+    background-size: 100% 798px;
+  }
+
+  .program-section .header-content {
+    font-size: 33px;
+    line-height: 37px;
+    top: 130px;
+    width: 1040px;
+  }
+
+  .program-section .header-content .header{
+    font-size: 35px;
+    line-height: 37px;
+    width: 1040px;
+  }
+
+  .program-section .header-content .sub-header {
+    font-size: 20px;
+    line-height: 25px;
+    margin-bottom: 30px;
+    padding: 0 100px;
+  }
+
+  
+  .program-section .jeeNeet-card {
+    max-width: 365px;
+    min-height: 0px;
+    width: 100%;
+    height: 170px;
+    padding: 15px 50px;
+    margin-bottom: 20px;
+  }
+
+  .program-section .ias-card {
+    max-width: 365px;
+    min-height: 0px;
+    width: 100%;
+    height: 170px;
+    padding: 15px 50px;
+    margin-bottom: 20px;
+  }
+
+  .show-lg {
+    display: block;
+  }
+}
+/* Blog link section */
+.footer-top{
+  padding-top:0px!important;
+  padding-bottom: 50px!important;
+}
+.bj-blog-item{
+  position: relative;
+}
+.bj-blog-card:first-child{
+  margin-left: 0px;
+}
+.bj-blog-card:last-child{
+  margin-right: 0px;
+}
+
+.bj-blog-container{
+  padding: 0 0 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: auto;
+  position: relative;
+}
+
+.bj-blog-container::-webkit-scrollbar{
+  display: none;
+}
+
+.bj-blog-card{
+  width: 250px;
+  background-color: #f2f2f2;
+  box-shadow: 0px 27px 20px -15px rgb(122 62 134 / 31%);
+  margin:0px 12px;
+  border-radius: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  white-space: normal;
+  position: relative;
+}
+
+.blog-logo{
+  display: flex;
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+   -o-justify-content: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  margin-bottom:10px;
+}
+
+.blog-logo img{
+  width:298px;
+  height: 88px;
+}
+
+.blog-header{
+  margin-bottom: 30px;
+}
+
+.blog-header .heading{
+  text-align: center;
+  line-height: 1.4;
+  font-size: 22px;
+  color: #2c2c2c;
+  font-size: 22px;
+  margin-top:0px;
+}
+
+.bj-card-details{
+  padding: 15px;
+}
+
+.bj-img-block .img-style{
+  width: 220px;
+  height: 220px;
+}
+
+.bj-content-block .text-block {
+  height: 154px;
+} 
+
+.bj-content-block .blog-short-title{
+  color: #84378a;
+  font-weight: 600;
+}
+
+.bj-content-block .blog-title{
+  color: #2c2c2c;
+  font-weight: 600;
+  line-height: 1.44;
+}
+
+.bj-content-block .blog-desc{
+  color:#2c2c2c;
+  line-height: 1.44;
+  margin-top:-6px;
+}
+
+.bj-anchor-text{
+  color: #84378a!important;
+  font-weight: 600!important;
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+
+.bj-content-block a{
+  color: #84378a;
+}
+
+.bj-hr-style{
+  margin-top: 0px;
+  margin-bottom: 12px;
+  border-top: 2px solid #84378a;
+  width: 76px;
+}
+
+.bj-bottom{
+  margin-bottom: 50px;
+}
+
+.bj-content-block .blog-short-title, 
+.bj-content-block .blog-title, 
+.bj-content-block .blog-desc{
+      font-size: 16px;
+}
+
+.bj-arrow{
+  position: absolute;
+  
+}
+
+.right-arrow{
+  right: 0px;
+  margin-right: -22px;
+  top: 43%;
+}
+
+.left-arrow{
+  margin-left: -22px;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  top: 42%;
+}
+
+.arrow-section .disable{
+  opacity: 0.3;
+}
+
+.explore-button{
+  margin-top: 16px;
+  text-align: center;
+}
+
+.explore-button .text{
+  font-size: 18px;
+  background-image: linear-gradient(to right, #ff9234, #fc6274 100%);
+  border-radius: 10px;
+  padding: 15px 55px;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media(min-width: 375px){
+  .bj-content-block .blog-desc{
+      display: block;
+  }
+
+  .bj-content-block .blog-desc.small-devices{
+      display: none;
+  }
+}    
+
+@media(max-width: 767.98px){
+  .bj-blog-container{
+    padding: 0 0 15px;
+  }
+
+  .bj-blog-card{
+      width:inherit;
+      display: block;
+      margin: 0px 0px 25px 0px;
+      box-shadow: 0px 24px 20px -15px rgb(122 62 134 / 31%);
+  }
+
+  .bj-card-details{
+      display: flex;
+      display:-webkit-box;
+      display:-webkit-flex;
+      display:-ms-flexbox;
+      padding: 15px 8px 15px 12px ;
+  }
+
+  .bj-content-block .text-block{
+    height: auto;
+  }
+
+  .bj-card-details .card-link{
+      display: flex;
+      display:-webkit-box;
+      display:-webkit-flex;
+      display:-ms-flexbox;
+      align-items: center;
+      -webkit-box-align:center;
+      -webkit-align-items:center;
+      -ms-flex-align:center;
+  }
+  
+  .bj-img-block .img-style {
+      width: 125px;
+      height: 125px;
+  }
+
+  .bj-content-block{
+      padding-left:12px;
+  }
+
+  .bj-content-block .blog-short-title, 
+  .bj-content-block .blog-title, 
+  .bj-content-block .blog-desc{
+      font-size: 12px;
+      margin-top:0px;
+      margin-bottom: 5px;
+  }
+  
+  .bj-content-block .blog-title{
+     margin-bottom:6px;
+  }
+
+  .bj-anchor-text{
+      font-size: 12px;
+  }
+
+  .bj-hr-style{
+      margin-top: 0px;
+      width: 60px;
+      border-top: 1.5px solid #84378a;
+      margin-bottom: 0px;
+  }
+
+  .bj-content-block{
+      height: auto;
+  }
+
+  .blog-logo img{
+    width: 202px;
+    height: 60px;
+  }
+
+  .blog-header {
+      margin-bottom: 20px;
+  }
+
+  .blog-header .heading{
+      font-size: 18px;
+      margin-top:0px;
+  }
+
+  .bj-content-block .blog-desc{
+      height: auto;
+  }
+
+  .bj-content-block .blog-desc{
+    line-height: 1.33;
+  }
+
+  .explore-button .text{
+      font-size: 16px;
+      padding: 12px 40px;
+  } 
+}
+
+@media(min-width:992px){
+  .bj-arrow{
+      width:24px;
+      height: 34px;
+  }
+
+  .right-arrow{
+      margin-right: -35px;
+  }
+
+  .left-arrow{
+      margin-left: -35px;
+  }
+}
+@media(min-width:768px) and (max-width:991.98px){
+  .bj-blog-card{
+    margin: 0px 14px;
+  }
+  .bj-content-block .blog-short-title, 
+  .bj-content-block .blog-title, 
+  .bj-content-block .blog-desc {
+  font-size: 14px;
+  }
+
+  .bj-anchor-text{
+    font-size: 14px;
+  }
+
+  .bj-content-block .text-block{
+    height: 138px;
+  }
+
+  .bj-hr-style{
+    margin-top: 0px;
+    width: 69px;
+    margin-bottom:10px;
+  }
+
+  .explore-button .text{
+    font-size: 16px;
+    padding: 13px 40px;
+  }
+
+  .bj-img-block .img-style{
+    width: 198px;
+    height: 198px;
+  }
+
+  .bj-blog-card{
+    width: 228px;
+  }
+
+  .bj-sp-right-arrow{
+    margin-left: 0px;
+  }
+
+  .bj-sp-left-arrow {
+    margin-left: 0px;
+  }
+}
+
+@media(max-width: 374.98px){
+  .bj-img-block .img-style {
+      width: 115px;
+      height: 115px;
+  }
+  .bj-content-block .blog-short-title, 
+  .bj-content-block .blog-title, 
+  .bj-content-block .blog-desc{
+      margin-bottom: 4px;
+      font-size: 12px;
+  }
+
+  .bj-content-block .blog-desc{
+      display: none;
+  }
+
+  .bj-content-block .blog-desc.small-devices{
+      display: block;
+  }
+
+  .blog-header .heading {
+      font-size: 16px;
+  }
+
+  .blog-header {
+    margin: 0px 0px 20px 0px;
+  }
+}
+.bj-blog-container::-webkit-scrollbar{
+    display: none;
+}
+
+@media(min-width: 1600px){
+  .bj-content-block .blog-short-title, 
+  .bj-content-block .blog-title, 
+  .bj-content-block .blog-desc{
+      font-size: 18px;
+  }
+
+  .bj-img-block .img-style{
+    width: 268px;
+    height: 268px;
+  }
+  .bj-blog-card{
+    width: 318px;
+  }  
+
+  .bj-card-details {
+    padding: 25px;
+  }
+
+  .bj-anchor-text{
+    font-size: 18px;
+  }
+
+  .bj-hr-style{
+    width: 85px;
+  }
+
+  .explore-button .text{
+    font-size: 22px;
+    padding: 18px 65px;
+  }
+
+  .explore-button {
+    margin-top: 50px;
+  }
+  .right-arrow{
+    top: 47%;
+  }
+
+  .left-arrow{
+    top: 46%
+  }
+  .bj-content-block .text-block {
+    height: 174px;
+  }
+}
+/* End of Blog link section */
+li.primary-search{
+  display: inline-block !important;
+}
+.primary-search-mobile{
+  display: none;
+  margin-top:2px;
+}
+@media (min-width: 767.99px){
+  .navbar-right {
+      width: 83% !important;
+  }
+  .primary-search-mobile{
+    display: none;
+    margin-top:2px;
+  }
+}
+@media(max-width:767.98px){
+  li.primary-search{
+    display: none !important;
+  }
+  .primary-search-mobile{
+    display: inline-block !important;
+    margin-top:3px;
+  }
+  .primary-top-navbar .primary-navbar-header {
+    width: 113% !important;
+}
+}
+
+@media (min-width: 300px) and (max-width:350px){
+  .primary-login-btn-mobile {
+      margin-left: 1em !important;
+  }
+}
+@media (min-width: 350px) and (max-width:400px){
+  .primary-login-btn-mobile {
+      margin-left: 4.5em !important;
+  }
+}
+@media (min-width: 400px) and (max-width:450px){
+  .primary-login-btn-mobile {
+      margin-left: 7.5em !important;
+  }
+}
+@media (min-width: 450px) and (max-width:500px){
+  .primary-login-btn-mobile {
+      margin-left: 10em !important;
+  }
+}
+@media (min-width: 500px) and (max-width:550px){
+  .primary-login-btn-mobile {
+      margin-left: 13em !important;
+  }
+}
+@media (min-width: 550px) and (max-width:600px){
+  .primary-login-btn-mobile {
+      margin-left: 15em !important;
+  }
+}
+@media (min-width: 600px) and (max-width:650px){
+  .primary-login-btn-mobile {
+      margin-left: 20em !important;
+  }
+}
+@media (min-width: 651px) and (max-width:700px){
+  .primary-login-btn-mobile {
+      margin-left: 23em !important;
+  }
+}
+@media (min-width: 701px) and (max-width:767.98px){
+  .primary-login-btn-mobile {
+      margin-left: 31em !important;
+  }
+}
+/*Home Page Revamp -*/
+.bfc-learning-prg-section {
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding: 50px 20px;
+  position: relative;
+  box-shadow: 0 27px 20px -19px rgb(122 62 134 / 31%);
+  height: 320px;
+}
+
+.bfc-learning-prg-title {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 20px;
+  background-image: linear-gradient(to right, #5c72ff, #8c3fff);
+  font-weight: bold;
+  border-radius: 0 0 10px 10px;
+  width: 150px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.bfc-learning-prg-card {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+}
+
+.bfc-left-img-card img {
+  max-width: 220px;
+}
+
+.card-byjus-logo {
+  max-width: 140px;
+}
+
+.bfc-learning-prg-card p {
+  color: #2c2c2d;
+}
+
+.vline {
+  position: absolute;
+  width: 1px;
+  height: 130px;
+  top: 45%;
+  transform: translateY(-45%);
+  left: 50%;
+  color: #d9d9d9;
+  display: block;
+  box-shadow: rgb(202, 198, 198) 2px 0px;
+  background: rgb(255, 255, 255);
+}
+
+.bfs-btn-blk a.bj-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.jee-neet-img {
+  width: 220px;
+  display: inline-block;
+}
+
+.program-section .bj-btn-neet,
+.program-section .bj-btn-jee,
+.explore-btn {
+  font-size: 15px;
+  background-image: linear-gradient(to right, rgb(255, 146, 52), rgb(252, 98, 116) 100%);
+  color: white;
+  min-width: 170px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 15px 30px;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  outline: none;
+  display: inline-block;
+}
+
+.mtop.explore-btn {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.akash-img {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.akash-vertical-row {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  top: 150px;
+  left: 50%;
+  color: #d9d9d9;
+  display: block;
+  box-shadow: rgb(202, 198, 198) 2px 0px;
+  background: rgb(255, 255, 255);
+}
+
+.bj-home-revamp .card-body {
+  text-align: center;
+}
+
+.program-section .bj-home-revamp .card .card-text,.bfc-learning-prg-card p {
+  text-align: center;
+  font-size: 16px;
+  display: block;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #2c2c2d;
+  margin: 10px 0px 10px 0px;
+}
+
+.program-section .bj-home-revamp .card-body .know-more-link {
+  text-align: center;
+}
+
+.early-learn-logo {
+  width: 120px;
+}
+
+.program-section .bj-home-revamp .card .card-header {
+  float: inherit;
+  margin: auto;
+  border-radius: 0 0 10px 10px;
+  width: 150px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.program-section .bj-home-revamp .card .card-img-top {
+  min-width: 270px;
+  height: 150px;
+}
+
+.program-section .bj-home-revamp .card .card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.program-section .bj-home-revamp .card .card-content:last-child {
+  padding-top: 40px;
+}
+
+.program-section .bj-home-revamp .card .card-img-top.ias-top-img {
+  min-width: 210px;
+  height: 201px;
+}
+
+.byjus-ias-logo {
+  width: 130px;
+  margin-top: 0px;
+  height: auto;
+}
+
+.program-section .bj-home-revamp .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1440px) {
+  .bfc-learning-prg-section {
+      height: 310px;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .jee-neet-prg-sec {
+    height: 330px;
+  }
+  .program-section .bj-home-revamp .card .card-img-top {
+      min-width: 220px;
+  }
+
+  .program-section .bj-home-revamp .card .card-text br {
+      display: none;
+  }
+}
+@media (max-width: 991.98px) {
+  .bfc-learning-prg-section {
+    height: 600px;
+  }
+  .bfc-learning-prg-section .bfc-learning-prg-card {
+    margin-top: 20px;
+    justify-content: space-evenly;
+  }
+  .bfc-learning-prg-card.right {
+    margin-top: 40px;
+  }
+  .vline {
+    width: 300px;
+    height: 2px;
+    top: 48%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    box-shadow: rgb(202 198 198) 0px 2px;
+    background: rgb(255, 255, 255);
+}
+.akash-img {
+  width: 100px;
+  position: inherit;
+}
+.jee-neet-img {
+  width: 300px;
+  height: 200px;
+}
+.jee-neet-card-mobile {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.jee-neet-prg-sec .bfc-learning-prg-card {
+  display: inherit;
+}
+.jee-neet-left {
+  width: 50%;
+}
+.jee-neet-right {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+.bfc-learning-prg-card p {
+  color: #2c2c2d;
+  line-height: 1.1;
+  margin: 10px 0;
+}
+.program-section .bj-btn-neet,
+.program-section .bj-btn-jee,
+.explore-btn {
+  padding: 12px 15px;
+  font-size: 13px;
+  min-width: 135px;
+}
+
+.jee-neet-prg-sec.bfc-learning-prg-section {
+  height: 560px;
+}
+.jee-neet-prg-sec.bfc-learning-prg-section .bfc-learning-prg-card {
+  margin-top: 40px;
+}
+.akash-img {
+  margin-top: -20px;  
+}
+.horline {
+  position: absolute;
+  width: 300px;
+  height: 2px;
+  top: 52%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  box-shadow: rgb(202 198 198) 0px 2px;
+  background: rgb(255, 255, 255);
+}
+.program-section .bj-home-revamp .card .card-img-top {
+  width: 160px;
+  height: auto;  
+}
+.program-section .bj-home-revamp .card .card-content {
+  text-align: center;
+}
+.program-section .bj-home-revamp .card {
+  height: 270px;
+ }
+.program-section .bj-home-revamp .card .card-body {
+  align-items: center;
+}
+}
+@media (max-width: 767.98px) {
+  .jee-neet-img {
+    width: 224px;
+    height: 160px;
+  }
+  .akash-img {
+    width: 60px;
+  }
+  .jee-neet-prg-sec.bfc-learning-prg-section {
+    height: 490px;
+}
+.program-section .bj-btn-neet, .program-section .bj-btn-jee, .explore-btn,.bfs-btn-blk a.bj-btn {
+  padding: 6px 12px;
+  font-size: 18px;
+  min-width: 140px;
+}
+}
+@media (max-width: 479.98px) {
+  .bfc-left-img-card img {
+    max-width: 160px;
+  }
+  .bfc-learning-prg-section {
+    padding: 50px 0;
+    height: 520px;
+  }
+  .program-section .bj-home-revamp .card .card-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.jee-neet-img {
+  width: 180px;
+  height: auto;
+}
+.jee-neet-prg-sec.bfc-learning-prg-section {
+  height: 460px;
+  }
+  .program-section .bj-home-revamp .card .card-img-top.ias-top-img {
+    /* float: right; */
+  }
+}
+@media (max-width: 440.98px) {
+  .early-learn-logo {
+    width: 94px;
+  }
+  .program-section .bj-home-revamp .card .card-text {
+    padding: 0 10px;
+  }
+  .program-section .bj-home-revamp .card .card-text {
+    font-size: 14px;
+  }
+  .card-byjus-logo {
+    max-width: 100px;
+}
+.program-section .bj-home-revamp .card .card-body {
+  margin-left: inherit;
+}
+}
+@media (max-width: 425.98px) {
+  .jee-neet-prg-sec.bfc-learning-prg-section {
+    height: 400px;
+  }
+  .jee-neet-prg-sec.bfc-learning-prg-section .bfc-learning-prg-card {
+    margin-top: 30px;
+  }
+  .bfc-learning-prg-card p {
+    font-size: 12px;
+    padding-right: 5px;
+  }
+  .bfc-learning-prg-card p br {
+    display: none;
+  }
+  .program-section .bj-btn-neet, .program-section .bj-btn-jee, .explore-btn, .bfs-btn-blk a.bj-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    min-width: 100px;
+}
+.program-section .bj-home-revamp .card .card-img-top {
+  width: 170px;
+  min-width: inherit;
+}
+.program-section .bj-home-revamp .card .card-img-top.ias-top-img {
+    width: 170px;
+    min-width: inherit;
+    height: auto;
+}
+.program-section .bj-home-revamp .card .card-text {
+  font-size: 12px;
+}
+.mtop.explore-btn {
+  margin-top: 10px;
+}
+.program-section .bj-home-revamp .card {
+  height: 250px;
+}
+.vline,.horline {
+  width: 230px;
+}
+.jee-neet-img {
+  width: 145px;
+  height: auto;
+}
+.horline {
+  top: 53%
+}
+.jee-neet-card-mobile.last {
+  margin-top: 80px;
+}
+}
+@media (max-width:360px) {
+  .jee-neet-img {
+    width: 140px;
+    height: auto;
+  }
+  .jee-neet-prg-sec.bfc-learning-prg-section {
+    height: 400px;
+  }
+  .bfc-learning-prg-card p {
+    font-size: 10px;
+    padding: 0 5px;
+  }
+ 
+.byjus-ias-logo {
+  width: 84px;
+  margin-top:  0px;
+  height: auto;
+}
+.program-section .bj-home-revamp .card {
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+}
+
+@media (min-width :361px) and (max-width : 766px) {
+  .classes-card-space {
+    margin-bottom: 40px !important;
+  }
+}
+
+@media (min-width :361px) and (max-width : 766px) {
+  .jee-neet-card-space {
+    margin-bottom: 20px !important;
+  }
+}
+
+@media (min-width :766px) and (max-width : 992px) {
+  .jee-neet-card-space {
+    margin-bottom: 15px !important;
+  }
+}
+
+@media (min-width : 992px) {
+  .byjus-ias-logo {
+    width: 130px;
+    margin-top: 30px !important;
+    height: auto;
+    margin-bottom: 20px;
+  }
+}

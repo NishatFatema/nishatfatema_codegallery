@@ -1,0 +1,835 @@
+/* b4 support */
+.hidden {
+    display: none !important;
+}
+
+.trial-form .input-error-msg{
+  position: absolute;
+}
+
+.trial-form .form-group{
+  display: table;
+  width: 100%;
+}
+/* end */
+
+.trial-form {
+    padding-top: 0.5rem;
+    color: #333;
+    text-align: center;
+}
+
+
+.trial-form-title {
+    color: #2B2B2B;
+    font-size: 1.4rem;
+    margin-top: 0;
+}
+
+.trial-form-title-sub-desc {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.trial-form-indicators {
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+    line-height: 1.6;
+}
+
+.trial-form-indicators ul {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.trial-form-indicators li {
+    list-style-type: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    border: 1px solid #7DBDFD;
+    background-color: #fff;
+    color: rgba(0, 128, 255, 0.5);
+    position: relative;
+    letter-spacing: 0;
+    float: left;
+    z-index: 1;
+}
+
+.trial-form-indicators li.dash {
+    width: 1.2rem;
+    height: 0.5rem;
+    background-color: #7DBDFD;
+    display: block;
+    border-radius: 0;
+    margin-top: 0.35rem;
+    margin-right: -0.1rem;
+    margin-left: -0.1rem;
+    z-index: 0;
+}
+
+.trial-form-indicators li.active {
+    background-color: #0080FF;
+    border-color: #0080FF;
+    color: #fff;
+}
+
+.trial-form-section {
+    position: relative;
+}
+
+.trial-form-section>.input-error-msg {
+    top: 100.5%;
+}
+
+.trial-form-sub-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    position: relative;
+    margin-top: 0;
+}
+
+.trial-form-sub-title:before,
+.trial-form-sub-title:after {
+    content: '';
+    position: absolute;
+    width: 33%;
+    height: 0.0625rem;
+    background-color: rgba(112, 112, 112, 0.1);
+    top: 50%;
+    left: 0;
+}
+
+.trial-form-sub-title:after {
+    right: 0;
+    left: auto;
+}
+
+.trial-form-sub-desc {
+    font-size: 0.75rem;
+    color: rgba(43, 43, 43, 0.6);
+    margin-top: -0.5rem;
+}
+
+.trial-form .form-group {
+    margin: 0;
+    position: relative;
+}
+
+.trial-form .form-control.input-valid {
+    border-color: green;
+}
+
+.trial-form .form-control.input-error {
+    border-color: red;
+}
+
+.trial-form .form-control~.input-error-msg {
+    bottom: 0.4rem;
+}
+
+@media (max-width: 767.98px) {
+    .trial-form .form-control {
+        margin-bottom: 1.3rem;
+    }
+
+    .trial-form .rl-phone-send-otp .form-control~.input-error-msg,
+    .trial-form .rl-otp-resend .form-control~.input-error-msg {
+        bottom: 0.4rem;
+    }
+}
+
+.trial-form .form-control {
+    border-color: #BCBCBC;
+    padding: 0.5rem 1rem;
+    height: auto;
+    min-height: 2.4rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    z-index: 0;
+}
+
+.trial-form .form-control:focus {
+    box-shadow: none;
+}
+
+.trial-form .required-asterisk {
+    position: relative;
+}
+
+.trial-form .required-asterisk span {
+    display: inline-block;
+    position: absolute;
+    right: -0.3rem;
+    font-weight: 700;
+    top: -0.4rem;
+    color: #db4d4d;
+    font-size: 10px;
+}
+
+.trial-form .input-placeholder {
+    position: absolute;
+    color: rgba(112, 112, 112, 0.6);
+    z-index: 1;
+    font-size: 0.9rem;
+    line-height: 1;
+    overflow: hidden;
+    background-color: #fff;
+    top: 0.75rem;
+    left: 1rem;
+    z-index: 1;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    -ms-transition: 0.2s ease all;
+    min-width: 3rem;
+    text-align: left;
+}
+
+.trial-form .form-control:focus~.input-placeholder,
+.trial-form .form-control:not(:focus):valid~.input-placeholder,
+.trial-form .form-control:disabled~.input-placeholder {
+    font-size: 0.75rem;
+    top: -0.375rem;
+    left: 0.5rem;
+    padding: 0rem 0.5rem;
+    line-height: 1;
+    overflow: hidden;
+    border-radius: 0.25rem;
+    background-color: transparent;
+}
+
+.trial-form .form-control:focus~.input-placeholder:after,
+.trial-form .form-control:focus~.input-placeholder:before,
+.trial-form .form-control:disabled~.input-placeholder:after,
+.trial-form .form-control:disabled~.input-placeholder:before,
+.trial-form .form-control:not(:focus):valid~.input-placeholder:after,
+.trial-form .form-control:not(:focus):valid~.input-placeholder:before {
+    content: '';
+    top: 50%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #fff;
+    display: block;
+    position: absolute;
+}
+
+.trial-form .form-control:focus~.input-placeholder:before,
+.trial-form .form-control:disabled~.input-placeholder:before,
+.trial-form .form-control:not(:focus):valid~.input-placeholder:before {
+    bottom: 50%;
+    top: 0;
+    background-color: #fcfcfc;
+}
+
+.trial-form .form-control:focus~.input-placeholder span,
+.trial-form .form-control:disabled~.input-placeholder span,
+.trial-form .form-control:not(:focus):valid~.input-placeholder span {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.trial-form .whatsapp-updates {
+    margin-bottom: 0.4rem;
+}
+
+.trial-form .whatsapp-updates label {
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.8rem;
+    line-height: 1;
+}
+
+.trial-form .whatsapp-updates input {
+    vertical-align: bottom;
+}
+
+.trial-form .select-input-box {
+    position: relative;
+    background-color: #fff;
+}
+
+.trial-form .select-input-box>select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.trial-form .select-input-box:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border: 0.3rem solid #555;
+    border-bottom: 0;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    right: 0.5rem;
+    margin-top: -0.2rem;
+    top: 50%;
+}
+
+.trial-form .select-input-box .form-control {
+    background-color: transparent;
+    cursor: pointer;
+    padding-right: 1.4rem;
+}
+
+.trial-form .select-input-box .form-control[disabled] {
+    background-color: rgba(238, 238, 238, 0.5);
+}
+
+.trial-form .select-input-box .form-control~.input-error-msg {
+    bottom: -1.15rem;
+}
+
+.trial-form .form-checkbox-control {
+    margin-top: -0.8rem;
+    margin-bottom: 1rem;
+}
+
+.trial-form .ws-phone-otp .form-control {
+    padding-right: 8rem;
+}
+
+.trial-form .ws-phone-otp button {
+    color: #fff;
+    background-color: #5C72FF;
+    background-image: linear-gradient(to right, #5C72FF, #8C3FFF);
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 1.5rem;
+}
+
+.trial-form .ws-phone-otp button:hover,
+.trial-form .ws-phone-otp button:focus {
+    color: #fff;
+    background-color: #5C72FF;
+    background-image: linear-gradient(to right, #5C72FF, #8C3FFF);
+}
+
+.trial-form .ws-phone-otp img {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.575rem;
+}
+
+.trial-form .book-now-btn {
+    width: 100%;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    background-color: #FF8E32;
+    background-image: linear-gradient(to right, #FF8E32, #FF5263);
+    color: #fff;
+    line-height: 1.2;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+}
+
+.trial-form input[data-mobile-input].form-control.input-valid:not(.phone-valid) {
+    border-color: #5c72ff;
+}
+
+.trial-form .otp-active-timer {
+    font-size: 0.9rem;
+}
+
+.trial-form .otp-active-timer span {
+    font-weight: 500;
+}
+
+@media (max-width: 399.98px) {
+    .trial-form .otp-mobile-number .send-otp-cta {
+        font-size: 0.8rem;
+        min-width: 6rem;
+        padding: 0.5rem;
+    }
+
+    .trial-form .otp-active-timer {
+        font-size: 0.6rem;
+    }
+}
+
+.trial-form .otp-input-field-voice-call-option {
+    position: relative;
+    text-align: left;
+}
+
+.trial-form .otp-input-field-voice-call-option .input-error-msg {
+    position: absolute;
+}
+
+.trial-form .otp-input-field {
+    width: 5rem;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.trial-form .otp-on-voice-call {
+    display: inline-block;
+    color: #6f6f6f;
+    font-size: 0.6rem;
+    margin-left: 0.5rem;
+    margin-top: 0.3rem;
+    vertical-align: top;
+}
+
+.trial-form .otp-on-voice-call p {
+    color: #6f6f6f;
+    margin: 0;
+}
+
+.trial-form .otp-on-voice-call svg {
+    width: 0.8rem;
+    vertical-align: middle;
+}
+
+.trial-form .otp-on-voice-call button {
+    color: #6f6f6f;
+    border: 0.06rem solid #6f6f6f;
+    padding: 0.1rem 0.3rem;
+    border-radius: 1rem;
+    font-weight: 500;
+    font-size: 0.6rem;
+    width: 4.5rem;
+    height: 1.3rem;
+}
+
+.trial-form .otp-on-voice-call button:hover {
+    color: #020202;
+}
+
+.trial-form .otp-on-voice-call button:disabled {
+    opacity: 1;
+}
+
+.trial-form .grades {
+    font-size: 0.75rem;
+    line-height: 1.1rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: 0.25rem;
+    margin-right: -0.25rem;
+    justify-content: center;
+}
+
+@media (max-width: 359.98px) {
+    .trial-form .grades {
+        font-size: 0.7rem;
+    }
+}
+
+.trial-form .grades input {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    display: none;
+}
+
+.trial-form .grades input:checked+label {
+    color: #fff;
+    background-color: #0080FF;
+}
+
+.trial-form .grades>div {
+    padding: 0rem 0.25rem 0.5rem;
+    width: 16.666%;
+    height: 100%;
+}
+
+.trial-form .grades label {
+    margin: 0;
+    border: 0.0625rem solid #BCBCBC;
+    padding: 0.2rem;
+    border-radius: 0.25rem;
+    color: #B2AFAF;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.trial-form .trial-item-carousel-block {
+    margin-bottom: 1.5rem;
+}
+
+.trial-form .trial-item-carousel {
+    margin: 0rem 2rem;
+}
+
+.trial-form .carousel-control {
+    display: block;
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    bottom: 0.1rem;
+    box-shadow: 0 0.1rem 0.25rem 0 rgba(0, 0, 0, 0.3);
+    padding: 0.25rem;
+    line-height: 1;
+    border-radius: 0.25rem;
+    width: 1.5rem;
+    background-image: none;
+}
+
+.trial-form .carousel-control svg {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.375rem;
+    left: 50%;
+    margin-left: -0.2rem;
+}
+
+.trial-form .carousel-control.left {
+    margin-left: -2rem;
+}
+
+.trial-form .carousel-control.right {
+    margin-right: -2rem;
+    right: 0;
+    left: auto;
+}
+
+.trial-form .profiles-row {
+    margin-right: -0.5rem;
+    margin-left: -0.5rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    display: flex;
+    padding-bottom: 0.1rem;
+}
+
+.trial-form .profiles-row>div {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    /* Safari 6.1+ */
+
+    /* IE 10 */
+}
+
+.trial-form .toggle-card {
+    height: 100%;
+}
+
+.trial-form .toggle-card label {
+    background-color: #fff;
+    border: 0.0625rem solid #BCBCBC;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    line-height: 1;
+    width: 100%;
+    cursor: pointer;
+    margin: 0;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    flex-flow: column;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+}
+
+.trial-form .toggle-card h4 {
+    color: #000;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin-bottom: 0.25rem;
+}
+
+.trial-form .toggle-card p {
+    color: #B2AFAF;
+    font-size: 0.75rem;
+    margin: 0;
+    width: 100%;
+}
+
+.trial-form .toggle-card input {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    display: none;
+}
+
+.trial-form .toggle-card input:checked+label {
+    color: #fff;
+    background-color: #0080FF;
+}
+
+.trial-form .toggle-card input:checked+label p {
+    color: inherit;
+}
+
+.trial-form .toggle-card input:checked+label h4 {
+    color: #fff;
+}
+
+.trial-form .time-slots {
+    margin-top: 1.2rem;
+}
+
+.trial-form .time-slots+.input-error-msg {
+    top: auto;
+    bottom: -0.5rem;
+}
+
+.trial-form .time-slots>ul {
+    padding: 0;
+    margin-bottom: 1rem;
+    display: inline-block;
+    border-bottom: 0.0625rem solid rgba(112, 112, 112, 0.25);
+}
+
+.trial-form .time-slots>ul>li {
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 1.5rem;
+    position: relative;
+    padding-bottom: 0.2rem;
+}
+
+.trial-form .time-slots>ul>li.active {
+    color: #0080FF;
+}
+
+.trial-form .time-slots>ul>li.active:before {
+    content: '';
+    position: absolute;
+    border: 0.3rem solid #0080FF;
+    border-top: 0;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    bottom: 0;
+    left: 50%;
+    margin-left: -0.15rem;
+}
+
+.trial-form .time-slots>ul>li.active:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.1rem;
+    background-color: #0080FF;
+    bottom: -0.1rem;
+    left: 0;
+}
+
+.trial-form .time-slots>ul>li:last-child {
+    margin-right: 0;
+}
+
+.trial-form .time-slots>ul>li .badge {
+    display: inline-block;
+    background-color: #FF9100;
+    color: #fff;
+    border-radius: 2rem;
+    font-size: 0.625rem;
+    padding: 0.15rem 0.25rem;
+    position: absolute;
+    top: -1.2rem;
+    left: 50%;
+    margin-left: -2.1rem;
+    width: 4.2rem;
+}
+
+.trial-form .time-slots>ul>li .badge img {
+    width: auto;
+    height: 0.8rem;
+    margin-right: 0.2rem;
+}
+
+.trial-form .time-slots>ul>li>a {
+    color: #333;
+    text-decoration: none;
+    font-weight: normal;
+    outline: none;
+    border: none;
+}
+
+.trial-form .time-slots>ul>li.active>a,
+.trial-form .time-slots>ul>li.active>a:link,
+.trial-form .time-slots>ul>li.active>a:visited,
+.trial-form .time-slots>ul>li.active>a:active,
+.trial-form .time-slots>ul>li.active>a:hover {
+    color: inherit;
+    text-decoration: none;
+    font-weight: normal;
+    outline: none;
+    border: none;
+}
+
+.trial-form .time-slots .tab-pane {
+    display: none;
+}
+
+.trial-form .time-slots .tab-pane.active {
+    display: block;
+}
+
+.trial-form .slot-time-section {
+    display: flex;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    align-items: flex-start;
+}
+
+.trial-form .slot-time-section>div {
+    width: 100%;
+}
+
+.trial-form .slot-time-section .slot-card-time {
+    border-radius: 2rem;
+    background-color: #FFE1A5;
+    padding: 0.55rem 0.8rem 0.55rem 2rem;
+    font-size: 0.625rem;
+    line-height: 1;
+    position: relative;
+    width: 7rem;
+}
+
+.trial-form .slot-time-section .slot-card-time.afternoon {
+    background-color: #DEFFFC;
+}
+
+.trial-form .slot-time-section .slot-card-time.evening {
+    background-color: #DEE0FF;
+}
+
+.trial-form .slot-time-section .slot-card-time img {
+    height: 1rem;
+    margin-right: 0.1rem;
+    display: block;
+    left: 0.8rem;
+    position: absolute;
+    margin-top: -0.5rem;
+    top: 50%;
+}
+
+.trial-form .slot-time-section>div:first-child {
+    margin-right: 1rem;
+}
+
+.trial-form .slot-time-section .slot-card {
+    cursor: pointer;
+    position: relative;
+    color: #656565;
+    font-size: 0.75rem;
+    float: left;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.trial-form .slot-time-section .slot-card:last-child {
+    margin-right: 0;
+}
+
+.trial-form .slot-time-section .slot-card label {
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #E8E8E8;
+    font-weight: 500;
+}
+
+.trial-form .slot-time-section .slot-card.full {
+    position: relative;
+    color: #656565;
+    cursor: default;
+}
+
+.trial-form .slot-time-section .slot-card.full:before {
+    content: 'Full';
+    position: absolute;
+    top: -0.5rem;
+    left: 50%;
+    background-color: #C2C2C2;
+    color: #000;
+    padding: 0.1rem 0.3rem;
+    line-height: 1;
+    border-radius: 0.25rem;
+    width: 2rem;
+    margin-left: -1rem;
+    font-size: 0.6rem;
+}
+
+.trial-form .slot-time-section .slot-card.full label {
+    background-color: rgba(232, 232, 232, 0.5);
+    color: rgba(101, 101, 101, 0.6);
+    cursor: default;
+}
+
+.trial-form .slot-time-section .slot-card input {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    display: none;
+}
+
+.trial-form .slot-time-section .slot-card input:checked+label {
+    background-color: #0080FF;
+    color: #fff;
+}
+
+@media (max-width: 349.98px) {
+    .trial-form .otp-input-field {
+        width: 4rem;
+    }
+
+    .trial-form .otp-on-voice-call {
+        font-size: 0.55rem;
+    }
+}
+
+/* IE 9,10 */
+@media screen and (min-width: 0\0) {
+
+    .trial-form .select-input-box:before,
+    .trial-form .select-input-box::before {
+        display: none !important;
+    }
+
+    .trial-form .select-input-box .form-control {
+        padding-right: 0.5rem;
+    }
+
+    .trial-form .slot-time-section>div {
+        width: 80%;
+    }
+}
+
+/* IE10+ */
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+
+    .trial-form .select-input-box:before,
+    .trial-form .select-input-box::before {
+        display: none !important;
+    }
+
+    .trial-form .select-input-box .form-control {
+        padding-right: 0.5rem;
+    }
+}

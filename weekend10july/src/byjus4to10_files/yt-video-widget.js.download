@@ -1,0 +1,556 @@
+// yt-video-widget.js
+var YT_VIDEO = {
+    getParameterByName: function (name, entairString) {
+        entairString = !entairString ? window.location.search : '?' + entairString;
+        var res = new RegExp('[\?&]' + name.replace(/\[/g, '\\\[').replace(/\]/g, '\\\]') + '(?:=([^&#]*))?(?:[&#]|$)').exec(entairString);
+        return res ? (res[1] ? decodeURIComponent(res[1].replace(/\+/g, ' ')) : '') : null;
+    },
+	youtubeVideoPopup: function () {
+        // formate: <a href="http://www.youtube.com/watch?v=rjGWHJQkIYs" class="wp-tabs-video-block" target="_blank" data-yt-video-popup="1" data-yt-url="">
+        var videoPlayer = jQuery('[data-yt-video-player]');
+        if(!videoPlayer.length) {
+            var videoPlayer = jQuery('[data-yt-video-details]').prev();
+        }
+        if (!videoPlayer.length) return;
+        videoPlayer.click(function () {
+            event.preventDefault();
+            var ytUrl = jQuery(this).attr('href') || jQuery(this).attr('data-yt-url');
+            var ytId = YT_VIDEO.getParameterByName('v', ytUrl);
+            if (!ytId) {
+                ytSrc = ytUrl.split('?')[0] + "?autoplay=1&rel=0";
+            } else {
+                ytSrc = "https://www.youtube.com/embed/" + ytId + "?autoplay=1&rel=0";
+            }
+
+            var popup = '' +
+                '<div id="yt-video-player" class="modal modal-middle yt-video-player" role="dialog">' +
+                '<button type="button" class="close" data-dismiss="modal"><svg viewBox="0 0 24 24"><path fill="#fff" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg></button>' +
+                '<div class="modal-dialog modal-lg">' +
+                '<div class="modal-content">' +
+                '<div class="modal-container">' +
+                '<iframe src="' + ytSrc + '" allowfullscreen="" width="455" height="256" frameborder="0"></iframe>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
+            if (!jQuery('#yt-video-player').length) {
+                jQuery('body').append(popup);
+                jQuery('#yt-video-player').on("hide.bs.modal", function () {
+                    jQuery("#yt-video-player iframe").attr("src", "");
+                });
+            } else {
+                jQuery("#yt-video-player iframe").attr("src", ytSrc);
+            }
+            jQuery('#yt-video-player').modal('show');
+        })
+    },
+	youtubeVideoMultiplePopup: function (forUniqueAttr) {
+        forUniqueAttr = typeof forUniqueAttr === 'undefined' ? "data-yt-multiple-video-player" : forUniqueAttr; // adding default value if not passed
+        // formate: 1 <a href="http://www.youtube.com/watch?v=rjGWHJQkIYs" class="wp-tabs-video-block" target="_blank" data-yt-video-popup="1" data-yt-url="">
+        // formate: 2 <a href="http://www.youtube.com/watch?v=rjGWHJQkIYs" class="wp-tabs-video-block" target="_blank" data-yt-video-popup="1" data-yt-multiple-video-player>
+        var allYoutubeLinks = jQuery('[' + forUniqueAttr + ']');
+        if (!allYoutubeLinks.length) return;
+        // to make unique videos array
+        var uniqueYoutubeLinksArray = [];
+        for (var uyl = 0; uyl < allYoutubeLinks.length; uyl++) {
+
+            var indVideoItem = jQuery(allYoutubeLinks[uyl]);
+            var ytUrl = indVideoItem.attr('href') || indVideoItem.attr('data-yt-url');
+            var ytId = YT_VIDEO.getParameterByName('v', ytUrl);
+            var ytRelFlag = YT_VIDEO.getParameterByName('rel', ytUrl);
+            var ytSrc = "https://www.youtube.com/embed/" + ytId + "?autoplay=1" + (ytRelFlag == 0 ? '&rel=0' : '');
+
+            // we are pushing url's to uniqueYoutubeLinksArray only when its not found
+            if (uniqueYoutubeLinksArray.indexOf(ytSrc) === -1) {
+                uniqueYoutubeLinksArray.push(ytSrc);
+            }
+        }
+
+        if (allYoutubeLinks && allYoutubeLinks.length == 0) return;
+        jQuery('[' + forUniqueAttr + ']').each(function (i, item) {
+            jQuery(item).click(function (event) {
+                event.preventDefault();
+                var clickedYtUrl = jQuery(this).attr('href') || jQuery(this).attr('data-yt-url');
+                var clickedYtId = YT_VIDEO.getParameterByName('v', clickedYtUrl);
+                var ytRelFlag = YT_VIDEO.getParameterByName('rel', clickedYtUrl);
+                var clickedYtSrc = "https://www.youtube.com/embed/" + clickedYtId + "?autoplay=1" + (ytRelFlag == 0 ? '&rel=0' : '');
+
+                var dynamicItems = '';
+                var oneTimeActiveIndex;
+                item.videoArray = [];
+                for (var di = 0; di < uniqueYoutubeLinksArray.length; di++) {
+
+                    var ytSrc = uniqueYoutubeLinksArray[di];
+
+                    var iframeHtml = '<iframe src="' + ytSrc + '" allowfullscreen="" width="455" height="256" frameborder="0"></iframe>';
+
+                    // creating items with active iframe
+                    dynamicItems += '<div class="item ' + (clickedYtSrc == ytSrc ? 'active' : '') + '">' +
+                        (clickedYtSrc == ytSrc ? iframeHtml : '') +
+                        '</div>';
+
+                    // making array of items with respect to clicked video thumbnails and asigned to that object
+                    item.videoArray.push(iframeHtml);
+                }
+                var popup = '' +
+                    '<div id="yt-multiple-video-player" class="modal modal-middle yt-multiple-video-player" role="dialog">' +
+                    '<div class="modal-dialog modal-lg">' +
+                    '<div class="modal-content">' +
+                    '<div class="modal-container">' +
+                    '<div id="yt-multiple-video-player-carousel" class="carousel slide yt-multiple-video-player-carousel" data-ride="carousel" data-interval="false">' +
+                    '<div class="carousel-inner">' +
+                    dynamicItems +
+                    '</div>' +
+                    '<a class="left carousel-control " href="#yt-multiple-video-player-carousel" data-slide="prev">' +
+                    '<svg viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" /></svg>' +
+                    '</a>' +
+                    '<a class="right carousel-control" href="#yt-multiple-video-player-carousel" data-slide="next">' +
+                    '<svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>' +
+                    '</a>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+                if (!jQuery('#yt-multiple-video-player').length) {
+                    jQuery('body').append(popup);
+                    jQuery('#yt-multiple-video-player').on("hide.bs.modal", function () {
+                        jQuery("#yt-multiple-video-player iframe").attr("src", "");
+                    });
+                } else {
+                    jQuery("#yt-multiple-video-player .carousel-inner").empty().html(dynamicItems);
+                }
+
+                var allItems = jQuery('#yt-multiple-video-player-carousel .carousel-inner>.item');
+                jQuery('#yt-multiple-video-player-carousel .carousel-control').click(function (event) {
+                    event.preventDefault();
+                    var activeItem = jQuery('#yt-multiple-video-player-carousel .carousel-inner>.item.active');
+                    var ele = jQuery(this);
+                    var toBeActiveItem;
+                    var activeItemIndex = activeItem.index();
+                    activeItem.find('iframe').remove();
+                    // to get upcoming active item from carousel
+                    if (ele.hasClass('right')) { // on click of right control
+                        if (allItems.length - 1 == activeItemIndex) {
+                            toBeActiveItem = allItems.first();
+                        } else {
+                            toBeActiveItem = activeItem.next();
+                        }
+                    } else { // on click of left control
+                        if (0 == activeItemIndex) {
+                            toBeActiveItem = allItems.last();
+                        } else {
+                            toBeActiveItem = activeItem.prev();
+                        }
+                    }
+
+                    // updating iframe if not there for toBeActiveItem
+                    toBeActiveItem.html(item.videoArray[toBeActiveItem.index()]);
+                })
+
+                jQuery('#yt-multiple-video-player').modal('show');
+            })
+        })
+    },
+	addingYoutubeVideosViewCount: function () {
+		var tumnailElement = jQuery('[data-video-thumbnail]');
+		var dataVideoElement = jQuery("[data-yt-video-player]");
+		if (!tumnailElement.length && !dataVideoElement.length) return; // to return nothing if Youtube Video is not present
+
+		// view counter for Onload youtube video pages
+		modifyYTURL(tumnailElement);
+
+		// view counter for OnClick youtube video
+		modifyYTURL(dataVideoElement);
+
+		// modify YT URL
+		function modifyYTURL(videoSelector) {
+			if (videoSelector.length) {
+				videoSelector.each(function () {
+					var videoId;
+					var youtubeUrl;
+					var element = jQuery(this);
+					if (element.find('[data-video]').attr('data-video')) {
+						youtubeUrl = element.find('[data-video]').attr('data-video');
+					} else {
+						youtubeUrl = element.attr('href');
+					}
+					if (youtubeUrl) {
+						if (youtubeUrl.indexOf('/embed/') !== -1) {
+							if (youtubeUrl.split('/embed/')[1].indexOf('?') !== -1) {
+								videoId = youtubeUrl.split('/embed/')[1].split('?')[0];
+							} else {
+								videoId = youtubeUrl.split('/embed/')[1];
+							}
+						} else {
+							videoId = YT_VIDEO.getParameterByName("v", youtubeUrl);
+						}
+
+						if (YOUTUBE_VIDEOS_VIEW_COUNT) {
+							appendCounterViewYTVBelow(element, videoId);
+						}
+					}
+				});
+			}
+		}
+
+		function appendCounterViewYTVBelow(element, dataVideoStr) {
+			var findCountr, viewDuration;
+			for (var i = 0; i < YOUTUBE_VIDEOS_VIEW_COUNT.length; i++) {
+				if (YOUTUBE_VIDEOS_VIEW_COUNT[i].id === dataVideoStr) {
+					findCountr = YOUTUBE_VIDEOS_VIEW_COUNT[i];
+				}
+			}
+            var pathname = window.location.pathname;
+			if (findCountr && !pathname.includes("/press/")) {
+				jQuery(element).attr('data-yt-video-duration', findCountr.duration);
+				var numFormat = YT_VIDEO.numericalDigitFormatIndia(+findCountr.viewCount);
+                jQuery(element).after('<div class = "youtube-view-counter">' +
+					'<svg style="width:20px;height:20px; margin-right:2px" viewBox="0 0 24 24">' +
+					'<path fill="#000000" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />' +
+					'</svg>' + numFormat + '</div>');
+			}
+		}
+	},
+    numericalDigitFormatIndia: function (couterViewWOFormat) {
+		couterViewWOFormat = couterViewWOFormat.toString();
+		var lastThree = couterViewWOFormat.substring(couterViewWOFormat.length - 3);
+		var otherNumbers = couterViewWOFormat.substring(0, couterViewWOFormat.length - 3);
+		if (otherNumbers != '')
+			lastThree = ',' + lastThree;
+		var counterViewFormat = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+		return counterViewFormat;
+	},
+    ytThumbnailOnClick: function() {
+        // for video thumbnail
+        var videoThumbnail = jQuery("[data-video-thumbnail]");
+        if (!videoThumbnail.length) return;
+        var ytForm = jQuery('[video-modal-content-form]');
+        var mobile = ytForm.find('[name="mobile_number"]');
+        var nameInput= ytForm.find('[name="author"]');
+        var emailInput = ytForm.find('[name="email"]');
+        var grade= ytForm.find('[name="grade"]');
+        var city= ytForm.find('[name="city"]');
+        var playBtn = ytForm.find('[data-play-now-cta]');
+        var sendReSendBtn = ytForm.find('[data-send-otp]');
+        var otpValidatedImg = ytForm.find('[data-otp-validated-img]');
+        var videoWidgetFormData = {};
+        var closeBtnPopup = jQuery('[data-close-video-popup-btn]');
+        ytForm.length > 0 ? getInputAccordingSessionID('VIDEO', mobile, sendReSendBtn, otpValidatedImg, nameInput, emailInput, city, grade) : ''; // check user if session Existed
+        videoThumbnail.click(function (e) {
+            e.preventDefault();
+            var ytThumbnailItem = jQuery(this);
+            var ele = jQuery(this);
+            ele.addClass("iframe-active");
+            var videoUrl = ele.find("img").attr("data-video");
+            var imageUrl = ele.find("img").attr('src');
+            var imageTitle =  ele.find("img").attr('title');
+            var youtubeVideoUrl = videoUrl.split("?")[0];
+            youtubeVideoUrl += "?autoplay=1&rel=0";
+            ele.html(
+                '<iframe width="853" data-yt-video-widget  height="480" data-yt-video-duration src="' +
+                youtubeVideoUrl + '&api=1&enablejsapi=1&html5=1' +
+                '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+            );
+            if(ytForm.length > 0 && typeof USER_DETAILS_CONFIG !== 'undefined' && !USER_DETAILS_CONFIG.isUserAlreadyExist) {
+                var ytDuration = jQuery(ytThumbnailItem).attr('data-yt-video-duration') //find('[data-yt-video-widget]');
+                var showPopupAfterSecond;
+                if(typeof ytDuration !== 'undefined' && ytDuration) {
+                    showPopupAfterSecond = +ytDuration/2;
+                }
+                if(typeof showPopupAfterSecond !== 'undefined' && showPopupAfterSecond) {
+                    setTimeout(function() {
+                        if(document.fullscreenElement !== null) {
+                            if (document.exitFullscreen) document.exitFullscreen();
+                            else if (document.webkitExitFullscreen) document.webkitExitFullscreen(); // IOS Safari
+                            else if (document.mozCancelFullScreen) document.mozCancelFullScreen(); // Moz
+                            else if (document.msExitFullscreen) document.msExitFullscreen(); // IE
+                        }
+                        jQuery(ytThumbnailItem).find('[data-yt-video-widget]')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+                        var popupModel = jQuery('#user-detailvideo-widget');
+                        popupModel.modal('show')
+                        var errorMessage = jQuery('[error-section]');
+                        jQuery(errorMessage).text('');
+                        if( jQuery('#video-modal-content').length > 0 ) {					 
+                            if(nameInput.length > 0 && emailInput.length > 0) {
+                                phoneNumberValidation('#video-modal-content', nameInput, emailInput, grade, city, 'VIDEO');
+                                playBtn.click(function() {
+                                    DEFAULT_USER_DETAILS.isUserAlreadyLoggedIn = true;
+                                    DEFAULT_USER_DETAILS.isMobileAlreadyVerified = true;
+                                    DEFAULT_USER_DETAILS.authorization = MOBILE_OTP_VALIDATER.verifyToken;
+                                    (typeof SESSION_ID == 'undefined'? DEFAULT_USER_DETAILS.sessionId = generateRandomID() : '' ); 
+                                    (typeof SESSION_ID_SECONDARY == 'undefined'? DEFAULT_USER_DETAILS.sessionIdSecondary = generateRandomID() : '' );
+                                    if(typeof USER_DETAILS_CONFIG !== 'undefined' && typeof USER_DETAILS_CONFIG.userDetails !== 'undefined' && USER_DETAILS_CONFIG.isUserAlreadyExist) {
+                                        videoWidgetFormData = {
+                                            first_name: USER_DETAILS_CONFIG.userDetails.name,
+                                            mobile_number: USER_DETAILS_CONFIG.userDetails.mobile,
+                                            email_address: USER_DETAILS_CONFIG.userDetails.email,
+                                            category_type:'VIDEO',
+                                            session_id: DEFAULT_USER_DETAILS.sessionId,
+                                            session_id_secondary: DEFAULT_USER_DETAILS.sessionIdSecondary,
+                                            grade: USER_DETAILS_CONFIG.userDetails.grade,
+                                            city: USER_DETAILS_CONFIG.userDetails.city,
+                                            authorization: MOBILE_OTP_VALIDATER.verifyToken,
+                                            currentUrl  : C_URL
+                                        };
+                                        videoThumbnailAjaxPostUserDetails(videoWidgetFormData, ytThumbnailItem, popupModel); // post user Details if usser existed
+                                    } else {
+                                        var validationFlag = USER_DETAILS_INPUT_VALIDATORS.nameValiadation(nameInput) &&
+                                                            USER_DETAILS_INPUT_VALIDATORS.phoneValidation(mobile) && 
+                                                            USER_DETAILS_INPUT_VALIDATORS.emailValidation(emailInput) &&
+                                                            USER_DETAILS_INPUT_VALIDATORS.requiredValidation(grade, ytForm, 'Grade ') &&
+                                                            USER_DETAILS_INPUT_VALIDATORS.requiredValidation(city, ytForm, 'City');
+
+                                        if(validationFlag && MOBILE_OTP_VALIDATER.isPhoneNumberVerified) {
+                                            videoWidgetFormData = {
+                                                first_name: nameInput.val(),
+                                                mobile_number: mobile.val(),
+                                                email_address: emailInput.val(),
+                                                category_type:'VIDEO',
+                                                session_id: DEFAULT_USER_DETAILS.sessionId,
+                                                session_id_secondary: DEFAULT_USER_DETAILS.sessionIdSecondary,
+                                                grade: grade.val(),
+                                                city: city.val(),
+                                                authorization: MOBILE_OTP_VALIDATER.verifyToken,
+                                                currentUrl  : C_URL
+                                            };
+                                            videoThumbnailAjaxPostUserDetails(videoWidgetFormData, ytThumbnailItem, popupModel); // post user Details if user not exist
+                                        } else {
+                                            USER_DETAILS_INPUT_VALIDATORS.nameValiadation(nameInput);
+                                            USER_DETAILS_INPUT_VALIDATORS.phoneValidation(mobile); 	
+                                            USER_DETAILS_INPUT_VALIDATORS.emailValidation(emailInput);
+                                            USER_DETAILS_INPUT_VALIDATORS.requiredValidation(grade, ytForm, 'Grade ');
+                                            USER_DETAILS_INPUT_VALIDATORS.requiredValidation(city, ytForm, 'City');
+                                            if(USER_DETAILS_INPUT_VALIDATORS.phoneValidation(mobile) && !MOBILE_OTP_VALIDATER.isPhoneNumberVerified) {
+                                                validationFlag = false;
+                                                // nameInput.removeClass('input-valid').addClass('input-error');
+                                                // nameInput.siblings('.input-error-msg').remove();
+                                                mobile.removeClass('input-valid').addClass('input-error');
+                                                mobile.siblings('.input-error-msg').remove();
+                                                mobile.after('<div class="input-error-msg">Validate your Mobile Number</div>');
+                                            }
+                                        }	
+                                    }
+                                });
+                                // on Change Inputs
+                                nameInput.on('change', function() {
+                                    USER_DETAILS_INPUT_VALIDATORS.nameValiadation(this);
+                                });
+
+                                mobile.on('change', function() {
+                                    USER_DETAILS_INPUT_VALIDATORS.phoneValidation(this);
+                                });
+
+                                emailInput.on('change', function() {
+                                    USER_DETAILS_INPUT_VALIDATORS.emailValidation(this);
+                                });
+                                
+                                grade.on('change', function() {
+                                    USER_DETAILS_INPUT_VALIDATORS.requiredValidation(grade, ytForm, 'Grade ');
+                                });
+
+                                city.on('change', function() {
+                                    USER_DETAILS_INPUT_VALIDATORS.requiredValidation(city, ytForm, 'City');
+                                });
+                            }
+                        }
+
+                        closeBtnPopup.click(function() {
+                            var iframedEle = ele.find('iframe');
+                            iframedEle.remove();
+                            ele.html('<p><img class="tumbnailYT" title="'+ imageTitle +'" src="'+ imageUrl+'" data-video="'+videoUrl+'"?autoplay=1"></p>');
+                        });
+                    }, showPopupAfterSecond*1000);
+                }
+            }
+        });
+    }
+}
+
+function videoThumbnailAjaxPostUserDetails(videoWidgetFormData, ytThumbnailItem, popupModel) {
+    var errorMessage = jQuery('[error-section]');
+    jQuery.ajax({
+        type: 'POST',
+        url:  USER_DETAILS_CONFIG.apis.userCreateUpdateUrl,
+        data: videoWidgetFormData,
+        success: function(data) {
+            if(data.success===true){
+                setStorage('DEFAULT_COMMENT_BOX_LOCALSTORAGE', JSON.stringify(DEFAULT_USER_DETAILS));
+                USER_DETAILS_CONFIG.isUserAlreadyExist = true;
+                jQuery(ytThumbnailItem).find('[data-yt-video-widget]')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+                popupModel.modal('hide');
+            } else {
+                jQuery(errorMessage).text('Something went wrong. Please refresh the page and try again');
+            }  
+        },
+        error: function(error){
+            console.log(error);
+        }
+    });
+}
+
+function getInputAccordingSessionID(pageCategory, mobile, sendReSendBtn, otpValidatedImg, authorInput, emailInput, city, grade) {
+    var userFromStorage, sessionIDLocal;
+    if( getStorage('DEFAULT_COMMENT_BOX_LOCALSTORAGE') !== null) {
+        userFromStorage = JSON.parse(getStorage('DEFAULT_COMMENT_BOX_LOCALSTORAGE'));
+        sessionIDLocal= userFromStorage.sessionId;
+        sessionIDSec= userFromStorage.sessionIdSecondary;
+        if(typeof sessionIDLocal !== 'undefined' && typeof sessionIDSec !== 'undefined') {
+            var formData = {
+                'session_id': sessionIDLocal,
+                'session_id_secondary': sessionIDSec
+            }
+            jQuery.ajax({
+                type: 'POST',
+                url:  USER_DETAILS_CONFIG.apis.userChecBySessionIDUrl,
+                data: formData,
+                success: function(response) {
+                    if(response.success) {
+                        mobile.val(response.data.mobile).attr('disabled', true);
+                        sendReSendBtn.addClass('hidden');
+                        otpValidatedImg.removeClass('hidden');
+                        authorInput.val(response.data.name).attr('disabled', false).parent().removeClass('hidden');
+                        emailInput.val(response.data.email).attr('disabled', false).parent().removeClass('hidden');
+                        city.val(response.data.city).attr('disabled', false).parent().removeClass('hidden');
+                        grade.val(response.data.grade).attr('disabled', false).parent().removeClass('hidden');
+                        MOBILE_OTP_VALIDATER.isPhoneNumberVerified = userFromStorage.isMobileAlreadyVerified;
+                        USER_DETAILS_CONFIG.isUserAlreadyExist = true;
+                        USER_DETAILS_CONFIG.userDetails =  response.data//JSON.parse(JSON.stringify()); //Object.assign();
+                    } else {
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        }
+    }
+}
+
+function appendVideoModalOnBody() {
+	var htmlStringBody   = '<div class="modal fade video-modal" id="user-detailvideo-widget" role="dialog"';
+	htmlStringBody  	+= 'data-backdrop="static" data-keyboard="false">';
+	htmlStringBody  	+= '<div class="modal-dialog">';
+	htmlStringBody  	+= '	<div class="modal-content">';
+	htmlStringBody  	+= '		<div class="play-button-block"><img src="https://cdn1.byjus.com/byjusweb/img/landing-pages/utils-icon/play.svg" height="30" width="30"></div>';
+	htmlStringBody  	+= '		<button type="button" class="close" data-close-video-popup-btn';
+	htmlStringBody  	+= '			data-dismiss="modal">&times;</button>';
+	htmlStringBody  	+= '		<div class="modal-body">';
+	htmlStringBody  	+= '			<div class="video-otp-mobile-number">';
+	htmlStringBody  	+= '				<form name="ask-a-question" id="video-modal-content" video-modal-content-form class="video-widget-form text-center" role="form" method="post" name="ask-a-question" data-phone-number-form>';
+	htmlStringBody  	+= '					<p class="to-continue-text-header">To continue watching the video please share the details.</p>';
+	htmlStringBody  	+= '					<div class="row">';
+	htmlStringBody  	+= '						<div class="col-md-12">';
+	htmlStringBody  	+= '							<div class="form-group">';
+	htmlStringBody  	+= '								<div class="ws-phone-otp">';
+	htmlStringBody  	+= '									<div class="required-asterisk"><span>*</span></div>';
+	htmlStringBody  	+= '									<input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number" data-placeholder="Mobile Number" maxlength="10" data-phone-number-input required data-error-message="Enter a valid 10 digit Mobile Number">';
+	htmlStringBody  	+= '									<button class="btn" type="button" data-send-otp>Send OTP</button>';
+	htmlStringBody  	+= '									<img class="hidden" src="https://cdn1.byjus.com/byjusweb/img/right-tick-icon.svg" alt="validated" width="20" height="20" data-otp-validated-img>';
+	htmlStringBody  	+= '								</div>';
+	htmlStringBody  	+= '							</div>';
+	htmlStringBody  	+= '							<div class="form-group hidden" data-otp-input-field-voice-call-option>';
+	htmlStringBody  	+= '								<div class="otp-input-field-voice-call-option">';
+	htmlStringBody  	+= '									<input name="otp" type="text" data-otp-number-input class="form-control otp-input-field" placeholder="OTP" maxlength="4" size="4" disabled 	required>';
+	htmlStringBody  	+= '									<div class="otp-on-voice-call hidden">';
+	htmlStringBody  	+= '										Did not receive OTP?';
+	htmlStringBody  	+= '										<p> Request OTP on';
+	htmlStringBody  	+= '											<button data-otp-voice-call-cta class="btn" type="button">';
+	htmlStringBody  	+= '												<svg viewBox="0 0 24 24">';
+	htmlStringBody  	+= '													<path fill="currentColor"';
+	htmlStringBody  	+= '														d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z">';
+	htmlStringBody  	+= '													</path>';
+	htmlStringBody  	+= '												</svg>';
+	htmlStringBody  	+= '												<span>Voice Call</span>';
+	htmlStringBody  	+= '											</button>';
+	htmlStringBody  	+= '										</p>';
+	htmlStringBody  	+= '									</div>';
+	htmlStringBody  	+= '								</div>';
+	htmlStringBody  	+= '							</div>';
+	htmlStringBody  	+= '						</div>';
+	htmlStringBody  	+= '						<div class="col-md-6">';
+	htmlStringBody  	+= '							<div class="form-group name-form-group hidden" data-name-field>';
+	htmlStringBody  	+= '								<div class="required-asterisk"><span>*</span></div>';
+	htmlStringBody  	+= '								<input id="author" name="author" class="form-control"';
+	htmlStringBody  	+= '									type="text" placeholder="Name" autocomplete="off"';
+	htmlStringBody  	+= '									size="30" maxlength="245" />';
+	htmlStringBody  	+= '							</div>';
+	htmlStringBody  	+= '						</div>';
+	htmlStringBody  	+= '						<div class="col-md-6">';
+	htmlStringBody  	+= '							<div class="form-group email-form-group hidden"';
+	htmlStringBody  	+= '								data-email-field>';
+	htmlStringBody  	+= '								<div class="required-asterisk"><span>*</span></div>';
+	htmlStringBody  	+= '								<input id="email" name="email" class="form-control"';
+	htmlStringBody  	+= '									placeholder="Email" type="email" value="" size="30"';
+	htmlStringBody  	+= '									placeholder="Email Id" maxlength="100" />';
+	htmlStringBody  	+= '							</div>';
+	htmlStringBody  	+= '						</div>';
+	htmlStringBody  	+= '						<div class="col-md-6">';
+	htmlStringBody  	+= '							<div class="form-group hidden" data-grade-fg>';
+	htmlStringBody  	+= '								<div class="required-asterisk"><span>*</span></div>';
+	htmlStringBody  	+= '								<select required="" class="form-control" name="grade"';
+	htmlStringBody  	+= '									placeholder="Grade/Exam">';
+	htmlStringBody  	+= '									<option value="" selected="" disabled="">Grade/Exam';
+	htmlStringBody  	+= '									</option>';
+	htmlStringBody  	+= '									<option value="1">Class 1</option>';
+	htmlStringBody  	+= '									<option value="2">Class 2</option>';
+	htmlStringBody  	+= '									<option value="3">Class 3</option>';
+	htmlStringBody  	+= '									<option value="4">Class 4</option>';
+	htmlStringBody  	+= '									<option value="5">Class 5</option>';
+	htmlStringBody  	+= '									<option value="6">Class 6</option>';
+	htmlStringBody  	+= '									<option value="7">Class 7</option>';
+	htmlStringBody  	+= '									<option value="8">Class 8</option>';
+	htmlStringBody  	+= '									<option value="9">Class 9</option>';
+	htmlStringBody  	+= '									<option value="10">Class 10</option>';
+	htmlStringBody  	+= '									<option value="11">Class 11</option>';
+	htmlStringBody  	+= '									<option value="12">Class 12</option>';
+	htmlStringBody  	+= '									<option value="ias">IAS</option>';
+	htmlStringBody  	+= '									<option value="cat">CAT</option>';
+	htmlStringBody  	+= '									<option value="bankexam">Bank Exam</option>';
+	htmlStringBody  	+= '								</select>';
+	htmlStringBody  	+= '							</div>';
+	htmlStringBody  	+= '						</div>';
+	htmlStringBody  	+= '						<div class="col-md-6">';
+	htmlStringBody  	+= '							<div class="form-group hidden" data-city-fg>';
+	htmlStringBody  	+= '								<div class="required-asterisk"><span>*</span></div>';
+	htmlStringBody  	+= '								<input id="city" name="city" class="form-control"';
+	htmlStringBody  	+= '									type="text" placeholder="City" autocomplete="off"';
+	htmlStringBody  	+= '									size="30" maxlength="245" />';
+	htmlStringBody  	+= '							</div>';
+	htmlStringBody  	+= '						</div>';
+	htmlStringBody  	+= '					</div>';
+	htmlStringBody  	+= '					<button class="btn btn-default text-center pay-now-btn-cta"';
+	htmlStringBody  	+= '						type="button" data-play-now-cta>Play Now</button>';
+	htmlStringBody  	+= '				</form>';
+    htmlStringBody      += '                <div class="error" style="text-align:center;" error-section></div>';
+	htmlStringBody  	+= '			</div>';
+	htmlStringBody  	+= '		</div>';
+	htmlStringBody  	+= '	</div>';
+	htmlStringBody  	+= '</div>';
+	htmlStringBody  	+= '</div>';
+
+	var videoThumbnail = jQuery("[data-video-thumbnail]");
+	if (videoThumbnail && videoThumbnail.length) { 
+		if(!jQuery('#user-detailvideo-widget').length) {
+			jQuery('body').append(htmlStringBody);
+        }
+	}
+}
+
+(function() {
+    appendVideoModalOnBody();
+
+    YT_VIDEO.ytThumbnailOnClick();
+
+    // for youtube video popup
+	YT_VIDEO.youtubeVideoPopup();
+
+	// for youtube video popup
+	YT_VIDEO.youtubeVideoMultiplePopup();
+
+    // For Youtube Video View Count
+    (typeof YOUTUBE_VIDEOS_VIEW_COUNT !== "undefined") && (Array.isArray(YOUTUBE_VIDEOS_VIEW_COUNT)) && YT_VIDEO.addingYoutubeVideosViewCount();
+
+})();

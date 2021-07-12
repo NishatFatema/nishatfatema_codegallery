@@ -1,0 +1,122 @@
+function getBrowswerName() {
+    var sBrowser, sUsrAg = navigator.userAgent;
+    if (sUsrAg.indexOf("Firefox") > -1) {
+        sBrowser = "Mozilla Firefox";
+    } else if (sUsrAg.indexOf("SamsungBrowser") > -1) {
+        sBrowser = "Samsung Internet";
+    } else if (sUsrAg.indexOf("Opera") > -1 || sUsrAg.indexOf("OPR") > -1) {
+        sBrowser = "Opera";
+    } else if (sUsrAg.indexOf("Trident") > -1) {
+        sBrowser = "Microsoft Internet Explorer";
+    } else if (sUsrAg.indexOf("Edge") > -1) {
+        sBrowser = "Microsoft Edge";
+    } else if (sUsrAg.indexOf("Chrome") > -1) {
+        sBrowser = "Google Chrome or Chromium";
+    } else if (sUsrAg.indexOf("Safari") > -1) {
+        sBrowser = "Apple Safari";
+    } else {
+        sBrowser = "unknown";
+    }
+    return sBrowser;
+}
+
+function detectDevice() {
+    if (window.innerWidth <= 600) {
+        return "Mobile";
+    } else {
+        return "Desktop";
+    }
+}
+
+function getDefaultObj() {
+    try {
+        jQuery.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results == null) {
+                return null;
+            } else {
+                return decodeURI(results[1]) || 0;
+            }
+        }
+        return {
+            "URL": location.hostname + location.pathname,
+            "UTM Source": jQuery.urlParam('utm_source'),
+            "UTM Medium": jQuery.urlParam('utm_medium'),
+            "UTM campaign": jQuery.urlParam('utm_campaign'),
+            "Browser": getBrowswerName(),
+            "Device": detectDevice()
+        }
+    } catch (error) {
+        return {};
+    }
+}
+
+if (CLEVER_TAP_FLAG) {
+    var clevertap = {
+        event: [],
+        profile: [],
+        account: [],
+        onUserLogin: [],
+        notifications: [],
+        privacy: []
+    };
+    // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+    clevertap.account.push({
+        "id": "RZZ-666-WW6Z"
+    });
+    clevertap.privacy.push({
+        optOut: false
+    }); //set the flag to true, if the user of the device opts out of sharing their data
+    clevertap.privacy.push({
+        useIP: false
+    }); //set the flag to true, if the user agrees to share their IP data
+    (function () {
+        var wzrk = document.createElement('script');
+        wzrk.type = 'text/javascript';
+        wzrk.async = true;
+        wzrk.src = CLEVER_TAP_URL;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wzrk, s);
+    })();
+    jQuery('[data-clevertap-event]').click(function (event) {
+        event.preventDefault();
+        var eventName = jQuery(this).attr("data-clevertap-event");
+        var obj = {};
+        try {
+            if (jQuery(this).attr("data-clevertap-meta")) {
+                obj = JSON.parse(jQuery(this).attr("data-clevertap-meta"));
+            }
+        } catch (error) {
+            // error
+        }
+        cleverTapProdTrigger(eventName, obj);
+        if (jQuery(this).attr('data-clevertap-event-reload') !== '0') {
+            var that = this;
+            setTimeout(function () {
+                window.location.href = jQuery(that).attr("href");
+            }, 1000);
+        }
+    });
+
+    function cleverTapProdTrigger(event_name, obj) {
+        try {
+            obj = obj || {};
+            var defaultObj = getDefaultObj();
+            obj = jQuery.extend(defaultObj, obj);
+            clevertap.event.push(event_name, obj); // clever tap library
+        } catch (error) {
+            // error
+        }
+    }
+} else {
+    function cleverTapProdTrigger(event_name, obj) {
+        try {
+            obj = obj || {};
+            var defaultObj = getDefaultObj();
+            obj = jQuery.extend(defaultObj, obj);
+            console.log(event_name, obj);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
