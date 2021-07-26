@@ -1,0 +1,78 @@
+h1{
+    text-align: center;
+    color: rgb(230, 238, 230);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+h2,h3,h4,h5{
+    text-align: center;
+    font-size: 30px;
+    /* ...........to hide headings use display none............... */
+    display: none;
+}
+img{
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+/* ...........mobile view......... */
+
+@media(max-width:500px){
+    body{
+        background: linear-gradient(45deg,cyan,green,lightblue);
+        }
+    /* h2:nth-child(1){ */
+
+        h2{
+
+    display:block;
+          }
+
+    p{
+    color: rgb(17, 15, 15);
+    }
+}
+
+/*................................laptop view.........................................  */
+
+    @media(min-width: 501px) and (max-width: 800px){
+        body{
+            background: linear-gradient(45deg,cyan,rgb(190, 240, 55),lightblue);
+            }
+            h3{
+                font-size: 40px;
+                display:block;
+                color: rgb(20, 19, 19);
+                }
+                                                    }
+
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>laptop view>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  */
+    
+    @media(min-width: 801px) and (max-width: 1200px){
+        body{
+            background: linear-gradient(45deg,rgb(71, 87, 156),rgb(196, 168, 44),lightblue);
+            }
+           h4{
+            
+                font-size: 50px;
+                display:block;
+                color: rgb(10, 10, 10);
+                }
+                                                     } 
+           /* '''''''''''''''''''''''''''''X large screen''''''''''''''''''''''''''''''''''''''''' */
+      
+           @media(min-width: 1201px)  {
+               body{
+                   background:linear-gradient(purple,indigo,blue) ;
+                   }
+               h5{
+                font-size: 60px;
+                display:block;
+                color: rgb(17, 17, 17);
+                }
+                                     }  
+    
+
+    
+
+
+       

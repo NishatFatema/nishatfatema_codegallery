@@ -38,6 +38,26 @@ text-align: center;
 color: chocolate;
 
 }
+.dropdown1{
+    display: inline-block;
+}
+.dropdown1 a{
+    display: block;
+}
+.dropdownlist1{
+    position: absolute;
+    padding: 5 px;
+    margin: 5px;
+    width:200px;
+    background-color: purple;
+    display: none;
+}
+.dropdown1:hover .dropdownlist1{
+
+    display: block;
+    color: white;
+    text-align: center;
+}
 /* inputBoxes{ */
     /* ; */
 /* } */
